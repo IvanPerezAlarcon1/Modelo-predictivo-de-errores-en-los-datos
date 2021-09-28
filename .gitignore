@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# ARCHIVOS Y CARPETAS A IGNORAR
+EJEMPLOS PYTHON COD MIOS/*

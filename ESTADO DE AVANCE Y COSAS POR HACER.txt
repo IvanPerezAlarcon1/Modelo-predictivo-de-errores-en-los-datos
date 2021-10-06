@@ -1,7 +1,13 @@
+----------------------COSAS POR HACER-------------------
+- Se podrian ir realizando las pruebas y programacion al mismo tiempo, empezando por emplear n-grams para los datos string y ver si funciona
+bien la detección y corrección
 - Ver si se agregan las variables en comentarios realizados en el informe de tt2
 - ver como ir agregando columnas y sus indicadores respectivos a medida que se vayan ingresando nuevas columnas
 - programar eliminación en cascada, si elimino el registro de una columna en la tabla DICCIONARIO_DE_DATOS, deberían eliminarse los
 registros respectivos de valores únicos en la tabla UNIQUE_VALUES_STRING_COLUMNS, en caso de ser tipo STRING
-
-
+- Ver comparación de columnas del conjunto de datos de entrada con las del diccionario para detectar cuales están registradas y cuales no
+- Se podría particionar la tabla UNIQUE_VALUES_STRING_COLUMNS para optimizar tiempos de carga, o agregar indices
 - INDICADOR DE SI ACEPTA O NO NUEVOS VALORES LA COLUMNA, mediante el ingreso por archivo de ingreso
+
+
+-----------------YA REALIZADOS---------------------------

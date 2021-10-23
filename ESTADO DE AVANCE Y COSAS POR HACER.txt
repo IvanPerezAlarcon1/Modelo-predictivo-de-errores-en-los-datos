@@ -15,5 +15,8 @@ registros respectivos de valores únicos en la tabla UNIQUE_VALUES_STRING_COLUMN
 Lo anterior con una funcion que primero vaya analizando cada columna, detectando el tipo de dato que contiene, luego calculando
 los indicadores y si se requiere, los valore únicos
 
+- Ver el escenario donde se ingresen las mismas columnas, pero en distinto orden
+- Ver comio hacer que al eliminar una columna del diccionario de datos, si es string, se borren los valores únicos para esa columna, o hacer
+que no la tome, en caso de no requerirla más
 
 -----------------YA REALIZADOS---------------------------

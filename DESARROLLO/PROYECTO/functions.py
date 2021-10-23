@@ -22,7 +22,38 @@ def dframe_to_dicc(dataframe): #devuelve un diccionario con parametros comunes p
     return dic
 
 
-def sep_col_string_and_num(dataframe): #devuelve 2 arreglos con los nombres de columnas tipo numericas y string
-    df_num = dataframe.select_dtypes(include=['int64','float64'])
+#NOTA: Se podría corroborar que los registros sean válidos para la columna
+def sep_col_string_and_num(dataframe): #devuelve 2 DATAFRAMES con las columnas tipo numericas y string
+    df_num = dataframe.select_dtypes(include=['int64','float64','number'])
     df_string = dataframe.select_dtypes(exclude=['int64','float64'])
     return df_num,df_string
+
+
+def indicadores_col_num(df_num): #ingresa un df con las columnas numericas y retorna un diccionario con los indicadores definidos ese tipo
+	cols = {}
+	cols.setdefault('NAME',[]), cols.setdefault('TYPE',[]), cols.setdefault('MODA',[]),
+	cols.setdefault('MAX_VAL',[]), cols.setdefault('MIN_VAL',[]), 
+	cols.setdefault('MEDIA',[]), cols.setdefault('MEDIANA',[]), cols.setdefault('CURTOSIS',[])
+	for i in range(len(df_num.columns)):
+		cols['NAME'].append(df_num.columns[i]), cols['TYPE'].append(df_num[df_num.columns[i]].dtype.name),
+		cols['MODA'].append(df_num[df_num.columns[i]].mode()[0]),
+		cols['MAX_VAL'].append(df_num[df_num.columns[i]].max()), cols['MIN_VAL'].append(df_num[df_num.columns[i]].min()),
+		cols['MEDIA'].append(df_num[df_num.columns[i]].mean()), cols['MEDIANA'].append(df_num[df_num.columns[i]].median()),
+		cols['CURTOSIS'].append(df_num[df_num.columns[i]].kurt())
+		"""
+		print( i+1, "NAME: ", df_num.columns[i], 
+		"//TYPE: ", df_num[df_num.columns[i]].dtype.name, "// MAX_VAL:", df_num[df_num.columns[i]].max(), 
+		"// MIN_VAL: ", df_num[df_num.columns[i]].min(), "// MEDIA: ", df_num[df_num.columns[i]].mean(),
+		"//MEDIANA: ", df_num[df_num.columns[i]].median(), "//CURTOSIS: ", df_num[df_num.columns[i]].kurt())
+		"""
+	return cols
+
+def indicadores_col_string(df_string):
+	cols = {}
+	cols.setdefault('NAME',[]), 
+	cols.setdefault('TYPE',[]),
+	cols.setdefault('MODA',[])
+	for i in range(len(df_string.columns)):
+		cols['NAME'].append(df_string.columns[i]), cols['TYPE'].append(df_string[df_string.columns[i]].dtype.name),
+		cols['MODA'].append(df_string[df_string.columns[i]].mode()[0])
+	return cols

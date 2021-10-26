@@ -55,6 +55,7 @@ def insert_unique_values_string(dataframe_cols,string_dataframe):
             for j in range(len(aux)):
                 cz.execute(""" insert into pruebas."UNIQUE_VALUES_STRING_COLUMNS"("ID_DICC_DATOS","VAL_UNICO") VALUES 
                           ('{v1}','{v2}'); COMMIT;""".format(v1 = dataframe_cols["ID"][i], v2 = aux[j]))
+    cz.close()
 
 #----------------llamada funcion----------------------
 #c1, cx = conectarse()

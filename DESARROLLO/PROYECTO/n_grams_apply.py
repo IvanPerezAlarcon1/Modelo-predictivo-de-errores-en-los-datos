@@ -13,28 +13,49 @@ df = f.dataframe_from_file(archivo)
 #print(df)
 df_col_numericas,df_col_string = f.sep_col_string_and_num(df)
 
-#VALORES UNICOS DE LA COLUMNA QUE ESTOY ANALIZANDO
-unicos = ngf.col_unique_values(df_col_string['hotel'])
+#print(df_col_string.columns)
+for i in range(len(df_col_string.columns)):
+    #print(df_col_string[df_col_string.columns[i]])
+    unicos_col = ngf.col_unique_values(df_col_string[df_col_string.columns[i]])#df_col_string[df_col_string.columns[i]].unique()
+    aux = ngf.col_unique_values(df_col_string[df_col_string.columns[i]])
+    #print("VAL UNICOS ENTRADA: ", unicos_col)
+    unicos_col_bdd = ngf.col_bdd_unique_values(df_col_string[df_col_string.columns[i]],df_col_string.columns[i])
+    for j in aux:
+        if(j in unicos_col_bdd): #si un elemento del conjunto ingresado está en los unicos de la bdd, lo elimino ya que sería el escenario donde la similitud de los elementos seria igual y no requieren tratamiento 
+            unicos_col.remove(j)
+    print("VAL UNICOS ENTRADA no encontrados en BDD: ", unicos_col)
+    print("VALORES UNICOS BDD: ",unicos_col_bdd, '\n')
+
+    #se busca comparar el parecido de los valores nuevos, con relacion a los registros de la bdd, en base a las medidas indicadas para n-grams, se realizan las acciones
+    n_gram = 3
+    for k in unicos_col_bdd:
+        for l in unicos_col:
+            a1, w1 = ngf.diff_ngram(k,l,n_gram)
+            print("3-grams: ", a1, k, l)
+
+
+#a1, word1 = ngf.diff_ngram('Resort Htel','Resort Hotel', 3)
+#print("3-grams: ", a1,word1)
 
 #VALORES UNICOS DE LA COLUMNA ANALIZADA, PERO DESDE LA BDD
-val_uni_col = ngf.col_bdd_unique_values(df_col_string['hotel'],'hotel')
+#val_uni_col = ngf.col_bdd_unique_values(df_col_string['hotel'],'hotel')
 
-cadena_entrada = unicos[0]
-print(cadena_entrada)
+#cadena_entrada = unicos[0]
+#print(cadena_entrada)
 
-cadena_bdd = val_uni_col[0]
-print(cadena_bdd)
+#cadena_bdd = val_uni_col[0]
+#print(cadena_bdd)
 
-from ngram import NGram
-print(NGram.compare(cadena_entrada,cadena_bdd))
+#from ngram import NGram
+#print(NGram.compare(cadena_entrada,cadena_bdd))
 
-print("DIFERENCIA")
+#print("DIFERENCIA")
 
-a1, word1 = ngf.diff_ngram('Resort Htel','Resort Hotel', 3)
-print("3-grams: ", a1,word1)
+#a1, word1 = ngf.diff_ngram('Resort Htel','Resort Hotel', 3)
+#print("3-grams: ", a1,word1)
 
-a2, word2 = ngf.diff_ngram("hola que tal?, soy iván","hola soy iván", 3)
-print("3-grams: ", a2,word2)
+#a2, word2 = ngf.diff_ngram("hola que tal?, soy iván","hola soy iván", 3)
+#print("3-grams: ", a2,word2)
 
 '''
 Lo que quiero hacer es, identificar la columna de entrada, con la del diccionario, por nombre, luego comparar los registros únicos

@@ -1,22 +1,21 @@
 ----------------------COSAS POR HACER-------------------
 - Se podrian ir realizando las pruebas y programacion al mismo tiempo, empezando por emplear n-grams para los datos string y ver si funciona
 bien la detección y corrección
-- Ver si se agregan las variables en comentarios realizados en el informe de tt2
 - ver como ir agregando columnas y sus indicadores respectivos a medida que se vayan ingresando nuevas columnas
-- programar eliminación en cascada, si elimino el registro de una columna en la tabla DICCIONARIO_DE_DATOS, deberían eliminarse los
-registros respectivos de valores únicos en la tabla UNIQUE_VALUES_STRING_COLUMNS, en caso de ser tipo STRING
 - Ver comparación de columnas del conjunto de datos de entrada con las del diccionario para detectar cuales están registradas y cuales no
 - Se podría particionar la tabla UNIQUE_VALUES_STRING_COLUMNS para optimizar tiempos de carga, o agregar indices
 - INDICADOR DE SI ACEPTA O NO NUEVOS VALORES LA COLUMNA, mediante el ingreso por archivo de ingreso
 
-
-
-- Se podría hacer que vaya analizando columna por columna y calculando los indicadores para esa columna y guardando los datos.
-Lo anterior con una funcion que primero vaya analizando cada columna, detectando el tipo de dato que contiene, luego calculando
-los indicadores y si se requiere, los valore únicos
-
 - Ver el escenario donde se ingresen las mismas columnas, pero en distinto orden
-- Ver comio hacer que al eliminar una columna del diccionario de datos, si es string, se borren los valores únicos para esa columna, o hacer
-que no la tome, en caso de no requerirla más
+- Ver como hacer que al eliminar una columna del diccionario de datos, si es string, se borren los valores únicos para esa columna, o hacer
+que no la tome, en caso de no requerirla más. Eliminacion en cascada de la tabla INIQUE_VALUES
 
+
+- Para n grams, podría ocupar un algoritmo para cadenas de más de una palabra y otro para cadenas de una sola palabra, o simplemente
+abarcar campos de más de 1 palabra. Programar este segundo escenario primero para avanzar
+- Probar los tipos de duplicados con las funciones que se quieren usar
+
+- Hacer funcion que me traiga los valores únicos de la columna string que se está analizando
+- Ver como hacer las funciones de imputación de datos para avanzar, tomar en cuenta que se revisa por columna
+- Hacer funcion que saque los ngrams de una cadena y otra que calcule el indice de similitud
 -----------------YA REALIZADOS---------------------------

@@ -5,9 +5,13 @@ import functions as f
 import bdd_functions as bdf
 
 def col_unique_values(col_string):
-    unicos = col_string.unique()
+    var = []
+    unicos = col_string.dropna().unique() #elimina valor nan. que dio problemas en algun momento
+    #unicos = col_string.unique() #elimina valor nan. que dio problemas en algun momento
+    for i in unicos:
+        var.append(i)
     #print(unicos)
-    return unicos
+    return var
 
 def col_bdd_unique_values(col_string,nom_col):
     c3, cz = bdf.conectarse()
@@ -20,7 +24,6 @@ def col_bdd_unique_values(col_string,nom_col):
     for i in cz.fetchall():
         #print(i[0],i[1],i[2])
         val_uni_col.append(i[2])
-    #print(val_uni_col)
     return val_uni_col
 
 def ngram(sentence, num):

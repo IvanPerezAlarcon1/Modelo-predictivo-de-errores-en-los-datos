@@ -28,11 +28,23 @@ for i in range(len(df_col_string.columns)):
 
     #se busca comparar el parecido de los valores nuevos, con relacion a los registros de la bdd, en base a las medidas indicadas para n-grams, se realizan las acciones
     n_gram = 3
-    for k in unicos_col_bdd:
-        for l in unicos_col:
+    for l in unicos_col:
+        print("unicos_col: ",l)
+        for k in unicos_col_bdd:
+            print("unicos_col_bdd: ",k)
             a1, w1 = ngf.diff_ngram(k,l,n_gram)
-            print("3-grams: ", a1, k, l)
+            if(a1 >= 0.6):
+                print("3-grams - REEMPLAZA: ", a1, k, l)
+                df[df_col_string.columns[i]] = df[df_col_string.columns[i]].replace(to_replace = l,  value = k)
+                #df_col_string[df_col_string.columns[i]] = df_col_string[df_col_string.columns[i]].replace(to_replace = l,  value = k)
+                break
+            if(a1 < 0.6):
+                print("3-grams - NO REEMPLAZA, SE AGREGA A VALORES UNICOS: ", a1, k, l)
+        print('\n')
+    break
 
+print(df['hotel'].unique())
+#print(df_col_string['hotel'].unique())
 
 #a1, word1 = ngf.diff_ngram('Resort Htel','Resort Hotel', 3)
 #print("3-grams: ", a1,word1)
@@ -57,13 +69,14 @@ for i in range(len(df_col_string.columns)):
 #a2, word2 = ngf.diff_ngram("hola que tal?, soy iván","hola soy iván", 3)
 #print("3-grams: ", a2,word2)
 
-'''
-Lo que quiero hacer es, identificar la columna de entrada, con la del diccionario, por nombre, luego comparar los registros únicos
-de cada listado de registros únicos, mediante N-grams ir comparando el grado de similitud y según el grado, ir tomando acciones
 
-- Si similitud [0 - 0.45], son registros distintos, luego se compara similitud con el siguiente
-- Si similitud [0.46 - 0.79], se identifica el registro como posible duplicado, entonces.......
-- Si similitud [0.8 - 0.99], se asume son duplicados, luego la cadena en el conjunto de entrada, se reemplaza por su valor válido 
-del diccionario
-- Si similitud [1], se asume son duplicados, luego no se realizan más acciones y se deja de buscar duplicados para ese caso
-'''
+
+
+#Lo que quiero hacer es, identificar la columna de entrada, con la del diccionario, por nombre, luego comparar los registros únicos
+#de cada listado de registros únicos, mediante N-grams ir comparando el grado de similitud y según el grado, ir tomando acciones
+
+#- Si similitud [0 - 0.45], son registros distintos, luego se compara similitud con el siguiente
+#- Si similitud [0.46 - 0.79], se identifica el registro como posible duplicado, entonces.......
+#- Si similitud [0.8 - 0.99], se asume son duplicados, luego la cadena en el conjunto de entrada, se reemplaza por su valor válido 
+#del diccionario
+#- Si similitud [1], se asume son duplicados, luego no se realizan más acciones y se deja de buscar duplicados para ese caso

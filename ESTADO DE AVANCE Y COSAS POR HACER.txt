@@ -11,6 +11,11 @@ bien la detección y corrección
 que no la tome, en caso de no requerirla más. Eliminacion en cascada de la tabla INIQUE_VALUES
 
 
+- Comenzar con las corroboraciones de valores nulos en strings y numéricos
+- Comenzar con las corroboraciones de outliers en numéricos
+
+
+-----------------YA REALIZADOS---------------------------
 - Para n grams, podría ocupar un algoritmo para cadenas de más de una palabra y otro para cadenas de una sola palabra, o simplemente
 abarcar campos de más de 1 palabra. Programar este segundo escenario primero para avanzar
 - Probar los tipos de duplicados con las funciones que se quieren usar
@@ -18,4 +23,5 @@ abarcar campos de más de 1 palabra. Programar este segundo escenario primero pa
 - Hacer funcion que me traiga los valores únicos de la columna string que se está analizando
 - Ver como hacer las funciones de imputación de datos para avanzar, tomar en cuenta que se revisa por columna
 - Hacer funcion que saque los ngrams de una cadena y otra que calcule el indice de similitud
------------------YA REALIZADOS---------------------------
+--ya se arreglaron las columnas string, Funciona con columnas que tengan problemas de letras extra letras faltantes, funciona mal
+cuando se tienen problemas de orden de palabras en una cadena

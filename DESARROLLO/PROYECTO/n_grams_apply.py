@@ -22,33 +22,6 @@ ngf.revisar_string_cols(df,df_col_string)
 print(df['hotel'].unique())
 print(df['deposit_type'].unique())
 
-#print(df_col_string['hotel'].unique())
-
-#a1, word1 = ngf.diff_ngram('Resort Htel','Resort Hotel', 3)
-#print("3-grams: ", a1,word1)
-
-#VALORES UNICOS DE LA COLUMNA ANALIZADA, PERO DESDE LA BDD
-#val_uni_col = ngf.col_bdd_unique_values(df_col_string['hotel'],'hotel')
-
-#cadena_entrada = unicos[0]
-#print(cadena_entrada)
-
-#cadena_bdd = val_uni_col[0]
-#print(cadena_bdd)
-
-#from ngram import NGram
-#print(NGram.compare(cadena_entrada,cadena_bdd))
-
-#print("DIFERENCIA")
-
-#a1, word1 = ngf.diff_ngram('Resort Htel','Resort Hotel', 3)
-#print("3-grams: ", a1,word1)
-
-#a2, word2 = ngf.diff_ngram("hola que tal?, soy iván","hola soy iván", 3)
-#print("3-grams: ", a2,word2)
-
-
-
 
 #Lo que quiero hacer es, identificar la columna de entrada, con la del diccionario, por nombre, luego comparar los registros únicos
 #de cada listado de registros únicos, mediante N-grams ir comparando el grado de similitud y según el grado, ir tomando acciones

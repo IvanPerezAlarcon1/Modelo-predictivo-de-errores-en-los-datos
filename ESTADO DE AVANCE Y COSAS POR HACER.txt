@@ -13,7 +13,13 @@ que no la tome, en caso de no requerirla más. Eliminacion en cascada de la tabl
 
 - Comenzar con las corroboraciones de valores nulos en strings y numéricos
 - Comenzar con las corroboraciones de outliers en numéricos
+- Para efectos de outliers, solo se realizarán correcciones de outliers solo para columnas que tengan distrib normal o cercana a normal.
+- Si existe alguna columna que tenga más de un 10% de valores nulos, el conjunto completo no debería ingresarse a la tabla final, ya que no sería representativo hacer algún tipo de acción con
+información tan vaga
 
+
+- Ver las excepciones luego de programar lo principal, como la funcionalidad de indicadores de nulos y outliers en el prototipo para cada columna, uso de expresión regular, etc.
+#REVISAR, PARECE QUE SI RANGO INTER CUARTIL = 0 USAR TUKEY, SI ES != 0 SE USA GRUBBS
 
 -----------------YA REALIZADOS---------------------------
 - Para n grams, podría ocupar un algoritmo para cadenas de más de una palabra y otro para cadenas de una sola palabra, o simplemente

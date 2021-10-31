@@ -21,11 +21,12 @@ def insert_indic_bdd(df,df_string,df_num):
         if(df.columns[i] in df_num.columns):
             c2, cy = conectarse()
             cy.execute(""" insert into pruebas."DICCIONARIO_DE_DATOS"("NOM_COL", "TIPO_DATO", "MODA", "VAL_MIN", "VAL_MAX", 
-                       "MEDIA", "MEDIANA") 
-                       VALUES ('{v1}','{v2}','{v3}','{v4}','{v5}','{v6}','{v7}'); commit;""".format(v1 = df.columns[i],
+                       "MEDIA", "MEDIANA","CURTOSIS") 
+                       VALUES ('{v1}','{v2}','{v3}','{v4}','{v5}','{v6}','{v7}','{v8}'); commit;""".format(v1 = df.columns[i],
                        v2 = df_num[df.columns[i]].dtype.name, v3 = df_num[df.columns[i]].mode()[0],
                        v4 = df_num[df.columns[i]].min(), v5 = df_num[df.columns[i]].max(),
-                       v6 = df_num[df.columns[i]].mean() , v7 = df_num[df.columns[i]].median()
+                       v6 = df_num[df.columns[i]].mean() , v7 = df_num[df.columns[i]].median(),
+                       v8 = df_num[df.columns[i]].kurt()
                        ))
             cy.close()
 

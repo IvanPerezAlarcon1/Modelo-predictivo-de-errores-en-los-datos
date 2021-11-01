@@ -24,35 +24,7 @@ cant_filas_df = df_col_numericas.shape[0] #CANT. DE FILAS DEL DATAFRAME
 cant_col_df = df_col_numericas.shape[1] #CANT. DE COLUMNAS DEL DATAFRAME
 print("Cant. filas dataframe: ", cant_filas_df,"\n","Cant. columnas dataframe: ", cant_col_df,"\n")
 #print(df_col_numericas['is_canceled'])
-
 '''
-#REVISAR, PARECE QUE SI RANGO INTER CUARTIL = 0 USAR TUKEY, SI ES != 0 SE USA GRUBBS
-print("-----CARACTERISTICAS DE LAS COLUMNAS NUMERICAS PARA VER OUTLIERS Y NULOS-----\n\n")
-for i in range(len(df_col_numericas.columns)):
-	cur_col = round(df_col_numericas[df_col_numericas.columns[i]].kurt(),1)
-	cont_null = df_col_numericas[df_col_numericas.columns[i]].isna().sum()
-	print(df_col_numericas.columns[i], "- CURTOSIS: ", cur_col)
-	print("FRECUENCIAS ",df_col_numericas.groupby(df_col_numericas.columns[i]).size())
-	print("NULOS: ",cont_null) # muestra los valores unicos de la columna y sus frecuencias
-	print("PORCENTAJE DE NULOS EN LA COLUMNA: {}%".format(round((cont_null/cant_filas_df)*100,1)))
-
-	#tukey
-	probables_outliers, posibles_outliers = of.tukeys_method(df_col_numericas,df_col_numericas.columns[i])
-	#print("PROBABLES OUTLIERS: ",probables_outliers)
-	#print("POSIBLES_OUTLIERS",posibles_outliers)
-
-	#grubbs
-	#print("OUTLIERS MAXIMOS GRUBBS: ", grubbs.max_test_outliers(df_col_numericas[df_col_numericas.columns[i]], alpha = 0.05))
-	#print("OUTLIERS MINIMOS GRUBBS: ", grubbs.min_test_outliers(df_col_numericas[df_col_numericas.columns[i]], alpha = 0.05))
-
-	#of.ESD_Test(df_col_numericas[df_col_numericas.columns[i]],0.05,1,df,df_col_numericas,df_col_numericas.columns[i])
-	#print("col despues trat. outliers: ", df_col_numericas[df_col_numericas.columns[i]].head(20)) #LA FUNCION NO ME CORRIGE EL VALOR QUE DEBERÍA
-	#of.ESD_Test(df_col_numericas[df_col_numericas.columns[i]],0.05,1,df,df_col_numericas,df_col_numericas.columns[i])
-	print("\n")
-
-'''
-
-
 print("---------COLUMNAS CON CURTOSIS ENTRE [-3,3], DEL DF DE ENTRADA--------\n\n")
 for i in range(len(df_col_numericas.columns)):
 	cur_col = round(df_col_numericas[df_col_numericas.columns[i]].kurt(),1)
@@ -69,21 +41,14 @@ for i in range(len(df_col_numericas.columns)):
 		probables_outliers, posibles_outliers = of.tukeys_method(df_col_numericas,df_col_numericas.columns[i])
 		#print("PROBABLES OUTLIERS: ",probables_outliers)
 		#print("POSIBLES_OUTLIERS",posibles_outliers)
+'''
+print("--------------------FRECUENCIAS PRE-CORRECCION----------------")
+for i in range(len(df_col_numericas.columns)):
+	print("FRECUENCIAS PRE:",df_col_numericas.groupby(df_col_numericas.columns[i]).size())
 
-		#grubbs
-		max_grubbs_outliers = grubbs.max_test_outliers(df_col_numericas[df_col_numericas.columns[i]], alpha = 0.05)
-		min_grubbs_outliers = grubbs.min_test_outliers(df_col_numericas[df_col_numericas.columns[i]], alpha = 0.05)
-		print("OUTLIERS MAXIMOS GRUBBS: ", max_grubbs_outliers)
-		print("OUTLIERS MINIMOS GRUBBS: ", min_grubbs_outliers)
-		if(len(max_grubbs_outliers) > 0):
-			for ma in max_grubbs_outliers:
-				inp_f.imput_media(df,df_col_numericas,df_col_numericas.columns[i],ma)
-		if(len(min_grubbs_outliers) > 0):
-			for mi in min_grubbs_outliers:
-					inp_f.imput_media(df,df_col_numericas,df_col_numericas.columns[i],mi)
+of.sep_casos(df,df_col_numericas)
 
-		print("FRECUENCIAS ",df_col_numericas.groupby(df_col_numericas.columns[i]).size())
-		#of.ESD_Test(df_col_numericas[df_col_numericas.columns[i]],0.05,1,df,df_col_numericas,df_col_numericas.columns[i])
-		#print("col despues trat. outliers: ", df_col_numericas[df_col_numericas.columns[i]].head(20)) #LA FUNCION NO ME CORRIGE EL VALOR QUE DEBERÍA
-		#of.ESD_Test(df_col_numericas[df_col_numericas.columns[i]],0.05,1,df,df_col_numericas,df_col_numericas.columns[i])
-		print("\n")
+print("--------------------FRECUENCIAS POST-CORRECCION----------------")
+for i in range(len(df_col_numericas.columns)):
+	print("FRECUENCIAS POST:",df_col_numericas.groupby(df_col_numericas.columns[i]).size())
+print("\n")

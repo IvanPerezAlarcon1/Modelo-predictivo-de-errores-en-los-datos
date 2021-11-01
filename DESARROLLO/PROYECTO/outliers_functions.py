@@ -1,6 +1,14 @@
 import numpy as np
 import pandas as pd
 import scipy.stats as stats
+from outliers import smirnov_grubbs as grubbs
+import imputaciones_functions as inp_f
+
+def inter_cuar_rang(df_num_col):
+    q1 = df_num_col.quantile(0.25)
+    q3 = df_num_col.quantile(0.75)
+    iqr = q3-q1
+    return iqr
 
 #Tukey's method
 def tukeys_method(df, variable):
@@ -32,18 +40,54 @@ def tukeys_method(df, variable):
 
 
 def sep_casos(df, df_num_col):
+    print("---------COLUMNAS CON CURTOSIS ENTRE [-3,3], DEL DF DE ENTRADA--------\n\n")
     for i in range(len(df_num_col.columns)):
         cur_col = round(df_num_col[df_num_col.columns[i]].kurt(),1) #curtosis
         cont_null = df_num_col[df_num_col.columns[i]].isna().sum() #cant.nulos columna
         cant_filas_df = df_num_col.shape[0] #CANT. DE FILAS DEL DATAFRAME
         cant_col_df = df_num_col.shape[1] #CANT. DE COLUMNAS DEL DATAFRAME
+        IRQ = inter_cuar_rang(df_num_col[df_num_col.columns[i]]) #RANGO INTERCUARTIL DE LA COLUMNA
         #PARA DETECTAR OUTLIERS, LA CONDICION ES QUE LA COL TENGA DISTRIB NORMAL, LUEGO PRIMERO SE TOMAN SOLO ESTAS FILAS
         if(cur_col >= -3.0 and cur_col <=3.0):
+            print(df_num_col.columns[i], "- CURTOSIS: ", cur_col)
+            print("FRECUENCIAS - DENTRO:",df_num_col.groupby(df_num_col.columns[i]).size())
+            print("NULOS: ",cont_null) # muestra los valores unicos de la columna y sus frecuencias
+            print("PORCENTAJE DE NULOS EN LA COLUMNA: {}%".format(round((cont_null/cant_filas_df)*100,1)))
+            print("IRQ: ", IRQ)
+
             if(cant_filas_df <=200):
                 print("Se debería usar Prueba de Dixon para buscar outliers en este conjunto, dado que su nro de registros es: {}".format(cant_filas_df))
                 break
             else:
                 #CALCULAR EL RANGO INTERCUARTIL Y EN BASE A ESO GENERAR LOS CASOS PARA GRUBBS Y TUKEY
+                if(IRQ != 0):
+                    #IRQ != 0 SE USA GRUBBS
+                    print("Esta col, se debe corregir por GRUBBS")
+                    max_grubbs_outliers = grubbs.max_test_outliers(df_num_col[df_num_col.columns[i]], alpha = 0.05)
+                    min_grubbs_outliers = grubbs.min_test_outliers(df_num_col[df_num_col.columns[i]], alpha = 0.05)
+                    #while que itera mediante grubbs hasta que deja de detectar outliers, los cuales son corregidos en el df
+                    while(len(max_grubbs_outliers) > 0 or len(min_grubbs_outliers) > 0):
+                        max_grubbs_outliers = grubbs.max_test_outliers(df_num_col[df_num_col.columns[i]], alpha = 0.05)
+                        min_grubbs_outliers = grubbs.min_test_outliers(df_num_col[df_num_col.columns[i]], alpha = 0.05)
+                        print("OUTLIERS MAXIMOS GRUBBS: ", max_grubbs_outliers)
+                        print("OUTLIERS MINIMOS GRUBBS: ", min_grubbs_outliers)
+                        if(len(max_grubbs_outliers) > 0):
+                            for ma in max_grubbs_outliers:
+                                inp_f.imput_media(df,df_num_col,df_num_col.columns[i],ma)
+                        if(len(min_grubbs_outliers) > 0):
+                            for mi in min_grubbs_outliers:
+                                inp_f.imput_media(df,df_num_col,df_num_col.columns[i],mi)
+                else:
+                    #--------------------------FALTA HACER IMPLEMENTACIÓN DE TUKEY-------01-11-2021-------------------------
+                    #SI IRQ = 0, SE USA TUKEY
+                    print("Esta col, se debe corregir por Tukey")
+                    probables_outliers, posibles_outliers = of.tukeys_method(df_num_col,df_num_col.columns[i])
+                    print("PROBABLES OUTLIERS: ",probables_outliers)
+                    print("POSIBLES_OUTLIERS",posibles_outliers)
+            print("FRECUENCIAS - POST:",df_num_col.groupby(df_num_col.columns[i]).size())
+            print('\n')
+
+
 
 
 

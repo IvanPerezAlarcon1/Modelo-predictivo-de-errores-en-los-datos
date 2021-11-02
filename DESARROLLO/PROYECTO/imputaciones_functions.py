@@ -9,8 +9,13 @@ def imput_media(df,df_num,col_num_name,to_replace_val):
     df_num[col_num_name] = df_num[col_num_name].replace(to_replace = to_replace_val, value = round(df_num[col_num_name].mean(),2))
 
 
+def input_mediana(df,df_num,col_num_name):
+    df[col_num_name] = df[col_num_name].fillna(df_num[col_num_name].median())
+    df_num[col_num_name] = df_num[col_num_name].fillna(df_num[col_num_name].median())
 
-
+def input_media_2(df,df_num,col_num_name):
+    df[col_num_name] = df[col_num_name].fillna(round(df_num[col_num_name].mean(),2))
+    df_num[col_num_name] = df_num[col_num_name].fillna(round(df_num[col_num_name].mean(),2))
 
 #--------------------STRINGS----------------------------
 

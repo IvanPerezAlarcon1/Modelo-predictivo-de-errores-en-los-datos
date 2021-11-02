@@ -33,7 +33,7 @@ for i in range(len(df_col_string.columns)):
     print('\n')
 '''
 
-print("Imputaciones para columnas NUMÉRICAS: ")
+print("--------------Imputaciones para columnas NUMÉRICAS: -----------------------")
 print(df_col_numericas.columns)
 
 for i in range(len(df_col_numericas.columns)):
@@ -54,19 +54,36 @@ for i in range(len(df_col_numericas.columns)):
     elif(porc_nulos <= 10 and porc_nulos > 0):
         print("La columna {}, contiene un {}% de nulos, por lo que es tratable.".format(df_col_numericas.columns[i], porc_nulos))
         if(cur_col >= -3.0 and cur_col <=3.0):
-            #SI LA COLUMNA CONTIENE OUTLIERS, LOS NULOS SE IMPUTAN POR MEDIANA
+            #SI LA COLUMNA CONTIENE OUTLIERS, LOS NULOS SE IMPUTAN POR MEDIANA - ESTE ESCENARIO SE ABORDA EN outliers_functions.py
             #SI LA COLUMNA NO TIENE OUTLIERS, LOS NULOS SE IMPUTAN POR MEDIA
             print("Esta columna posee una distribucion normal o cercana a normal, ya que su CURTOSIS es {}.".format(cur_col))
+            imf.input_media_2(df,df_col_numericas,df_col_numericas.columns[i])
         else:
             #SE IMPUTA POR MEDIANA
             print("Esta columna no posee una distrib normal o cercana, ya que su curtosis es {}.".format(cur_col))
+            imf.input_mediana(df,df_col_numericas,df_col_numericas.columns[i])
 
 
     elif(porc_nulos > 10):
         print("La columna {}, posee un {}% de valores nulos, se recomienda imputar valores hasta obtener menos del 10% de valores nulos para que el conjunto tenga un grado de credibilidad aceptable.".format(df_col_numericas.columns[i], porc_nulos))
-        #break
+        break
     else:
         print('{},{}'.format(df_col_numericas.columns[i], porc_nulos))
         print("Se ha presentado un error en el proceso.")
         break
     print('\n')
+
+
+print("--------------COLUMNAS NUMERICAS POST-IMPUTACION: -----------------------")
+for i in range(len(df_col_numericas.columns)):
+    cur_col = round(df_col_numericas[df_col_numericas.columns[i]].kurt(),1) #curtosis
+    count_null = df_col_numericas[df_col_numericas.columns[i]].isna().sum() #cant.nulos columna
+    cant_filas_df = df_col_numericas.shape[0] #CANT. DE FILAS DEL DATAFRAME
+    cant_col_df = df_col_numericas.shape[1] #CANT. DE COLUMNAS DEL DATAFRAME
+    IRQ = of.inter_cuar_rang(df_col_numericas[df_col_numericas.columns[i]]) #RANGO INTERCUARTIL DE LA COLUMNA
+    porc_nulos = round((count_null/cant_filas_df)*100,1)
+
+    print(df_col_numericas.columns[i])
+    print(count_null)
+    print(cant_filas_df)
+    print(porc_nulos)

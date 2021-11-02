@@ -3,10 +3,16 @@ import pandas as pd
 
 import bdd_functions as bdf
 
+#--------------NUMERICOS-----------------------
 def imput_media(df,df_num,col_num_name,to_replace_val):
     df[col_num_name] = df[col_num_name].replace(to_replace = to_replace_val, value = round(df[col_num_name].mean(),2))
     df_num[col_num_name] = df_num[col_num_name].replace(to_replace = to_replace_val, value = round(df_num[col_num_name].mean(),2))
 
+
+
+
+
+#--------------------STRINGS----------------------------
 
 def imputar_col_string(df,df_string,nom_col_string):
     c1, cx = bdf.conectarse()

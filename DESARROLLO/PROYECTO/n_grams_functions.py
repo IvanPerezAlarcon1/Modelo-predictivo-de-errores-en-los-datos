@@ -62,13 +62,13 @@ def revisar_string_cols(df, df_string):
         #valores unicos registrados en la bdd, para la columna string ingresada
         unicos_col_bdd,ID, n_gram = col_bdd_unique_values(df_string[df_string.columns[i]], df_string.columns[i])
         #si un elemento del conjunto ingresado está en los unicos de la bdd, lo elimino ya que sería el escenario donde la similitud de los elementos seria igual y no requieren tratamiento
+        print("Columna analizada: {}".format(df_string.columns[i]))
         for j in aux:
             if(j in unicos_col_bdd):
                 unicos_col.remove(j)
         print("VAL UNICOS ENTRADA no encontrados en BDD: ", unicos_col)
         print("VALORES UNICOS BDD: ",unicos_col_bdd, '\n')
 
-        print(ID)
         aux2 = 0
         aux3 = 0
         for l in unicos_col:
@@ -79,7 +79,7 @@ def revisar_string_cols(df, df_string):
                 if(ind >= 0.6):
                     print("3-grams - REEMPLAZA: ", ind, k, l)
                     df[df_string.columns[i]] = df[df_string.columns[i]].replace(to_replace = l,  value = k)
-                    #df_string[df_string.columns[i]] = df_string[df_string.columns[i]].replace(to_replace = l,  value = k)
+                    df_string[df_string.columns[i]] = df_string[df_string.columns[i]].replace(to_replace = l,  value = k)
                     aux2 = 1
                     break
                 if(ind < 0.6):

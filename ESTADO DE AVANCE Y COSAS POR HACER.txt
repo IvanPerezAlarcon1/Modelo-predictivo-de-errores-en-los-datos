@@ -8,20 +8,16 @@ bien la detección y corrección
 
 - Ver el escenario donde se ingresen las mismas columnas, pero en distinto orden
 
-
-
-- Comenzar con las corroboraciones de valores nulos en strings y numéricos
-- Comenzar con las corroboraciones de outliers en numéricos
-- Para efectos de outliers, solo se realizarán correcciones de outliers solo para columnas que tengan distrib normal o cercana a normal.
 - Si existe alguna columna que tenga más de un 10% de valores nulos, el conjunto completo no debería ingresarse a la tabla final, ya que no sería representativo hacer algún tipo de acción con
 información tan vaga
 
 
 
-+ #FALTA CORROBORAR QUE EL DATAFRAME INGRESADO ESTÉ CONTECTUALIZADO EFECTIVAMENTE, SI NO LO ESTÁ, DEBERÍA CREARSE, SI ESTÁ CONTEXTUALIZADO, SE DEBERÍA EJECUTAR EL CÓDIGO DE AQUÍ 
++ #FALTA CORROBORAR QUE EL DATAFRAME INGRESADO ESTÉ CONTEXTUALIZADO EFECTIVAMENTE, SI NO LO ESTÁ, DEBERÍA CREARSE, SI ESTÁ CONTEXTUALIZADO, SE DEBERÍA EJECUTAR EL CÓDIGO DE AQUÍ 
   Y DEJAR EL DF RESULTANTE EN LA TABLA FINAL EN LA BDD
 + FALTA HACER LA CORROBORACION DE QUE LA COLUMNA PUEDA O NO PUEDA CONTENER NULOS O OUTLIERS, PARA STRINGS Y NUMERICAS
-+ EN EL PRIMER INGRESO DE DATOS, TAMBIEN DEBERÍA REGISTRAR LOS INDICADORES, LUEGO CORREGIR POR PRIMERA VEZ LOS DATOS Y GUARDARLOS EN EL HISTÓRICO
++ VER COMO HACER EL INGRESO DE DATOS LUEGO DEL PRIMER INGRESO Y CONTEXTUALIZACION, YA QUE SE DEBEN COMPROBAR LOS CAMPOS DEL DF DE ENTRADA Y LOS DE LA TABLA DESTINO
++ EN EL PRIMER INGRESO DE DATOS, TAMBIEN DEBERÍA REGISTRAR LOS INDICADORES, LUEGO CORREGIR POR PRIMERA VEZ LOS DATOS Y GUARDARLOS EN EL HISTÓRICO -> (YA HECHO)
 
 + Hacer el main de correcciones una vez constextualizado el prototipo
 + Hacer el almacenamiento de la tabla histórica de datos depurados del contexto.

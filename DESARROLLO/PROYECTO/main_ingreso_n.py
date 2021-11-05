@@ -30,3 +30,4 @@ ngf.revisar_string_cols(df,df_col_string) #quita duplicados en las columnas stri
 imf.input_df_numerico(df,df_col_numericas)
 of.sep_casos(df,df_col_numericas)
 
+

@@ -1,5 +1,11 @@
 import psycopg2
 
+import pandas as pd
+import os
+import io
+from sqlalchemy import create_engine
+
+
 def conectarse():
     try:
         conn = psycopg2.connect(host='localhost', database='TRABAJO_DE_TITULO', user= 'postgres', password='admin', port = 5433)
@@ -58,11 +64,17 @@ def insert_unique_values_string(dataframe_cols,string_dataframe):
                           ('{v1}','{v2}'); COMMIT;""".format(v1 = dataframe_cols["ID"][i], v2 = aux[j]))
     cz.close()
 
-#----------------llamada funcion----------------------
-#c1, cx = conectarse()
-#cx.execute('SELECT "ID", "NOM_COL", "TIPO_DATO" FROM pruebas."DICCIONARIO_DE_DATOS";')
 
-#for i in cx.fetchall():
-#    print(i[0]," - ",i[1]," - ",i[2])
-
-#c1.close()
+def crea_tabla_historica(df,table_name):
+  #crea la tabla historica con el nombre del primer archivo ingresado
+  engine = create_engine('postgresql://postgres:admin@localhost:5433/TRABAJO_DE_TITULO')
+  df.head(0).to_sql('TABLA_HISTORICA_{}'.format(table_name), engine, if_exists='replace',index=False)
+  #pobla la tabla creada con la data depurada del dataframe de entrada
+  conn = engine.raw_connection()
+  cur = conn.cursor()
+  output = io.StringIO()
+  df.to_csv(output, sep='\t', header=False, index=False)
+  output.seek(0)
+  contents = output.getvalue()
+  cur.copy_from(output, 'TABLA_HISTORICA_{}'.format(table_name), null="") # null values become ''
+  conn.commit()

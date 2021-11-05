@@ -9,6 +9,9 @@ def dataframe_from_file(archivo): #detecta el tipo de archivo y devuelve un data
         dataframe = pd.read_excel(archivo)
     return dataframe
 
+def nombre_archivo(archivo): #retorna el nombre del archivo ingresado
+	aux1,aux2 = os.path.splitext(os.path.basename(archivo))
+	return aux1
 
 def dframe_to_dicc(dataframe): #devuelve un diccionario con parametros comunes para toda columna
     dic = {}

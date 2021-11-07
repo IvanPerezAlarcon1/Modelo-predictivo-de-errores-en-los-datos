@@ -64,11 +64,11 @@ def insert_unique_values_string(dataframe_cols,string_dataframe):
                           ('{v1}','{v2}'); COMMIT;""".format(v1 = dataframe_cols["ID"][i], v2 = aux[j]))
     cz.close()
 
-
-def crea_tabla_historica(df,table_name):
+def crea_tabla_historica(df):
   #crea la tabla historica con el nombre del primer archivo ingresado
   engine = create_engine('postgresql://postgres:admin@localhost:5433/TRABAJO_DE_TITULO')
-  df.head(0).to_sql('TABLA_HISTORICA_{}'.format(table_name), engine, if_exists='replace',index=False)
+  df.head(0).to_sql('TABLA_HISTORICA_DATOS', engine, if_exists='replace',index=False)
+  #df.head(0).to_sql('TABLA_HISTORICA_{}'.format(table_name), engine, if_exists='replace',index=False)
   #pobla la tabla creada con la data depurada del dataframe de entrada
   conn = engine.raw_connection()
   cur = conn.cursor()
@@ -76,5 +76,18 @@ def crea_tabla_historica(df,table_name):
   df.to_csv(output, sep='\t', header=False, index=False)
   output.seek(0)
   contents = output.getvalue()
-  cur.copy_from(output, 'TABLA_HISTORICA_{}'.format(table_name), null="") # null values become ''
+  cur.copy_from(output, 'TABLA_HISTORICA_DATOS', null="") # null values become ''
+  #cur.copy_from(output, 'TABLA_HISTORICA_{}'.format(table_name), null="") # null values become ''
+  conn.commit()
+
+def insert_df_atabla(df):
+  engine = create_engine('postgresql://postgres:admin@localhost:5433/TRABAJO_DE_TITULO')
+  conn = engine.raw_connection()
+  cur = conn.cursor()
+  output = io.StringIO()
+  df.to_csv(output, sep='\t', header=False, index=False)
+  output.seek(0)
+  contents = output.getvalue()
+  cur.copy_from(output, 'TABLA_HISTORICA_DATOS', null="") # null values become ''
+  #cur.copy_from(output, 'TABLA_HISTORICA_{}'.format(table_name), null="") # null values become ''
   conn.commit()

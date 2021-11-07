@@ -31,10 +31,12 @@ def tukeys_method(df, variable):
     outliers_poss = []
     for index, x in enumerate(df[variable]):
         if x <= outer_fence_le or x >= outer_fence_ue:
-            outliers_prob.append(index)
+            #outliers_prob.append(index) #indice
+            outliers_prob.append(x) #valor
     for index, x in enumerate(df[variable]):
         if x <= inner_fence_le or x >= inner_fence_ue:
-            outliers_poss.append(index)
+            #outliers_poss.append(index)
+            #outliers_prob.append(x)
     return outliers_prob, outliers_poss
 
 
@@ -56,6 +58,7 @@ def sep_casos(df, df_num_col):
             print("IRQ: ", IRQ)
 
             if(cant_filas_df <=200):
+                #Calcular outliers con dixon, cambiando los valores outliers por la MEDIANA
                 print("Se debería usar Prueba de Dixon para buscar outliers en este conjunto, dado que su nro de registros es: {}".format(cant_filas_df))
                 break
             else:
@@ -83,12 +86,12 @@ def sep_casos(df, df_num_col):
                                 inp_f.input_mediana_outliers(df,df_num_col,df_num_col.columns[i],mi)
                 else:
                     #--------------------------FALTA HACER IMPLEMENTACIÓN DE TUKEY-------01-11-2021-------------------------
-                    #SI IRQ = 0, SE USA TUKEY, 
-                    print("Esta col, se debe corregir por Tukey")
+                    #SI IRQ = 0, SE USA TUKEY para detectar outliers, cambiando valores de outliers por, la MEDIANA
+                    print("Esta col, se debe analizar por método de Tukey, cambiando los outliers por ")
                     probables_outliers, posibles_outliers = of.tukeys_method(df_num_col,df_num_col.columns[i])
                     print("PROBABLES OUTLIERS: ",probables_outliers)
                     print("POSIBLES_OUTLIERS",posibles_outliers)
-            print("FRECUENCIAS - POST:",df_num_col.groupby(df_num_col.columns[i]).size())
+            print("FRECUENCIAS - POST Correccion:",df_num_col.groupby(df_num_col.columns[i]).size())
             print('\n')
 
 

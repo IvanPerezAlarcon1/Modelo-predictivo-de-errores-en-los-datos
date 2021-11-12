@@ -1,7 +1,4 @@
 ----------------------COSAS POR HACER-------------------
-- Se podrian ir realizando las pruebas y programacion al mismo tiempo, empezando por emplear n-grams para los datos string y ver si funciona
-bien la detección y corrección
-- ver como ir agregando columnas y sus indicadores respectivos a medida que se vayan ingresando nuevas columnas
 - Ver comparación de columnas del conjunto de datos de entrada con las del diccionario para detectar cuales están registradas y cuales no
 - Se podría particionar la tabla UNIQUE_VALUES_STRING_COLUMNS para optimizar tiempos de carga, o agregar indices
 - INDICADOR DE SI ACEPTA O NO NUEVOS VALORES LA COLUMNA, mediante el ingreso por archivo de ingreso
@@ -11,33 +8,41 @@ bien la detección y corrección
 - Si existe alguna columna que tenga más de un 10% de valores nulos, el conjunto completo no debería ingresarse a la tabla final, ya que no sería representativo hacer algún tipo de acción con
 información tan vaga
 
++ programar el que pueda tener una tabla de bdd como entrada
++ programar escenarios de depuracion de outliers tukey y dixon
 
 
 + #FALTA CORROBORAR QUE EL DATAFRAME INGRESADO ESTÉ CONTEXTUALIZADO EFECTIVAMENTE, SI NO LO ESTÁ, DEBERÍA CREARSE, SI ESTÁ CONTEXTUALIZADO, SE DEBERÍA EJECUTAR EL CÓDIGO DE AQUÍ 
   Y DEJAR EL DF RESULTANTE EN LA TABLA FINAL EN LA BDD
-+ FALTA HACER LA CORROBORACION DE QUE LA COLUMNA PUEDA O NO PUEDA CONTENER NULOS O OUTLIERS, PARA STRINGS Y NUMERICAS
 + VER COMO HACER EL INGRESO DE DATOS LUEGO DEL PRIMER INGRESO Y CONTEXTUALIZACION, YA QUE SE DEBEN COMPROBAR LOS CAMPOS DEL DF DE ENTRADA Y LOS DE LA TABLA DESTINO
-+ EN EL PRIMER INGRESO DE DATOS, TAMBIEN DEBERÍA REGISTRAR LOS INDICADORES, LUEGO CORREGIR POR PRIMERA VEZ LOS DATOS Y GUARDARLOS EN EL HISTÓRICO -> (YA HECHO)
-
-+ Hacer el main de correcciones una vez constextualizado el prototipo
-+ Hacer el almacenamiento de la tabla histórica de datos depurados del contexto.
-+ Ver como hacer que al eliminar una columna del diccionario de datos, si es string, se borren los valores únicos para esa columna, o hacer
-que no la tome, en caso de no requerirla más. Eliminacion en cascada de la tabla UNIQUE_VALUES
-+ Validar escenario donde se ingrese un conjunto con nombres de columnas distintos a los registrados o las mismas columnas más otras o algunas pero no todas de las registradas
-+ Hacer la retroalimentación del diccionario de datos cuando se ingresen datos al diccionario
-+ Ver si agregar la expresión regular como validación a las columnas string
++ FALTA HACER LA CORROBORACION DE QUE LA COLUMNA PUEDA O NO PUEDA CONTENER NULOS O OUTLIERS, PARA STRINGS Y NUMERICAS
 + Hacer las validaciones de indicadores de si la columna acepta outliers(col numericas) y/o nulos(string/numericas), si los acepta, deja pasar las columnas
  NOTA: Se podría validar este caso con la columna que tiene casi todos los valores nulos, podría simplemente aceptarla así
++ Hacer la retroalimentación del diccionario de datos cuando se ingresen datos al diccionario
++ ind = 0 #si una funcion de imputación detecta un break debido a que una columna string o numerica posee un % de nulos > 10%, se termina el programa 
++ Falta ir actualizando los indicadores con la data histórica depurada.
+
+
++ Ver como hacer que al eliminar una columna del diccionario de datos, si es string, se borren los valores únicos para esa columna, o hacer
+que no la tome, en caso de no requerirla más. Eliminacion en cascada de la tabla UNIQUE_VALUES
++ Ver si agregar la expresión regular como validación a las columnas string
 + Ver si se agrega el IRQ al diccionario
 + El analista podría ingresar valores únicos a la tabla en caso de requerirse, actualmente se haría mediante un insert
++ Se podría consultar el tipo  de archivo de entrada, si es excel, si es .csv(y su sparador), o si la entrada será una tabla de bdd(ingresar el nombre y esquema)
 
 
 
-
-- Ver las excepciones luego de programar lo principal, como la funcionalidad de indicadores de nulos y outliers en el prototipo para cada columna, uso de expresión regular, etc.
-- LEER DEA PARA EJEMPLOS DE COMO REALIZAR LAS PRUEBAS DEL PROTOTIPO
-
------------------YA REALIZADOS---------------------------
+-----------------YA REALIZADOS--------------------------- (LAS COSAS TERMINADAS SE LISTAN EN ESTE APARTADO DE LO TERMINADO RECIENTEMENTE ARRIBA Y LO TERMINADO HACE MAS TIEMPO, ESTÁ MÁS ABAJO)
++ Para el primer ingreso de datos, no se puede especificar si una columna puede o no tener más del 10% de nulos, en tal caso se podría:
+	- Contextualizar el modelo pero no ingresar la tabla histórica
+	- Contextualizar el modelo e ingresar los datos de igual forma con la columna que tiene un alto % de nulos.
+	- Se podrían dejar pasar por defecto los nulos en la contextualización, luego por defecto no dejarlos más, a menos que en el diccionario se especifique
+	  manualmente lo contrario.
+	+ SE DEJO EN EL PRIMER INGRESO PASAR LA COLUMNA SI ES QUE TIENE MAS DE UN 10% DE NULOS, PERO A PARTIR DEL 2DO INGRESO NO SE PERMITE
++ Acorde a lo anterior, corregir el break, en la funcion input_df_numerico(df,df_num) del archivo -> imputaciones_functions.py
++ Validar escenario donde se ingrese un conjunto con nombres de columnas distintos a los registrados o las mismas columnas más otras o algunas pero no todas de las registradas
++ Hacer el main de correcciones una vez constextualizado el prototipo
++ Hacer el almacenamiento de la tabla histórica de datos depurados del contexto.
 - Para n grams, podría ocupar un algoritmo para cadenas de más de una palabra y otro para cadenas de una sola palabra, o simplemente
 abarcar campos de más de 1 palabra. Programar este segundo escenario primero para avanzar
 - Probar los tipos de duplicados con las funciones que se quieren usar
@@ -45,5 +50,6 @@ abarcar campos de más de 1 palabra. Programar este segundo escenario primero pa
 - Hacer funcion que me traiga los valores únicos de la columna string que se está analizando
 - Ver como hacer las funciones de imputación de datos para avanzar, tomar en cuenta que se revisa por columna
 - Hacer funcion que saque los ngrams de una cadena y otra que calcule el indice de similitud
++ EN EL PRIMER INGRESO DE DATOS, TAMBIEN DEBERÍA REGISTRAR LOS INDICADORES, LUEGO CORREGIR POR PRIMERA VEZ LOS DATOS Y GUARDARLOS EN EL HISTÓRICO -> (YA HECHO)
 --ya se arreglaron las columnas string, Funciona con columnas que tengan problemas de letras extra letras faltantes, funciona mal
 cuando se tienen problemas de orden de palabras en una cadena

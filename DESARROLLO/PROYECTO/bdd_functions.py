@@ -5,6 +5,9 @@ import os
 import io
 from sqlalchemy import create_engine
 
+from datetime import datetime
+now = datetime.now()
+date_time = now.strftime("%m-%d-%Y %H:%M:%S")
 
 def conectarse():
     try:
@@ -67,6 +70,7 @@ def insert_unique_values_string(dataframe_cols,string_dataframe):
 def crea_tabla_historica(df):
   #crea la tabla historica con el nombre del primer archivo ingresado
   engine = create_engine('postgresql://postgres:admin@localhost:5433/TRABAJO_DE_TITULO')
+  df['fecha_carga'] = date_time
   df.head(0).to_sql('TABLA_HISTORICA_DATOS', engine, if_exists='replace',index=False)
   #df.head(0).to_sql('TABLA_HISTORICA_{}'.format(table_name), engine, if_exists='replace',index=False)
   #pobla la tabla creada con la data depurada del dataframe de entrada
@@ -85,6 +89,7 @@ def insert_df_atabla(df):
   conn = engine.raw_connection()
   cur = conn.cursor()
   output = io.StringIO()
+  df['fecha_carga'] = date_time
   df.to_csv(output, sep='\t', header=False, index=False)
   output.seek(0)
   contents = output.getvalue()

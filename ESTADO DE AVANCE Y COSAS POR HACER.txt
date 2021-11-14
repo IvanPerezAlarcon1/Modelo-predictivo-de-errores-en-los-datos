@@ -10,7 +10,8 @@ información tan vaga
 
 + programar el que pueda tener una tabla de bdd como entrada
 + programar escenarios de depuracion de outliers tukey y dixon
-
++ Programar un indicador, que se corte el programa completo si es que el dataframe posee más de un 10% de nulos en una columna luego de dejar el aviso del caso, por ahora solo se corta el for que recorre
+las columnas pero el programa sigue, lo cual no debería pasar.
 
 + #FALTA CORROBORAR QUE EL DATAFRAME INGRESADO ESTÉ CONTEXTUALIZADO EFECTIVAMENTE, SI NO LO ESTÁ, DEBERÍA CREARSE, SI ESTÁ CONTEXTUALIZADO, SE DEBERÍA EJECUTAR EL CÓDIGO DE AQUÍ 
   Y DEJAR EL DF RESULTANTE EN LA TABLA FINAL EN LA BDD

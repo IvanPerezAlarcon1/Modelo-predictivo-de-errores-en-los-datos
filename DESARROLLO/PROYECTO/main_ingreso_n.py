@@ -21,11 +21,11 @@ def ingreso_n_datos(df):
 
 	#--------acciones sobre columnas strings----------
 	imf.imput_df_string(df,df_col_string)
-	ngf.revisar_string_cols(df,df_col_string) #quita duplicados en las columnas string, agrega los que no se parecen a algun otor registro unico registado
+	ngf.revisar_string_cols_ing_n(df,df_col_string) #quita duplicados en las columnas string, agrega los que no se parecen a algun otor registro unico registado
 
 	#--------acciones sobre columnas numéricas--------
 	imf.input_df_numerico(df,df_col_numericas)
-	of.sep_casos(df,df_col_numericas)
+	of.sep_casos_ingreso_n(df,df_col_numericas)
 
 	#falta hacer ingreso de datos a la tabla histórica final en el ingreso n
 	bbf. insert_df_atabla(df)

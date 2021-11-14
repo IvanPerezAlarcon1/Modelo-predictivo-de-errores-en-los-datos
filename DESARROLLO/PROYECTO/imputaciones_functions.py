@@ -14,7 +14,6 @@ def input_mediana_outliers(df,df_num,col_num_name,to_replace_val):
     df_num[col_num_name] = df_num[col_num_name].replace(to_replace = to_replace_val, value = round(df_num[col_num_name].median(),2))
 
 
-
 def input_mediana(df,df_num,col_num_name):
     df[col_num_name] = df[col_num_name].fillna(df_num[col_num_name].median())
     df_num[col_num_name] = df_num[col_num_name].fillna(df_num[col_num_name].median())
@@ -44,11 +43,11 @@ def input_df_numerico(df,df_num):
             if(cur_col >= -3.0 and cur_col <=3.0):
                 #SI LA COLUMNA CONTIENE OUTLIERS, LOS NULOS SE IMPUTAN POR MEDIANA - ESTE ESCENARIO SE ABORDA EN outliers_functions.py
                 #SI LA COLUMNA NO TIENE OUTLIERS, LOS NULOS SE IMPUTAN POR MEDIA
-                print("Esta columna posee una distribucion normal o cercana a normal, ya que su CURTOSIS es {}.".format(cur_col),", por lo que, se imputará por la media de la columna.")
+                print("Esta columna posee una distribucion normal o cercana a normal, ya que su CURTOSIS es {}".format(cur_col),", por lo que, se imputará por la media de la columna.")
                 input_media_2(df,df_num,df_num.columns[i])
             else:
                 #SE IMPUTA POR MEDIANA
-                print("Esta columna no posee una distrib normal o cercana a normal, ya que su curtosis es {}.".format(cur_col),", por lo que, se imputará por la mediana de la columna.")
+                print("Esta columna no posee una distrib normal o cercana a normal, ya que su curtosis es {}".format(cur_col),", por lo que, se imputará por la mediana de la columna.")
                 input_mediana(df,df_num,df_num.columns[i])
 
 
@@ -155,3 +154,16 @@ def imput_df_string_1ra_entrada(df,df_string):
             #SI EL % DE NULOS ES > 10%, NO SE REALIZARÁN MÁS ACCIONES SOBRE EL CONJUNTO YA QUE UNA COLUMNA POSEE UN NIVEL DE DATOS MUY POCO REPRESENTATIVO.
             print("La columna {}, posee un {}% de nulos, el cual supera el 10%, favor de ingresar un conjunto de datos que no supere este porcentaje de nulos en cualquiera de sus columnas.")
             #break #rompe el ciclo for
+
+'''
+def imput_n_grams(df,df_string,col_string_name,to_replace_val,new_value):
+    df[df_string.columns[col_string_name]] = df[df_string.columns[col_string_name]].replace(to_replace = to_replace_val,  value = new_value)
+    df_string[df_string.columns[col_string_name]] = df_string[df_string.columns[col_string_name]].replace(to_replace = to_replace_val,  value = new_value)
+
+'''
+
+def imput_string_new_val(ID,new_value):
+    c3, cz = bdf.conectarse()
+    cz.execute(""" insert into pruebas."UNIQUE_VALUES_STRING_COLUMNS"("ID_DICC_DATOS","VAL_UNICO") VALUES 
+                ('{v1}','{v2}'); COMMIT; """.format(v1 = ID , v2 = new_value))
+    cz.close()

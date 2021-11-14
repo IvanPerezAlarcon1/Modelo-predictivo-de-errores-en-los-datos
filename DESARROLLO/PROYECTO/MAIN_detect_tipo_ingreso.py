@@ -11,12 +11,11 @@ import outliers_functions as of
 import main_primer_ingreso as mpi
 import main_ingreso_n as minn
 
-#archivo = r'C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\hotel_bookings_1_test2.csv' # se demora 2.8 seg en terminar
-#archivo = r'C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\hotel_bookings_1_NGRAMS-test-2-cols--witherrors.csv'
-#archivo = r'C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\hotel_bookings_1.xlsx' # se demora 43.9 seg en terminar
+#archivo = r'C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\hotel_bookings_1.csv' # --> USADO PARA PRIMER INGRESO
 
-archivo = r'C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\hotel_bookings_1.csv' # se demora 2.8 seg en terminar -> USADO PARA PRIMER INGRESO
-#archivo = r'C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\hotel_bookings_1_test2-imput-manual-agent-col.csv' # se demora 2.8 seg en terminar -> USADO PARA INGRESO N PRUEBA
+archivo = r'C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\DATASETS PRUEBAS\hotel_bookings_25000 - errores string.csv' #errores string
+#archivo = r'C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\DATASETS PRUEBAS\hotel_bookings_25000 ERROR_OUTLIERS.csv' #errores outliers
+
 col_fal = []
 col_sob = []
 

@@ -57,6 +57,33 @@ def columnas_df_bdd():
     cz.close()
     return dicc
 
+
+
+
+def extrae_ind_col_num(nom_col):
+    dicc = []
+    #print(nom_col)
+    c3, cz = conectarse()
+    cz.execute(""" SELECT "ID", "NOM_COL", "VAL_MIN", "VAL_MAX", "CURTOSIS", "MODA", "MEDIA", "MEDIANA", "TIPO_DATO", "OUTLIERS", "NULLS" FROM pruebas."DICCIONARIO_DE_DATOS"
+                 where "NOM_COL" = '{v1}';""".format(v1 = nom_col))
+    for i in cz.fetchall():
+        dicc.append(i[0])
+        dicc.append(i[1])
+        dicc.append(i[2])
+        dicc.append(i[3])
+        dicc.append(i[4])
+        dicc.append(i[5])
+        dicc.append(i[6])
+        dicc.append(i[7])
+        dicc.append(i[8])
+        dicc.append(i[9])
+        dicc.append(i[10])
+    cz.close()
+    return dicc
+
+
+
+
 def insert_unique_values_string(dataframe_cols,string_dataframe):
     c3, cz = conectarse()
     for i in range(len(dataframe_cols["TYPES"])):

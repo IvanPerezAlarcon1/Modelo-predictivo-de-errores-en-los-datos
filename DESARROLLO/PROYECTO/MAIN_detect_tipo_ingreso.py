@@ -13,8 +13,8 @@ import main_ingreso_n as minn
 
 #archivo = r'C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\hotel_bookings_1.csv' # --> USADO PARA PRIMER INGRESO
 
-archivo = r'C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\DATASETS PRUEBAS\hotel_bookings_25000 - errores string.csv' #errores string
-#archivo = r'C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\DATASETS PRUEBAS\hotel_bookings_25000 ERROR_OUTLIERS.csv' #errores outliers
+#archivo = r'C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\DATASETS PRUEBAS\hotel_bookings_25000 - errores string.csv' #errores string
+archivo = r'C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\DATASETS PRUEBAS\hotel_bookings_25000 ERROR_OUTLIERS.csv' #errores outliers
 
 col_fal = []
 col_sob = []
@@ -52,6 +52,7 @@ elif(len(diccionario["COLUMNAS"]) > 0):
 		print("Se ha detectado correctamente la estructura del dataset, concuerda con el contexto del diccionario de datos. Se corregiran y cargaran los datos a la tabla histórica.")
 #------------------------------------main_ingreso.py---------------------------------------------------------------------------
 		minn.ingreso_n_datos(df)
+		actualiza_dicc_datos()# actualiza los indicadores del diccionario de datos a partir de la tabla historica luego del nuevo ingreso de datos
 #-------------------------------------------------------------------------------------------------------------------------------------
 	else:
 		#Lo que debería aparecer si es dataset no tiene los mismos nombres ni cantidad de columnas que los que se tienen registrados

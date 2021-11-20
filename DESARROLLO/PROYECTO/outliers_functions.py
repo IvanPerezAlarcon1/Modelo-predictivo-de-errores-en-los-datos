@@ -95,7 +95,7 @@ def sep_casos(df, df_num_col):
 			print("FRECUENCIAS - POST Correccion:",df_num_col.groupby(df_num_col.columns[i]).size())
 			print('\n')
 		else:
-				print("La columna {}, posee una curtosis de {}, por lo cual no se tratará su corrección de outliers en esta versión del prototipo.".format(df_num_col.columns[i], cur_col))
+				print("La columna [{}], posee una curtosis de {}, por lo cual no se tratará su corrección de outliers en esta versión del prototipo.".format(df_num_col.columns[i], cur_col))
 
 
 

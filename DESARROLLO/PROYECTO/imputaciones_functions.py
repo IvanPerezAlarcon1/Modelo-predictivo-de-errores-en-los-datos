@@ -37,9 +37,9 @@ def input_df_numerico(df,df_num):
         #print(porc_nulos)
 
         if(porc_nulos == 0):
-            print("La columna {}, no requiere tratamiento de nulos.".format(df_num.columns[i]))
+            print("La columna [{}], no requiere tratamiento de nulos.".format(df_num.columns[i]))
         elif(porc_nulos <= 10 and porc_nulos > 0):
-            print("La columna {}, contiene un {}% de nulos, por lo que es tratable.".format(df_num.columns[i], porc_nulos))
+            print("La columna [{}], contiene un {}% de nulos, por lo que es tratable.".format(df_num.columns[i], porc_nulos))
             if(cur_col >= -3.0 and cur_col <=3.0):
                 #SI LA COLUMNA CONTIENE OUTLIERS, LOS NULOS SE IMPUTAN POR MEDIANA - ESTE ESCENARIO SE ABORDA EN outliers_functions.py
                 #SI LA COLUMNA NO TIENE OUTLIERS, LOS NULOS SE IMPUTAN POR MEDIA
@@ -52,8 +52,8 @@ def input_df_numerico(df,df_num):
 
 
         elif(porc_nulos > 10):
-            print("La columna {}, posee un {}% de valores nulos, se recomienda imputar valores hasta obtener menos del 10% de valores nulos para que el conjunto tenga un grado de credibilidad aceptable.".format(df_num.columns[i], porc_nulos))
-            break
+            print("La columna [{}], posee un {}% de valores nulos, se recomienda imputar valores hasta obtener menos del 10% de valores nulos para que el conjunto tenga un grado de credibilidad aceptable.".format(df_num.columns[i], porc_nulos))
+            #break
         else:
             print('{},{}'.format(df_num.columns[i], porc_nulos))
             print("Se ha presentado un error en el proceso de detección de outliers.")

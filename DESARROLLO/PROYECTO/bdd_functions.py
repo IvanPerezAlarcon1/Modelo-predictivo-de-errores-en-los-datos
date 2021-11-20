@@ -1,9 +1,11 @@
 import psycopg2
-
 import pandas as pd
 import os
 import io
 from sqlalchemy import create_engine
+import sqlalchemy
+
+import functions as f
 
 from datetime import datetime
 now = datetime.now()
@@ -123,3 +125,58 @@ def insert_df_atabla(df):
   cur.copy_from(output, 'TABLA_HISTORICA_DATOS', null="") # null values become ''
   #cur.copy_from(output, 'TABLA_HISTORICA_{}'.format(table_name), null="") # null values become ''
   conn.commit()
+
+
+
+
+# SE DEBEN ACTUALIZAR LOS SIGUIENTES CAMPOS DE LA TABLA_DICCIONARIO_DE_DATOS:
+#TODOS LOS TIPOS:
+# MODA
+
+#SOLO PARA TIPOS NUMÉRICO:
+# VAL_MIN,VAL_MAX,CURTOSIS,MODA,MEDIA,MEDIANA
+
+'''
+c5, cx = conectarse()
+print("extrae datos de la tabla histórica de datos")
+cx.execute("""
+    select * from public."TABLA_HISTORICA_DATOS";
+  """)
+for j in cx.fetchall():
+  print(j)
+print("\n")
+'''
+
+def update_indic_bdd(df,df_string,df_num): 
+    for i in range(len(df.columns)):
+        if(df.columns[i] in df_string.columns):
+            c1, cx = conectarse()
+            cx.execute(""" update pruebas."DICCIONARIO_DE_DATOS" set "MODA" = '{v1}' 
+                       where "NOM_COL" = '{v2}'; commit;""".format(v1 = df_string[df.columns[i]].mode()[0], 
+                       v2 = df.columns[i]))
+            cx.close()
+
+        if(df.columns[i] in df_num.columns):
+            c2, cy = conectarse()
+            cy.execute(""" update pruebas."DICCIONARIO_DE_DATOS" set "MODA" = {v1}, "VAL_MIN" = {v2}, "VAL_MAX" = {v3}, 
+                       "MEDIA" = {v4}, "MEDIANA" = {v5}, "CURTOSIS" = {v6}
+                       where "NOM_COL" = '{v7}'; commit;""".format( v1 = df_num[df.columns[i]].mode()[0],
+                       v2 = df_num[df.columns[i]].min(), v3 = df_num[df.columns[i]].max(),
+                       v4 = df_num[df.columns[i]].mean() , v5 = df_num[df.columns[i]].median(),
+                       v6 = df_num[df.columns[i]].kurt(), v7 = df.columns[i]
+                       ))
+            cy.close()
+
+
+def actualiza_dicc_datos():
+  tabla = 'TABLA_HISTORICA_DATOS'
+  engine = create_engine('postgresql://postgres:admin@localhost:5433/TRABAJO_DE_TITULO')
+  df = pd.read_sql_table(tabla,engine)
+  #print(df.columns)
+  df_col_numericas,df_col_string = f.sep_col_string_and_num(df)
+  #print(df_col_numericas.columns)
+  #print(df_col_string.columns)
+  update_indic_bdd(df,df_col_string, df_col_numericas)
+
+
+#actualiza_dicc_datos()

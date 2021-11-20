@@ -6,6 +6,10 @@ import functions as f
 import bdd_functions as bdf
 import imputaciones_functions as impf 
 
+#indicador de similitud de n-grams, que indica desde que valor de similitud se acepta como duplicado
+#IND_MAX_SIM = 0.45
+IND_MAX_SIM = 0.6
+
 def col_unique_values(col_string):
     var = []
     unicos = col_string.dropna().unique() #elimina valor nan. que dio problemas en algun momento
@@ -81,7 +85,7 @@ def revisar_string_cols(df, df_string):
             for k in unicos_col_bdd:
                 print("unicos_col_bdd: ", k)
                 ind, com = diff_ngram(k,l, n_gram)
-                if(ind >= 0.6):
+                if(ind >= IND_MAX_SIM):
                 #if(ind >= 0.46):
                     #print("3-grams - REEMPLAZA: ", ind, k, l)
                     print("{}-grams - REEMPLAZA: {} {} {} ".format(n_gram,ind,k,l))
@@ -89,7 +93,7 @@ def revisar_string_cols(df, df_string):
                     df_string[df_string.columns[i]] = df_string[df_string.columns[i]].replace(to_replace = l,  value = k)
                     aux2 = 1
                     break
-                if(ind < 0.6):
+                if(ind < IND_MAX_SIM):
                 #if(ind <= 0.45):
                     #print("3-grams - NO REEMPLAZA, SE AGREGA A VALORES UNICOS: ", ind, k, l)
                     print("{}-grams - NO REEMPLAZA: {} {} {} ".format(n_gram,ind,k,l))
@@ -170,7 +174,8 @@ def similitud(unico_col,unicos_bdd,n_gram,df,df_string,col_string_name,ID):
         #print("MAX INDICE de similitud: ",max_index)
         #print("INDICE DEL INDICE MAXIMO DE SIMILITUD: ", indicadores.index(max(indicadores)))
         #print(l)
-        if(max_index >= 0.45):
+        if(max_index >= IND_MAX_SIM):
+        #if(max_index >= 0.6):
             VAR1 = bdd_vals[ind_max_index]
             print("unicos_col: ", l)
             print("unicos_col_bdd: ", VAR1)
@@ -182,8 +187,8 @@ def similitud(unico_col,unicos_bdd,n_gram,df,df_string,col_string_name,ID):
             #print(col_string_name)
             df[col_string_name] = df[col_string_name].str.replace(l, VAR1)
             df_string[col_string_name] = df_string[col_string_name].str.replace(l, VAR1)
-
-        elif(max_index < 0.45):
+        elif(max_index < IND_MAX_SIM):
+        #elif(max_index < 0.6):
             print("unicos_col: ", l)
             print("Valor único de mayor semejanza: ", bdd_vals[ind_max_index])
             #print("{}-grams - NO REEMPLAZA: {} {} {} ".format(n_gram,ind,k,l))
@@ -226,7 +231,7 @@ def similitud_test(unico_col,unicos_bdd,n_gram):
         #print("MAX INDICE de similitud: ",max_index)
         #print("INDICE DEL INDICE MAXIMO DE SIMILITUD: ", indicadores.index(max(indicadores)))
         print(l)
-        if(max_index >= 0.45):
+        if(max_index >= IND_MAX_SIM):
             print("unicos_col: ", l)
             print("unicos_col_bdd: ", bdd_vals[ind_max_index])
             print("{}-grams - REEMPLAZA: {} {} {} ".format(n_gram,ind,k,l))
@@ -235,7 +240,7 @@ def similitud_test(unico_col,unicos_bdd,n_gram):
             #df[df_string.columns[col_string_name]] = df[df_string.columns[col_string_name]].replace(to_replace = l,  value = k)
             #df_string[df_string.columns[col_string_name]] = df_string[df_string.columns[col_string_name]].replace(to_replace = l,  value = k)
 
-        elif(max_index < 0.45):
+        elif(max_index < IND_MAX_SIM):
             print("unicos_col: ", l)
             #print("unicos_col_bdd: ", bdd_vals[ind_max_index])
             #print("{}-grams - NO REEMPLAZA: {} {} {} ".format(n_gram,ind,k,l))

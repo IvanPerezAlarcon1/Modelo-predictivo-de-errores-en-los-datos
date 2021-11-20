@@ -28,7 +28,9 @@ def ingreso_n_datos(df):
 	of.sep_casos_ingreso_n(df,df_col_numericas)
 
 	#falta hacer ingreso de datos a la tabla histórica final en el ingreso n
-	bbf. insert_df_atabla(df)
+	bbf.insert_df_atabla(df)
+	
+	bbf.actualiza_dicc_datos()# actualiza los indicadores del diccionario de datos a partir de la tabla historica luego del nuevo ingreso de datos
 
 
 #ingreso_n_datos(df)

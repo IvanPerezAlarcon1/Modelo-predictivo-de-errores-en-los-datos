@@ -1,0 +1,7 @@
+PROBLEMAS ENCONTRADOS
+
+
++++++++++[outliers]++++++++++++++
+
+- Si tengo un conjunto de datos que en el diccionario me dicen que el valor máximo permitido es 1000 y el min 1, e ingreso un conjunto de datos de 100 registros, donde los datos van de 1-50, pero hay un valor 900, segun el programa actual lo dejaría ya que está dentro de los max y min
+- si ingreso un conjunto de 100 registros, con valores que van de 1-50, y viene un valor outlier de 3000, las características contempladas abarcarían este caso??

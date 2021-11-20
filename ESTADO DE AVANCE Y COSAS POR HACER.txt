@@ -15,9 +15,7 @@ las columnas pero el programa sigue, lo cual no debería pasar.
 
 + Hacer las validaciones de indicadores de si la columna acepta outliers(col numericas) y/o nulos(string/numericas), si los acepta, deja pasar las columnas
  NOTA: Se podría validar este caso con la columna que tiene casi todos los valores nulos, podría simplemente aceptarla así
-+ Hacer la retroalimentación del diccionario de datos cuando se ingresen datos al diccionario
 + ind = 0 #si una funcion de imputación detecta un break debido a que una columna string o numerica posee un % de nulos > 10%, se termina el programa 
-+ Falta ir actualizando los indicadores con la data histórica depurada.
 
 
 + Ver como hacer que al eliminar una columna del diccionario de datos, si es string, se borren los valores únicos para esa columna, o hacer
@@ -33,6 +31,8 @@ ENTONCES AL INTENTAR CORREGIR LOS OUTLIERS SE DETECTABAN MUCHOS Y ARROJÓ ERROR.
 
 
 -----------------YA REALIZADOS--------------------------- (LAS COSAS TERMINADAS SE LISTAN EN ESTE APARTADO DE LO TERMINADO RECIENTEMENTE ARRIBA Y LO TERMINADO HACE MAS TIEMPO, ESTÁ MÁS ABAJO)
++ Falta ir actualizando los indicadores con la data histórica depurada.
++ Hacer la retroalimentación del diccionario de datos cuando se ingresen datos al diccionario (se activa una vez se ingresen los nuevos datos a la tabla histórica)
 + VER COMO HACER EL INGRESO DE DATOS LUEGO DEL PRIMER INGRESO Y CONTEXTUALIZACION, YA QUE SE DEBEN COMPROBAR LOS CAMPOS DEL DF DE ENTRADA Y LOS DE LA TABLA DESTINO
 + #FALTA CORROBORAR QUE EL DATAFRAME INGRESADO ESTÉ CONTEXTUALIZADO EFECTIVAMENTE, SI NO LO ESTÁ, DEBERÍA CREARSE, SI ESTÁ CONTEXTUALIZADO, SE DEBERÍA EJECUTAR EL CÓDIGO DE AQUÍ 
   Y DEJAR EL DF RESULTANTE EN LA TABLA FINAL EN LA BDD

@@ -17,10 +17,12 @@ def input_mediana_outliers(df,df_num,col_num_name,to_replace_val):
 def input_mediana(df,df_num,col_num_name):
 	df[col_num_name] = df[col_num_name].fillna(df_num[col_num_name].median())
 	df_num[col_num_name] = df_num[col_num_name].fillna(df_num[col_num_name].median())
+	return df_num[col_num_name].median()
 
 def input_media_2(df,df_num,col_num_name):
 	df[col_num_name] = df[col_num_name].fillna(round(df_num[col_num_name].mean(),2))
 	df_num[col_num_name] = df_num[col_num_name].fillna(round(df_num[col_num_name].mean(),2))
+	return round(df_num[col_num_name].mean(),2)
 
 
 #----------------------INPUTS DE MEDIA, MEDIANA, MODA PARA ENTRADA N, DEBE TOMAR LOS ESTADISTICOS DESDE LA BDD----------
@@ -28,15 +30,30 @@ def input_media_2(df,df_num,col_num_name):
 	#la tecnica de depuración toma solo los datos de entrada para el análisis por lo que podría ir detectando outliers que no lo son.
 	#POSIBLE SOLUCIÓN, se podrían mezclar en un dataframe, los datos históricos para esa columna y analizar la mezcla de los datos de entrada con los del historico para detectar outliers
 
-'''
-def input_bdd_media(df,df_num,col_num_name):
+def input_media_ing_n(df,df_num,col_num_name):
 	c1,c2 = bdf.conectarse()
-	c1.execute("""
+	c2.execute("""
+		SELECT "MODA", "MEDIA", "MEDIANA" FROM pruebas."DICCIONARIO_DE_DATOS" WHERE "NOM_COL" = '{v1}';
+		""".format(v1 = col_num_name))
+	for i in c2.fetchall():
+		df[col_num_name] = df[col_num_name].fillna(round(i[1],2))
+		df_num[col_num_name] = df_num[col_num_name].fillna(round(i[1],2))
+		var = round(i[1],2)
+	return var
+	c2.close()
 
-		""")
-	for i in cz.fetchall():
-	c1.close()
-'''
+def input_mediana_ing_n(df,df_num,col_num_name):
+	c1,c2 = bdf.conectarse()
+	c2.execute("""
+		SELECT "MODA", "MEDIA", "MEDIANA" FROM pruebas."DICCIONARIO_DE_DATOS" WHERE "NOM_COL" = '{v1}';
+		""".format(v1 = col_num_name))
+	for i in c2.fetchall():
+		df[col_num_name] = df[col_num_name].fillna(round(i[2],2))
+		df_num[col_num_name] = df_num[col_num_name].fillna(round(i[2],2))
+		var = round(i[2],2)
+	return var
+	c2.close()
+
 #-----------------------------------------------------------------------------------------------------------------------
 
 def input_df_numerico(df,df_num):
@@ -49,7 +66,7 @@ def input_df_numerico(df,df_num):
 		porc_nulos = (count_null/cant_filas_df)*100
 
 		print("Columna analizada: ", df_num.columns[i])
-		print("Cant. nulos: ", count_null, "// Porcentaje de nulos: ",porc_nulos,"%")
+		print("Cant. nulos: ", count_null)
 		#print(cant_filas_df)
 		#print(porc_nulos)
 
@@ -60,12 +77,14 @@ def input_df_numerico(df,df_num):
 			if(cur_col >= -3.0 and cur_col <=3.0):
 				#SI LA COLUMNA CONTIENE OUTLIERS, LOS NULOS SE IMPUTAN POR MEDIANA - ESTE ESCENARIO SE ABORDA EN outliers_functions.py
 				#SI LA COLUMNA NO TIENE OUTLIERS, LOS NULOS SE IMPUTAN POR MEDIA
-				print("Esta columna posee una distribucion normal o cercana a normal, y CURTOSIS es {}".format(cur_col),", por lo que, se imputará por la media de la columna.")
-				input_media_2(df,df_num,df_num.columns[i])
+				var = input_media_ing_n(df,df_num,df_num.columns[i])
+				print("Esta columna posee una distribucion normal o cercana a normal, y CURTOSIS es {}".format(cur_col),", por lo que, se imputará por la media de la columna [{}].".format(var))
+				#input_media_2(df,df_num,df_num.columns[i])
 			else:
 				#SE IMPUTA POR MEDIANA
-				print("Esta columna no posee una distrib normal o cercana a normal, y su curtosis es {}".format(cur_col),", por lo que, se imputará por la mediana de la columna.")
-				input_mediana(df,df_num,df_num.columns[i])
+				var2 = input_mediana_ing_n(df,df_num,df_num.columns[i])
+				print("Esta columna no posee una distrib normal o cercana a normal, y su curtosis es {}".format(cur_col),", por lo que, se imputará por la mediana de la columna [{}].".format(var2))
+				#input_mediana(df,df_num,df_num.columns[i])
 
 
 		elif(porc_nulos > 10):
@@ -88,27 +107,29 @@ def input_df_numerico_1ra_entrada(df,df_num):
 		porc_nulos = (count_null/cant_filas_df)*100
 
 		print("Columna analizada: ", df_num.columns[i])
-		print("Cant. nulos: ", count_null, "// Porcentaje de nulos: ",porc_nulos,"%")
+		print("Cant. nulos: ", count_null)
 		#print(cant_filas_df)
 		#print(porc_nulos)
 
 		if(porc_nulos == 0):
-			print("La columna {}, no requiere tratamiento de nulos.".format(df_num.columns[i]))
+			print("La columna [{}], no requiere tratamiento de nulos.".format(df_num.columns[i]))
 		elif(porc_nulos <= 10 and porc_nulos > 0):
-			print("La columna {}, contiene un {}% de nulos, por lo que es tratable.".format(df_num.columns[i], porc_nulos))
+			print("La columna [{}], contiene un {}% de nulos, por lo que es tratable.".format(df_num.columns[i], porc_nulos))
 			if(cur_col >= -3.0 and cur_col <=3.0):
 				#SI LA COLUMNA CONTIENE OUTLIERS, LOS NULOS SE IMPUTAN POR MEDIANA - ESTE ESCENARIO SE ABORDA EN outliers_functions.py
 				#SI LA COLUMNA NO TIENE OUTLIERS, LOS NULOS SE IMPUTAN POR MEDIA
-				print("Esta columna posee una distribucion normal o cercana a normal, y su CURTOSIS es {}.".format(cur_col),", por lo que, se imputará por la media de la columna.")
-				input_media_2(df,df_num,df_num.columns[i])
+				var = input_media_2(df,df_num,df_num.columns[i])
+				print("Esta columna posee una distribucion normal o cercana a normal, y su CURTOSIS es {}.".format(cur_col),", por lo que, se imputará por la media de la columna [{}].".format(var))
+
 			else:
 				#SE IMPUTA POR MEDIANA
-				print("Esta columna no posee una distrib normal o cercana a normal, y su curtosis es {}.".format(cur_col),", por lo que, se imputará por la mediana de la columna.")
-				input_mediana(df,df_num,df_num.columns[i])
+				var2 = input_mediana(df,df_num,df_num.columns[i])
+				print("Esta columna no posee una distribucion normal o cercana a normal, y su curtosis es {}.".format(cur_col),", por lo que, se imputará por la mediana de la columna [{}].".format(var2))
+
 
 
 		elif(porc_nulos > 10):
-			print("La columna {}, posee un {}% de valores nulos, se recomienda imputar valores hasta obtener menos del 10% de valores nulos para que el conjunto tenga un grado de credibilidad aceptable.".format(df_num.columns[i], porc_nulos))
+			print("La columna [{}], posee un {}% de valores nulos, se recomienda imputar valores hasta obtener menos del 10% de valores nulos para que el conjunto tenga un grado de credibilidad aceptable.".format(df_num.columns[i], porc_nulos))
 			#break
 		else:
 			print('{},{}'.format(df_num.columns[i], porc_nulos))
@@ -127,7 +148,9 @@ def imputar_col_string(df,df_string,nom_col_string):
 	for i in cx.fetchall():
 		df[nom_col_string] = df[nom_col_string].fillna(i[1])
 		df_string[nom_col_string] = df_string[nom_col_string].fillna(i[1])
+		var = i[1]
 	cx.close()
+	return var
 
 
 def imput_df_string(df,df_string):
@@ -143,8 +166,8 @@ def imput_df_string(df,df_string):
 			print("\n")
 		elif(porc_nulos <= 10.0):
 			#SI EL % DE NULOS ES <=10% SE REQUIERE TRATAMIENTO TIPO STRING, O SEA IMPUTACIÓN POR MODA O VALOR PREDEFINIDO
-			print("La columna {}, será tratada, su porcentaje de nulos no supera el 10%, ya que es de {}%".format(df_string.columns[i],porc_nulos))
-			imputar_col_string(df,df_string,df_string.columns[i])
+			var = imputar_col_string(df,df_string,df_string.columns[i])
+			print("La columna [{}], será tratada, su porcentaje de nulos no supera el 10%, ya que es de {}%, se imputará por el valor moda de [{}]".format(df_string.columns[i],porc_nulos,var))
 			print("\n")
 		else:
 			#SI EL % DE NULOS ES > 10%, NO SE REALIZARÁN MÁS ACCIONES SOBRE EL CONJUNTO YA QUE UNA COLUMNA POSEE UN NIVEL DE DATOS MUY POCO REPRESENTATIVO.
@@ -160,16 +183,16 @@ def imput_df_string_1ra_entrada(df,df_string):
 		print("CANT. NULOS: ", count_null)
 		if(porc_nulos == 0.0):
 			#SI EL % DE NULOS ES 0%, LA COLUMNA NO REQUIERE TRATAMIENTO
-			print("La columna {}, no requiere tratamiento de valores nulos, ya que tiene un {}% de valores nulos.".format(df_string.columns[i],porc_nulos))
+			print("La columna [{}], no requiere tratamiento de valores nulos, ya que tiene un {}% de valores nulos.".format(df_string.columns[i],porc_nulos))
 			print("\n")
 		elif(porc_nulos <= 10.0):
 			#SI EL % DE NULOS ES <=10% SE REQUIERE TRATAMIENTO TIPO STRING, O SEA IMPUTACIÓN POR MODA O VALOR PREDEFINIDO
-			print("La columna {}, será tratada, su porcentaje de nulos no supera el 10%, ya que es de {}%".format(df_string.columns[i],porc_nulos))
-			imputar_col_string(df,df_string,df_string.columns[i])
+			var = imputar_col_string(df,df_string,df_string.columns[i])
+			print("La columna [{}], será tratada, su porcentaje de nulos no supera el 10%, ya que es de {}%, se imputará por el valor moda de [{}]".format(df_string.columns[i],porc_nulos,var))
 			print("\n")
 		else:
 			#SI EL % DE NULOS ES > 10%, NO SE REALIZARÁN MÁS ACCIONES SOBRE EL CONJUNTO YA QUE UNA COLUMNA POSEE UN NIVEL DE DATOS MUY POCO REPRESENTATIVO.
-			print("La columna {}, posee un {}% de nulos, el cual supera el 10%, favor de ingresar un conjunto de datos que no supere este porcentaje de nulos en cualquiera de sus columnas.")
+			print("La columna [{}], posee un {}% de nulos, el cual supera el 10%, favor de ingresar un conjunto de datos que no supere este porcentaje de nulos en cualquiera de sus columnas.")
 			#break #rompe el ciclo for
 
 '''

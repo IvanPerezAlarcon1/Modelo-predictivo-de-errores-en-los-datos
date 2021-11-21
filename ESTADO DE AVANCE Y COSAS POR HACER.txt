@@ -21,7 +21,6 @@ las columnas pero el programa sigue, lo cual no debería pasar.
 + Ver como hacer que al eliminar una columna del diccionario de datos, si es string, se borren los valores únicos para esa columna, o hacer
 que no la tome, en caso de no requerirla más. Eliminacion en cascada de la tabla UNIQUE_VALUES
 + Ver si agregar la expresión regular como validación a las columnas string
-+ Ver si se agrega el IRQ al diccionario
 + El analista podría ingresar valores únicos a la tabla en caso de requerirse, actualmente se haría mediante un insert
 + Se podría consultar el tipo  de archivo de entrada, si es excel, si es .csv(y su sparador), o si la entrada será una tabla de bdd(ingresar el nombre y esquema)
 
@@ -31,6 +30,7 @@ ENTONCES AL INTENTAR CORREGIR LOS OUTLIERS SE DETECTABAN MUCHOS Y ARROJÓ ERROR.
 
 
 -----------------YA REALIZADOS--------------------------- (LAS COSAS TERMINADAS SE LISTAN EN ESTE APARTADO DE LO TERMINADO RECIENTEMENTE ARRIBA Y LO TERMINADO HACE MAS TIEMPO, ESTÁ MÁS ABAJO)
++ Ver si se agrega el IRQ al diccionario -> NO se agrega
 + Falta ir actualizando los indicadores con la data histórica depurada.
 + Hacer la retroalimentación del diccionario de datos cuando se ingresen datos al diccionario (se activa una vez se ingresen los nuevos datos a la tabla histórica)
 + VER COMO HACER EL INGRESO DE DATOS LUEGO DEL PRIMER INGRESO Y CONTEXTUALIZACION, YA QUE SE DEBEN COMPROBAR LOS CAMPOS DEL DF DE ENTRADA Y LOS DE LA TABLA DESTINO

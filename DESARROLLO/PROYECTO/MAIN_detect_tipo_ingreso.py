@@ -15,10 +15,10 @@ import main_ingreso_n as minn
 
 #archivo = r'C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\DATASETS PRUEBAS\hotel_bookings_25000 - errores string.csv' #errores string
 
-archivo = r'C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\DATASETS PRUEBAS\hotel_bookings_25000 ERROR_OUTLIERS.csv' #errores outliers
+#archivo = r'C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\DATASETS PRUEBAS\hotel_bookings_25000 ERROR_OUTLIERS.csv' #errores outliers
 #archivo = r'C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\DATASETS PRUEBAS\hotel_bookings_150 ERROR_OUTLIERS.csv' #errores outliers que deben detectarse por dixon
 
-#archivo = r'C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\DATASETS PRUEBAS\hotel_bookings_25000 - NULLS CORRECCION.csv'
+archivo = r'C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\DATASETS PRUEBAS\hotel_bookings_25000 - NULLS CORRECCION.csv'
 
 col_fal = []
 col_sob = []

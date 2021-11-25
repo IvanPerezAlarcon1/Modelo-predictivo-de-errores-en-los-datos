@@ -1,0 +1,18 @@
+CONTEXTUALIZAR MODELO - SEPARADOR - ;
+C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\ARCHIVOS\hotel_bookings_1.csv
+
+
+PROBLEMAS DE DUPLICADOS - SEPARADOR - ,
+C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\ARCHIVOS\hotel_bookings_25000 - errores string.csv
+
+
+PROBLEMAS DE NULOS - SEPARADOR - ;
+C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\ARCHIVOS\hotel_bookings_25000 - NULLS CORRECCION.csv
+
+
+PROBLEMAS OUTLIERS - SEPARADOR - ;
+C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\ARCHIVOS\hotel_bookings_25000 ERROR_OUTLIERS.csv
+
+
+ARCHIVO EXCEL
+C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\ARCHIVOS\hotel_bookings_1.xlsx

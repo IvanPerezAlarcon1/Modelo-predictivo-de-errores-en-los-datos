@@ -9,11 +9,13 @@ información tan vaga
 
 + programar el que pueda tener una tabla de bdd como entrada
 + programar escenarios de depuracion de outliers tukey y dixon
++ Hacer las validaciones de indicadores de si la columna acepta outliers(col numericas) y/o nulos(string/numericas), si los acepta, deja pasar las columnas
+
 + Programar un indicador, que se corte el programa completo si es que el dataframe posee más de un 10% de nulos en una columna luego de dejar el aviso del caso, por ahora solo se corta el for que recorre
 las columnas pero el programa sigue, lo cual no debería pasar.
 
 
-+ Hacer las validaciones de indicadores de si la columna acepta outliers(col numericas) y/o nulos(string/numericas), si los acepta, deja pasar las columnas
+
  NOTA: Se podría validar este caso con la columna que tiene casi todos los valores nulos, podría simplemente aceptarla así
 + ind = 0 #si una funcion de imputación detecta un break debido a que una columna string o numerica posee un % de nulos > 10%, se termina el programa 
 

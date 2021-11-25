@@ -13,6 +13,11 @@ def input_mediana_outliers(df,df_num,col_num_name,to_replace_val):
 	df[col_num_name] = df[col_num_name].replace(to_replace = to_replace_val, value = round(df[col_num_name].median(),2))
 	df_num[col_num_name] = df_num[col_num_name].replace(to_replace = to_replace_val, value = round(df_num[col_num_name].median(),2))
 
+def input_mediana_outliers_ing_n(df,df_num,col_num_name,to_replace_val,mediana):
+	#indicador = bdf.extrae_ind_col_num(col_num_name)
+	df[col_num_name] = df[col_num_name].replace(to_replace = to_replace_val, value = round(mediana,2))
+	df_num[col_num_name] = df_num[col_num_name].replace(to_replace = to_replace_val, value = round(mediana,2))
+
 
 def input_mediana(df,df_num,col_num_name):
 	df[col_num_name] = df[col_num_name].fillna(df_num[col_num_name].median())

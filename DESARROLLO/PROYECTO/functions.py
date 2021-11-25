@@ -9,6 +9,14 @@ def dataframe_from_file(archivo): #detecta el tipo de archivo y devuelve un data
         dataframe = pd.read_excel(archivo)
     return dataframe
 
+def dataframe_from_file_sep(archivo,separador):
+    aux1, aux2 =  os.path.splitext(archivo)
+    if (aux2) == '.csv':
+        dataframe = pd.read_csv(archivo,sep = separador)
+    if(aux2) == '.xlsx':
+        dataframe = pd.read_excel(archivo)
+    return dataframe
+
 def nombre_archivo(archivo): #retorna el nombre del archivo ingresado
 	aux1,aux2 = os.path.splitext(os.path.basename(archivo))
 	return aux1

@@ -7,8 +7,8 @@ import bdd_functions as bdf
 import imputaciones_functions as impf 
 
 #indicador de similitud de n-grams, que indica desde que valor de similitud se acepta como duplicado
-#IND_MAX_SIM = 0.45
-IND_MAX_SIM = 0.6
+IND_MAX_SIM = 0.45
+#IND_MAX_SIM = 0.6
 
 def col_unique_values(col_string):
     var = []

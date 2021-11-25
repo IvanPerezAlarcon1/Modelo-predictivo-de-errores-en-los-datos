@@ -88,7 +88,7 @@ def sep_casos(df, df_num_col):
 				else:
 					#--------------------------FALTA HACER IMPLEMENTACIÓN DE TUKEY-------01-11-2021-------------------------
 					#SI IRQ = 0, SE USA TUKEY para detectar outliers, cambiando valores de outliers por, la MEDIANA
-					print("Esta col, se debe analizar por método de Tukey, cambiando los outliers por ")
+					print("Esta col, se debe analizar por método de Tukey")
 					probables_outliers, posibles_outliers = of.tukeys_method(df_num_col,df_num_col.columns[i])
 					print("PROBABLES OUTLIERS: ",probables_outliers)
 					print("POSIBLES_OUTLIERS",posibles_outliers)
@@ -110,11 +110,11 @@ def sep_casos_ingreso_n(df, df_num_col):
 		cant_col_df = df_num_col.shape[1] #CANT. DE COLUMNAS DEL DATAFRAME
 		IRQ = inter_cuar_rang(df_num_col[df_num_col.columns[i]]) #RANGO INTERCUARTIL DE LA COLUMNA
 		#PARA DETECTAR OUTLIERS, LA CONDICION ES QUE LA COL TENGA DISTRIB NORMAL, LUEGO PRIMERO SE TOMAN SOLO ESTAS FILAS
-
 		#----------------------13-11-2021---------
 		#INDICADORES DE LA COLUMNA DESDE LA BDD
 		val_max = df_num_col[df_num_col.columns[i]].max()
 		val_min = df_num_col[df_num_col.columns[i]].min()
+		mediana = df_num_col[df_num_col.columns[i]].median()
 		ind_col_num_bdd = bdf.extrae_ind_col_num(df_num_col.columns[i]) #extrae indicadores almacenados para la columna numerica
 		if (val_max > ind_col_num_bdd[3] or val_min < ind_col_num_bdd[2]):
 
@@ -133,7 +133,7 @@ def sep_casos_ingreso_n(df, df_num_col):
 					#CALCULAR EL RANGO INTERCUARTIL Y EN BASE A ESO GENERAR LOS CASOS PARA GRUBBS Y TUKEY
 					if(IRQ != 0):
 						#IRQ != 0 SE USA GRUBBS
-						print("Esta col, se analizará por GRUBBS, si encuentra outliers los corregirá por la mediana de la columna.")
+						print("Esta col, se analizará por GRUBBS, si encuentra outliers los corregirá por la mediana de la columna [{}].".format(mediana))
 						max_grubbs_outliers = grubbs.max_test_outliers(df_num_col[df_num_col.columns[i]], alpha = 0.05)
 						min_grubbs_outliers = grubbs.min_test_outliers(df_num_col[df_num_col.columns[i]], alpha = 0.05)
 						#while que itera mediante grubbs hasta que deja de detectar outliers, los cuales son corregidos en el df
@@ -145,17 +145,16 @@ def sep_casos_ingreso_n(df, df_num_col):
 							#en estos casos se debe imputar por la mediana, no por la media
 							if(len(max_grubbs_outliers) > 0):
 								for ma in max_grubbs_outliers:
-									#inp_f.imput_media(df,df_num_col,df_num_col.columns[i],ma)
 									inp_f.input_mediana_outliers(df,df_num_col,df_num_col.columns[i],ma)
-
+									#inp_f.input_mediana_outliers_ing_n(df,df_num_col,df_num_col.columns[i],ma,indicadores[7]) #no funciona
 							if(len(min_grubbs_outliers) > 0):
 								for mi in min_grubbs_outliers:
-									#inp_f.imput_media(df,df_num_col,df_num_col.columns[i],mi)
 									inp_f.input_mediana_outliers(df,df_num_col,df_num_col.columns[i],mi)
+									#inp_f.input_mediana_outliers_ing_n(df,df_num_col,df_num_col.columns[i],ma,indicadores[7]) #no funciona
 					else:
 						#--------------------------FALTA HACER IMPLEMENTACIÓN DE TUKEY-------01-11-2021-------------------------
 						#SI IRQ = 0, SE USA TUKEY para detectar outliers, cambiando valores de outliers por, la MEDIANA
-						print("Esta col, se debe analizar por método de Tukey, cambiando los outliers por ")
+						print("Esta col, se debe analizar por método de Tukey")
 						probables_outliers, posibles_outliers = of.tukeys_method(df_num_col,df_num_col.columns[i])
 						print("PROBABLES OUTLIERS: ",probables_outliers)
 						print("POSIBLES_OUTLIERS",posibles_outliers)
@@ -163,13 +162,13 @@ def sep_casos_ingreso_n(df, df_num_col):
 				print('\n')
 
 			else:
-				print("La columna {}, posee una curtosis de {}, por lo cual no se tratará su corrección de outliers en esta versión del prototipo.".format(df_num_col.columns[i], cur_col))
+				print("La columna [{}], posee una curtosis de {}, por lo cual no se tratará su corrección de outliers en esta versión del prototipo.".format(df_num_col.columns[i], cur_col))
 
 		elif(val_max <= ind_col_num_bdd[3] and val_min >= ind_col_num_bdd[2]):
 			print("Los valores máximo y mínimo de la columna [{}] del conjunto de entrada MAX: {} y MIN: {}, están dentro de los rangos definidos en el primer ingreso MAX: {} y MIN: {}. Esta columna no requiere corrección de outliers.".format(df_num_col.columns[i], val_max,val_min,ind_col_num_bdd[3], ind_col_num_bdd[2]))
 			#break
 		else:
-			print("HA OCURRIDO UN ERROR EN LA DETECCION DE OUTLIERS EN LA COLUMNA {}.".format(df_num_col.columns[i]))
+			print("HA OCURRIDO UN ERROR EN LA DETECCION DE OUTLIERS EN LA COLUMNA [{}].".format(df_num_col.columns[i]))
 			print(val_max,val_min,ind_col_num_bdd[3], ind_col_num_bdd[2])
 			break
 

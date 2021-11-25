@@ -18,7 +18,9 @@ import main_ingreso_n as minn
 #archivo = r'C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\DATASETS PRUEBAS\hotel_bookings_25000 ERROR_OUTLIERS.csv' #errores outliers
 #archivo = r'C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\DATASETS PRUEBAS\hotel_bookings_150 ERROR_OUTLIERS.csv' #errores outliers que deben detectarse por dixon
 
-archivo = r'C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\DATASETS PRUEBAS\hotel_bookings_25000 - NULLS CORRECCION.csv'
+#archivo = r'C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\DATASETS PRUEBAS\hotel_bookings_25000 - NULLS CORRECCION.csv'
+
+
 
 col_fal = []
 col_sob = []
@@ -31,12 +33,13 @@ def corrobora_columnas(diccionario,df_columns,columnas_faltantes,columnas_sobran
 		if (j not in df_columns):
 			columnas_faltantes.append(j)
 
+
 df = f.dataframe_from_file(archivo)
 name_file = f.nombre_archivo(archivo)
 df_col_numericas,df_col_string = f.sep_col_string_and_num(df)
 
 diccionario = bbf.columnas_df_bdd() #obtengo las columnas que tiene el diccionario de datos, las cuales deben coincidir con el archivo de entrada
-exaple_list = ['col1','col2']
+#example_list = ['col1','col2']
 
 
 #-----------------------------MAIN--------------------------------------------------

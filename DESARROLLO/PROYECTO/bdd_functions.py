@@ -137,16 +137,6 @@ def insert_df_atabla(df):
   conn.commit()
 
 
-
-
-# SE DEBEN ACTUALIZAR LOS SIGUIENTES CAMPOS DE LA TABLA_DICCIONARIO_DE_DATOS:
-#TODOS LOS TIPOS:
-# MODA
-
-#SOLO PARA TIPOS NUMÉRICO:
-# VAL_MIN,VAL_MAX,CURTOSIS,MODA,MEDIA,MEDIANA
-
-
 def update_indic_bdd(df,df_string,df_num): 
     for i in range(len(df.columns)):
         if(df.columns[i] in df_string.columns):
@@ -179,3 +169,36 @@ def actualiza_dicc_datos():
 
 
 #actualiza_dicc_datos()
+
+
+
+
+
+def trae_tabla_bdd(tabla): #trae tabla por el nombre en caso de que se ingrese como parámetro
+  try:
+    engine = create_engine('postgresql://postgres:admin@localhost:5433/TRABAJO_DE_TITULO')
+    df = pd.read_sql_table(tabla,engine)
+    #print(df.columns)
+    #print(df)
+    return df
+  except SQLAlchemyError as e:
+    error = str(e.__dict__['orig'])
+    #print(error)
+    print("El error es: ",e,type(e), error)
+
+
+def lista_tablas_bdd():
+  tablas = []
+  c3, cz = conectarse()
+  cz.execute("""
+    SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE';
+    """)
+  for i in cz.fetchall():
+    tablas.append(i[0])
+  #print(tablas)
+  cz.close()
+  return tablas
+
+
+
+#lista_tablas_bdd()

@@ -42,7 +42,7 @@ while ans:
 	print("1 - archivo de extensión .csv")
 	print("2 - archivo excel de extensión .xlsx")
 	print("3 - nombre de tabla base de datos postgresql (la tabla debe estar en la misma bdd que el prototipo, esquema public)")
-	print("4 o cualquier otro número para salir.")
+	print("4 - para salir.")
 	print("\n")
 	ans = input("Ingrese la opción requerida: ")
 	if(ans == "1"):

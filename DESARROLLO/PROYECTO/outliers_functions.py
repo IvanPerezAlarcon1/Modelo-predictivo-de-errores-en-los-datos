@@ -37,9 +37,8 @@ def tukeys_method(df, variable):
 	for index, x in enumerate(df[variable]):
 		if x <= inner_fence_le or x >= inner_fence_ue:
 			#outliers_poss.append(index)
-			outliers_prob.append(x)
+			outliers_poss.append(x)
 	return outliers_prob, outliers_poss
-
 
 
 def sep_casos(df, df_num_col):
@@ -99,6 +98,8 @@ def sep_casos(df, df_num_col):
 
 
 
+#PRUEBA PARA TUKEY detección de outliers
+'''
 def sep_casos_ingreso_n(df, df_num_col):
 	print("---------COLUMNAS CON CURTOSIS ENTRE [-3,3], DEL DF DE ENTRADA--------\n\n")
 	for i in range(len(df_num_col.columns)):
@@ -133,9 +134,9 @@ def sep_casos_ingreso_n(df, df_num_col):
 						break
 					else:
 						#CALCULAR EL RANGO INTERCUARTIL Y EN BASE A ESO GENERAR LOS CASOS PARA GRUBBS Y TUKEY
-						if(IRQ != 0):
+						if(IRQ == 0):
 							#IRQ != 0 SE USA GRUBBS
-							print("Esta col, se analizará por GRUBBS, si encuentra outliers los corregirá por la mediana de la columna [{}].".format(mediana))
+							print("Esta col, se analizará por GRUBBS, si encuentra outliers los corregirá por la mediana de la columna, [{}].".format(mediana))
 							max_grubbs_outliers = grubbs.max_test_outliers(df_num_col[df_num_col.columns[i]], alpha = 0.05)
 							min_grubbs_outliers = grubbs.min_test_outliers(df_num_col[df_num_col.columns[i]], alpha = 0.05)
 							#while que itera mediante grubbs hasta que deja de detectar outliers, los cuales son corregidos en el df
@@ -156,10 +157,23 @@ def sep_casos_ingreso_n(df, df_num_col):
 						else:
 							#--------------------------FALTA HACER IMPLEMENTACIÓN DE TUKEY-------01-11-2021-------------------------
 							#SI IRQ = 0, SE USA TUKEY para detectar outliers, cambiando valores de outliers por, la MEDIANA
-							print("Esta col, se debe analizar por método de Tukey")
-							probables_outliers, posibles_outliers = of.tukeys_method(df_num_col,df_num_col.columns[i])
-							print("PROBABLES OUTLIERS: ",probables_outliers)
-							print("POSIBLES_OUTLIERS",posibles_outliers)
+							#CORRECCION, SE USABA GRUBBS CUANDO IRQ = 0 Y TUKEY CUANDO IRQ != 0, PERO GRUBBS HA DADO BUENOS RESULTADOS EN EL SEGUNDO CASO, PUES EL SEGUNDO CASO ES MUY RARO DE DARSE, PODRÍA IMPLEMENTARSE SOLO GRUBBS PARA AMBOS CASOS
+							print("Esta col, se debe analizar por método de Tukey, si se encuentran outliers, se corregiran por la mediana de la columna, [{}].".format(mediana))
+							probables_outliers, posibles_outliers = tukeys_method(df_num_col,df_num_col.columns[i])
+							#while(len(probables_outliers) > 0 or len(posibles_outliers) > 0): #EN POSIBLES OUTLIERS APARECEN TANTO LOS PROBABLES COMO POSIBLES
+							while(len(posibles_outliers) > 0):
+								#probables_outliers, posibles_outliers = tukeys_method(df_num_col,df_num_col.columns[i])
+								#print("PROBABLES OUTLIERS: ",probables_outliers)
+								print("OUTLIERS DETECTADOS",posibles_outliers)
+								#if(len(probables_outliers) > 0):
+								#	for po in probables_outliers:
+								#		inp_f.input_mediana_outliers(df,df_num_col,df_num_col.columns[i],po)
+								if(len(posibles_outliers) > 0):
+									for pos_o in posibles_outliers:
+										inp_f.input_mediana_outliers(df,df_num_col,df_num_col.columns[i],pos_o)
+								probables_outliers, posibles_outliers = tukeys_method(df_num_col,df_num_col.columns[i])
+
+
 					print("FRECUENCIAS - POST Correccion:",df_num_col.groupby(df_num_col.columns[i]).size())
 					print('\n')
 
@@ -177,8 +191,11 @@ def sep_casos_ingreso_n(df, df_num_col):
 			print("Se ha especificado en el diccionario de datos, que la columna [{}], no sea tratada para outliers, debido al contexto.\n".format(df_num_col.columns[i]))
 		else:
 			print("Ha ocurrido un error en la corrección de outliers para la columna [{}]\n".format(df_num_col.columns[i]))
-
 '''
+
+
+#----------ya funcional con correccion por grubbs - respaldo para hacer pruebas con tukey
+
 
 def sep_casos_ingreso_n(df, df_num_col):
 	print("---------COLUMNAS CON CURTOSIS ENTRE [-3,3], DEL DF DE ENTRADA--------\n\n")
@@ -252,7 +269,7 @@ def sep_casos_ingreso_n(df, df_num_col):
 			print(val_max,val_min,ind_col_num_bdd[3], ind_col_num_bdd[2])
 			break
 
-'''
+
 
 
 """

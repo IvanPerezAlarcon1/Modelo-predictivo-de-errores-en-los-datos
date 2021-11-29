@@ -4,11 +4,7 @@
 
 - Ver el escenario donde se ingresen las mismas columnas, pero en distinto orden
 
-- Si existe alguna columna que tenga más de un 10% de valores nulos, el conjunto completo no debería ingresarse a la tabla final, ya que no sería representativo hacer algún tipo de acción con
-información tan vaga
-
 + programar escenarios de depuracion de outliers tukey y dixon
-+ Hacer las validaciones de indicadores de si la columna acepta outliers(col numericas) y/o nulos(string/numericas), si los acepta, deja pasar las columnas
 
 + Ver como hacer que al eliminar una columna del diccionario de datos, si es string, se borren los valores únicos para esa columna, o hacer
 que no la tome, en caso de no requerirla más. Eliminacion en cascada de la tabla UNIQUE_VALUES
@@ -19,8 +15,19 @@ que no la tome, en caso de no requerirla más. Eliminacion en cascada de la tabl
 ERRORES: CUANDO VOY A CORREGIR OUTLIERS, EN ADR IMPUTÉ UN OUTLIER Y EL PROGRAMA ARROJÓ ERROR, PORQUE LA CURTOSIS EN LA BDD ERA MAYOR A MIL, PERO EN EL DATASET INGRESADO ERA DE 1.8, 
 ENTONCES AL INTENTAR CORREGIR LOS OUTLIERS SE DETECTABAN MUCHOS Y ARROJÓ ERROR.
 
+--------------------------------PROBLEMAS QUE FALTAN POR RESOLVER---------------------------------------
+- Para outliers, en caso de que se utilice tukey, de todas formas me equivoqué al mencionar que tukey era la óptima para el elcenario en que IRQ = 0, según la investigación esa es Grubbs,
+	- Se podría corregir el informe a que si IRQ = 0 se usa grubbs y en caso contrario Tukey, luego en las pruebas probar con tukey, mencionar que no tiene muy buen desempeño, probar 
+	  con Grubbs para cuando IRQ != 0 y dejarlo como tecnica detectora de outliers para ambos escenarios predefinida.
+
+--------------------------------------------------------------------------------------------------------
+
+
 
 -----------------YA REALIZADOS--------------------------- (LAS COSAS TERMINADAS SE LISTAN EN ESTE APARTADO DE LO TERMINADO RECIENTEMENTE ARRIBA Y LO TERMINADO HACE MAS TIEMPO, ESTÁ MÁS ABAJO)
+- Si existe alguna columna que tenga más de un 10% de valores nulos, el conjunto completo no debería ingresarse a la tabla final, ya que no sería representativo hacer algún tipo de acción con
+información tan vaga -> por esta versión se deja ingresar al conjunto final pero se da aviso de la existencia de más del 10% de valores nulos
++ Hacer las validaciones de indicadores de si la columna acepta outliers(col numericas) y/o nulos(string/numericas), si los acepta, deja pasar las columnas
 + Se podría consultar el tipo  de archivo de entrada, si es excel, si es .csv(y su sparador), o si la entrada será una tabla de bdd(ingresar el nombre y esquema) -> se hizo un menú
 + programar el que pueda tener una tabla de bdd como entrada
 + Ver si se agrega el IRQ al diccionario -> NO se agrega

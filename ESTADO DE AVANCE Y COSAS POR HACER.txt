@@ -7,24 +7,13 @@
 - Si existe alguna columna que tenga más de un 10% de valores nulos, el conjunto completo no debería ingresarse a la tabla final, ya que no sería representativo hacer algún tipo de acción con
 información tan vaga
 
-+ programar el que pueda tener una tabla de bdd como entrada
 + programar escenarios de depuracion de outliers tukey y dixon
 + Hacer las validaciones de indicadores de si la columna acepta outliers(col numericas) y/o nulos(string/numericas), si los acepta, deja pasar las columnas
-
-+ Programar un indicador, que se corte el programa completo si es que el dataframe posee más de un 10% de nulos en una columna luego de dejar el aviso del caso, por ahora solo se corta el for que recorre
-las columnas pero el programa sigue, lo cual no debería pasar.
-
-
-
- NOTA: Se podría validar este caso con la columna que tiene casi todos los valores nulos, podría simplemente aceptarla así
-+ ind = 0 #si una funcion de imputación detecta un break debido a que una columna string o numerica posee un % de nulos > 10%, se termina el programa 
-
 
 + Ver como hacer que al eliminar una columna del diccionario de datos, si es string, se borren los valores únicos para esa columna, o hacer
 que no la tome, en caso de no requerirla más. Eliminacion en cascada de la tabla UNIQUE_VALUES
 + Ver si agregar la expresión regular como validación a las columnas string
 + El analista podría ingresar valores únicos a la tabla en caso de requerirse, actualmente se haría mediante un insert
-+ Se podría consultar el tipo  de archivo de entrada, si es excel, si es .csv(y su sparador), o si la entrada será una tabla de bdd(ingresar el nombre y esquema)
 
 
 ERRORES: CUANDO VOY A CORREGIR OUTLIERS, EN ADR IMPUTÉ UN OUTLIER Y EL PROGRAMA ARROJÓ ERROR, PORQUE LA CURTOSIS EN LA BDD ERA MAYOR A MIL, PERO EN EL DATASET INGRESADO ERA DE 1.8, 
@@ -32,6 +21,8 @@ ENTONCES AL INTENTAR CORREGIR LOS OUTLIERS SE DETECTABAN MUCHOS Y ARROJÓ ERROR.
 
 
 -----------------YA REALIZADOS--------------------------- (LAS COSAS TERMINADAS SE LISTAN EN ESTE APARTADO DE LO TERMINADO RECIENTEMENTE ARRIBA Y LO TERMINADO HACE MAS TIEMPO, ESTÁ MÁS ABAJO)
++ Se podría consultar el tipo  de archivo de entrada, si es excel, si es .csv(y su sparador), o si la entrada será una tabla de bdd(ingresar el nombre y esquema) -> se hizo un menú
++ programar el que pueda tener una tabla de bdd como entrada
 + Ver si se agrega el IRQ al diccionario -> NO se agrega
 + Falta ir actualizando los indicadores con la data histórica depurada.
 + Hacer la retroalimentación del diccionario de datos cuando se ingresen datos al diccionario (se activa una vez se ingresen los nuevos datos a la tabla histórica)

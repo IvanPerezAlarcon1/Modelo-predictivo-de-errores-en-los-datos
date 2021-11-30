@@ -23,6 +23,7 @@ def conectarse():
 def insert_indic_bdd(df,df_string,df_num): 
     for i in range(len(df.columns)):
         if(df.columns[i] in df_string.columns):
+            #print(df.columns[i])
             c1, cx = conectarse()
             cx.execute(""" insert into pruebas."DICCIONARIO_DE_DATOS"("NOM_COL", "TIPO_DATO", "MODA") 
                        VALUES ('{v1}','{v2}','{v3}'); commit;""".format(v1 = df.columns[i], 
@@ -30,6 +31,7 @@ def insert_indic_bdd(df,df_string,df_num):
             cx.close()
 
         if(df.columns[i] in df_num.columns):
+            #print(df.columns[i])
             c2, cy = conectarse()
             cy.execute(""" insert into pruebas."DICCIONARIO_DE_DATOS"("NOM_COL", "TIPO_DATO", "MODA", "VAL_MIN", "VAL_MAX", 
                        "MEDIA", "MEDIANA","CURTOSIS") 
@@ -93,7 +95,7 @@ def insert_unique_values_string(dataframe_cols,string_dataframe):
             aux = string_dataframe[dataframe_cols["COLUMNAS"][i]].unique()
             for j in range(len(aux)):
                 cz.execute(""" insert into pruebas."UNIQUE_VALUES_STRING_COLUMNS"("ID_DICC_DATOS","VAL_UNICO") VALUES 
-                          ('{v1}','{v2}'); COMMIT;""".format(v1 = dataframe_cols["ID"][i], v2 = aux[j]))
+                          ('{v1}','{v2}'); COMMIT;""".format(v1 = dataframe_cols["ID"][i], v2 = aux[j].replace("'","''")))
     cz.close()
 
 def alter_num_types(df_num):

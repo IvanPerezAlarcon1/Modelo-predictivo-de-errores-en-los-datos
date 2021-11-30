@@ -161,3 +161,6 @@ while ans:
 		ans = False
 	elif (ans != ""):
 		print("***Opción no válida, ingrese una opción válida***\n")
+
+	col_fal = []
+	col_sob = []

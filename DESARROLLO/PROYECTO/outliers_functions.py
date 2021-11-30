@@ -60,7 +60,7 @@ def sep_casos(df, df_num_col):
 			if(cant_filas_df <=200):
 				#Calcular outliers con dixon, cambiando los valores outliers por la MEDIANA
 				print("Se debería usar Prueba de Dixon para buscar outliers en este conjunto, dado que su nro de registros es: {}".format(cant_filas_df))
-				break
+				#break
 			else:
 				#CALCULAR EL RANGO INTERCUARTIL Y EN BASE A ESO GENERAR LOS CASOS PARA GRUBBS Y TUKEY
 				if(IRQ != 0):
@@ -225,7 +225,7 @@ def sep_casos_ingreso_n(df, df_num_col):
 				if(cant_filas_df <=200):
 					#Calcular outliers con dixon, cambiando los valores outliers por la MEDIANA
 					print("Se debería usar Prueba de Dixon para buscar outliers en este conjunto, dado que su nro de registros es: {}".format(cant_filas_df))
-					break
+					#break
 				else:
 					#CALCULAR EL RANGO INTERCUARTIL Y EN BASE A ESO GENERAR LOS CASOS PARA GRUBBS Y TUKEY
 					if(IRQ != 0):

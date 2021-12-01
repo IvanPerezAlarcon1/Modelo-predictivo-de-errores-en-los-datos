@@ -16,3 +16,20 @@ C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\ARCHIVOS\hotel_
 
 ARCHIVO EXCEL
 C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\ARCHIVOS\hotel_bookings_1.xlsx
+
+
+
+---------------------------------------------
++ C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\data_test.xlsx
++ C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\data_test - sin fecha.xlsx
+
++ C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\salesworkload.xlsx
++ C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\salesworkload - correc_num_cols.xlsx
++ C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\salesworkload - correc_num_cols - outliers.xlsx
+
+
+ERRORES OBSERVADOS:
+
+- por ejemplo si se ingresa una columna sin registros, el programa arroja error
+- Datos string con caracteres raros como O'hagan arroja error para ingresarlo a postgresql por un insert
+- Verificar que en columnas numericas no existan caracteres si no el programa reconoce la columna completa como string

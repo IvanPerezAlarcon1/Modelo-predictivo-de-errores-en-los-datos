@@ -10,6 +10,7 @@ import functions as f
 from datetime import datetime
 now = datetime.now()
 date_time = now.strftime("%m-%d-%Y %H:%M:%S")
+var_conexion = 'postgresql://postgres:admin@localhost:5433/TRABAJO_DE_TITULO'
 
 def conectarse():
     try:
@@ -90,12 +91,16 @@ def extrae_ind_col_num(nom_col):
 
 def insert_unique_values_string(dataframe_cols,string_dataframe):
     c3, cz = conectarse()
+    #print(dataframe_cols)
     for i in range(len(dataframe_cols["TYPES"])):
         if(dataframe_cols["TYPES"][i] not in ['int64','float64','number']):
             aux = string_dataframe[dataframe_cols["COLUMNAS"][i]].unique()
+            #print(dataframe_cols["COLUMNAS"][i])
+            #print(aux)
             for j in range(len(aux)):
-                cz.execute(""" insert into pruebas."UNIQUE_VALUES_STRING_COLUMNS"("ID_DICC_DATOS","VAL_UNICO") VALUES 
-                          ('{v1}','{v2}'); COMMIT;""".format(v1 = dataframe_cols["ID"][i], v2 = aux[j].replace("'","''")))
+              #print(aux[j])
+              cz.execute(""" insert into pruebas."UNIQUE_VALUES_STRING_COLUMNS"("ID_DICC_DATOS","VAL_UNICO") VALUES 
+                        ('{v1}','{v2}'); COMMIT;""".format(v1 = dataframe_cols["ID"][i], v2 = str(aux[j]).replace("'","''")))
     cz.close()
 
 def alter_num_types(df_num):
@@ -109,7 +114,7 @@ def alter_num_types(df_num):
 def crea_tabla_historica(df):
   df_col_numericas,df_col_string = f.sep_col_string_and_num(df)
   #crea la tabla historica con el nombre del primer archivo ingresado
-  engine = create_engine('postgresql://postgres:admin@localhost:5433/TRABAJO_DE_TITULO')
+  engine = create_engine(var_conexion)
   df['fecha_carga'] = date_time
   df.head(0).to_sql('TABLA_HISTORICA_DATOS', engine, if_exists='replace',index=False)
   #df.head(0).to_sql('TABLA_HISTORICA_{}'.format(table_name), engine, if_exists='replace',index=False)
@@ -126,7 +131,7 @@ def crea_tabla_historica(df):
   alter_num_types(df_col_numericas)
 
 def insert_df_atabla(df):
-  engine = create_engine('postgresql://postgres:admin@localhost:5433/TRABAJO_DE_TITULO')
+  engine = create_engine(var_conexion)
   conn = engine.raw_connection()
   cur = conn.cursor()
   output = io.StringIO()
@@ -161,7 +166,7 @@ def update_indic_bdd(df,df_string,df_num):
 
 def actualiza_dicc_datos():
   tabla = 'TABLA_HISTORICA_DATOS'
-  engine = create_engine('postgresql://postgres:admin@localhost:5433/TRABAJO_DE_TITULO')
+  engine = create_engine(var_conexion)
   df = pd.read_sql_table(tabla,engine)
   #print(df.columns)
   df_col_numericas,df_col_string = f.sep_col_string_and_num(df)

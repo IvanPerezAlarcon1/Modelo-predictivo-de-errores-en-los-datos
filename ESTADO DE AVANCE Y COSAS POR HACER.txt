@@ -10,6 +10,10 @@
 que no la tome, en caso de no requerirla más. Eliminacion en cascada de la tabla UNIQUE_VALUES
 + Ver si agregar la expresión regular como validación a las columnas string
 + El analista podría ingresar valores únicos a la tabla en caso de requerirse, actualmente se haría mediante un insert
++ Podría agregar la validacion en el menu de os.path.exist(), para cuando se ingrese el archivo
+
++ AGREGAR VALIDACION DE RUTAS DE ARCHIVOS INGRESADAS
++ VERIFICAR CON ARCHIVOS CON SOLO COLUMNAS STRING, SOLO COLUMNAS NUMERICAS
 
 
 ERRORES: CUANDO VOY A CORREGIR OUTLIERS, EN ADR IMPUTÉ UN OUTLIER Y EL PROGRAMA ARROJÓ ERROR, PORQUE LA CURTOSIS EN LA BDD ERA MAYOR A MIL, PERO EN EL DATASET INGRESADO ERA DE 1.8, 

@@ -65,7 +65,7 @@ def sep_casos(df, df_num_col):
 				#CALCULAR EL RANGO INTERCUARTIL Y EN BASE A ESO GENERAR LOS CASOS PARA GRUBBS Y TUKEY
 				if(IRQ != 0):
 					#IRQ != 0 SE USA GRUBBS
-					print("Esta col, se analizará por GRUBBS, si encuentra outliers los corregirá por la mediana de la columna.")
+					print("Esta col, se analizará por GRUBBS, si encuentra outliers los corregirá por la mediana de la columna [{}].".format(df_num_col[df_num_col.columns[i]].median()))
 					max_grubbs_outliers = grubbs.max_test_outliers(df_num_col[df_num_col.columns[i]], alpha = 0.05)
 					min_grubbs_outliers = grubbs.min_test_outliers(df_num_col[df_num_col.columns[i]], alpha = 0.05)
 					#while que itera mediante grubbs hasta que deja de detectar outliers, los cuales son corregidos en el df
@@ -91,7 +91,7 @@ def sep_casos(df, df_num_col):
 					probables_outliers, posibles_outliers = of.tukeys_method(df_num_col,df_num_col.columns[i])
 					print("PROBABLES OUTLIERS: ",probables_outliers)
 					print("POSIBLES_OUTLIERS",posibles_outliers)
-			print("FRECUENCIAS - POST Correccion:",df_num_col.groupby(df_num_col.columns[i]).size())
+				print("FRECUENCIAS - POST Correccion:",df_num_col.groupby(df_num_col.columns[i]).size())
 			print('\n')
 		else:
 				print("La columna [{}], posee una curtosis de {}, por lo cual no se tratará su corrección de outliers en esta versión del prototipo.".format(df_num_col.columns[i], cur_col))

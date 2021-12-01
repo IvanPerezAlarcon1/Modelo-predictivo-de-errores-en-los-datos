@@ -46,70 +46,76 @@ while ans:
 	print("\n")
 	ans = input("Ingrese la opción requerida: ")
 	if(ans == "1"):
-		archivo = input("Ingrese el archivo .csv: ")
-		separador = input("Ingrese el separador del archivo .csv: ")
-		df,name_file,df_col_numericas,df_col_string, diccionario = principales(archivo, separador)
+		if os.path.exists(archivo):
+			archivo = input("Ingrese el archivo .csv: ")
+			separador = input("Ingrese el separador del archivo .csv: ")
+			df,name_file,df_col_numericas,df_col_string, diccionario = principales(archivo, separador)
 
-		#-----------------------------MAIN--------------------------------------------------
-		if(len(diccionario["COLUMNAS"]) <= 0):
-			#REALIZAR PRIMER INGRESO DE DATOS
-			print("No se ha detectado un contexto para el prototipo, luego este se generará con los datos de esta primera entrada de datos.")
-			#------------------------------------main_primer_ingreso.py---------------------------------------------------------------------------
-			mpi.main_primer_ingreso(df, name_file)
+			#-----------------------------MAIN--------------------------------------------------
+			if(len(diccionario["COLUMNAS"]) <= 0):
+				#REALIZAR PRIMER INGRESO DE DATOS
+				print("No se ha detectado un contexto para el prototipo, luego este se generará con los datos de esta primera entrada de datos.")
+				#------------------------------------main_primer_ingreso.py---------------------------------------------------------------------------
+				mpi.main_primer_ingreso(df, name_file)
+				#-------------------------------------------------------------------------------------------------------------------------------------
+			elif(len(diccionario["COLUMNAS"]) > 0):
+				corrobora_columnas(diccionario["COLUMNAS"], df.columns,col_fal,col_sob)
+				#corrobora_columnas(diccionario["COLUMNAS"], exaple_list,col_fal,col_sob)
+				print("COLUMNAS FALTANTES: ", col_fal)
+				print("COLUMNAS SOBRANTES: ", col_sob)
+				if(len(col_fal) == 0 and len(col_sob) == 0):
+					#SE AGREGA ENTRADA N DEL DATASET CORRESPONDIENTE AL CONTEXTO DEL PROTOTIPO
+					print("Se ha detectado correctamente la estructura del dataset, concuerda con el contexto del diccionario de datos. Se corregiran y cargaran los datos a la tabla histórica.\n\n")
+			#------------------------------------main_ingreso.py---------------------------------------------------------------------------
+					minn.ingreso_n_datos(df)
 			#-------------------------------------------------------------------------------------------------------------------------------------
-		elif(len(diccionario["COLUMNAS"]) > 0):
-			corrobora_columnas(diccionario["COLUMNAS"], df.columns,col_fal,col_sob)
-			#corrobora_columnas(diccionario["COLUMNAS"], exaple_list,col_fal,col_sob)
-			print("COLUMNAS FALTANTES: ", col_fal)
-			print("COLUMNAS SOBRANTES: ", col_sob)
-			if(len(col_fal) == 0 and len(col_sob) == 0):
-				#SE AGREGA ENTRADA N DEL DATASET CORRESPONDIENTE AL CONTEXTO DEL PROTOTIPO
-				print("Se ha detectado correctamente la estructura del dataset, concuerda con el contexto del diccionario de datos. Se corregiran y cargaran los datos a la tabla histórica.")
-		#------------------------------------main_ingreso.py---------------------------------------------------------------------------
-				minn.ingreso_n_datos(df)
-		#-------------------------------------------------------------------------------------------------------------------------------------
+				else:
+					#Lo que debería aparecer si es dataset no tiene los mismos nombres ni cantidad de columnas que los que se tienen registrados
+					print("---El dataframe ingresado no posee las características del contexto ingresado previamente, las columnas del dataset ingresado son: ")
+					print(df.columns,'\n')
+					print("---Las columnas del contexto con el que se está trabajando son las siguientes: ")
+					print(diccionario["COLUMNAS"])
+					print("---Verifique que las columnas del dataset ingresado correspondan con las del contexto actual e ingrese nuevamente el dataset.")
 			else:
-				#Lo que debería aparecer si es dataset no tiene los mismos nombres ni cantidad de columnas que los que se tienen registrados
-				print("---El dataframe ingresado no posee las características del contexto ingresado previamente, las columnas del dataset ingresado son: ")
-				print(df.columns,'\n')
-				print("---Las columnas del contexto con el que se está trabajando son las siguientes: ")
-				print(diccionario["COLUMNAS"])
-				print("---Verifique que las columnas del dataset ingresado correspondan con las del contexto actual e ingrese nuevamente el dataset.")
+				print("Ha ocurrido un error en detectar si el dataset se ingresa por primera vez o no.")
 		else:
-			print("Ha ocurrido un error en detectar si el dataset se ingresa por primera vez o no.")
+			print("La ruta {}, ingresada para el archivo de entrada no existe, ingresela nuevamente.".format(archivo))
 
 	elif(ans == "2"):
 		archivo = input("Ingrese el archivo .xlsx: ")
-		separador = ''
-		df,name_file,df_col_numericas,df_col_string, diccionario = principales(archivo, separador)
+		if os.path.exists(archivo):			
+			separador = ''
+			df,name_file,df_col_numericas,df_col_string, diccionario = principales(archivo, separador)
 
-		#-----------------------------MAIN--------------------------------------------------
-		if(len(diccionario["COLUMNAS"]) <= 0):
-			#REALIZAR PRIMER INGRESO DE DATOS
-			print("No se ha detectado un contexto para el prototipo, luego este se generará con los datos de esta primera entrada de datos.")
-			#------------------------------------main_primer_ingreso.py---------------------------------------------------------------------------
-			mpi.main_primer_ingreso(df, name_file)
+			#-----------------------------MAIN--------------------------------------------------
+			if(len(diccionario["COLUMNAS"]) <= 0):
+				#REALIZAR PRIMER INGRESO DE DATOS
+				print("No se ha detectado un contexto para el prototipo, luego este se generará con los datos de esta primera entrada de datos.")
+				#------------------------------------main_primer_ingreso.py---------------------------------------------------------------------------
+				mpi.main_primer_ingreso(df, name_file)
+				#-------------------------------------------------------------------------------------------------------------------------------------
+			elif(len(diccionario["COLUMNAS"]) > 0):
+				corrobora_columnas(diccionario["COLUMNAS"], df.columns,col_fal,col_sob)
+				#corrobora_columnas(diccionario["COLUMNAS"], exaple_list,col_fal,col_sob)
+				print("COLUMNAS FALTANTES: ", col_fal)
+				print("COLUMNAS SOBRANTES: ", col_sob)
+				if(len(col_fal) == 0 and len(col_sob) == 0):
+					#SE AGREGA ENTRADA N DEL DATASET CORRESPONDIENTE AL CONTEXTO DEL PROTOTIPO
+					print("Se ha detectado correctamente la estructura del dataset, concuerda con el contexto del diccionario de datos. Se corregiran y cargaran los datos a la tabla histórica.")
+			#------------------------------------main_ingreso.py---------------------------------------------------------------------------
+					minn.ingreso_n_datos(df)
 			#-------------------------------------------------------------------------------------------------------------------------------------
-		elif(len(diccionario["COLUMNAS"]) > 0):
-			corrobora_columnas(diccionario["COLUMNAS"], df.columns,col_fal,col_sob)
-			#corrobora_columnas(diccionario["COLUMNAS"], exaple_list,col_fal,col_sob)
-			print("COLUMNAS FALTANTES: ", col_fal)
-			print("COLUMNAS SOBRANTES: ", col_sob)
-			if(len(col_fal) == 0 and len(col_sob) == 0):
-				#SE AGREGA ENTRADA N DEL DATASET CORRESPONDIENTE AL CONTEXTO DEL PROTOTIPO
-				print("Se ha detectado correctamente la estructura del dataset, concuerda con el contexto del diccionario de datos. Se corregiran y cargaran los datos a la tabla histórica.")
-		#------------------------------------main_ingreso.py---------------------------------------------------------------------------
-				minn.ingreso_n_datos(df)
-		#-------------------------------------------------------------------------------------------------------------------------------------
+				else:
+					#Lo que debería aparecer si es dataset no tiene los mismos nombres ni cantidad de columnas que los que se tienen registrados
+					print("---El dataframe ingresado no posee las características del contexto ingresado previamente, las columnas del dataset ingresado son: ")
+					print(df.columns,'\n')
+					print("---Las columnas del contexto con el que se está trabajando son las siguientes: ")
+					print(diccionario["COLUMNAS"])
+					print("---Verifique que las columnas del dataset ingresado correspondan con las del contexto actual e ingrese nuevamente el dataset.")
 			else:
-				#Lo que debería aparecer si es dataset no tiene los mismos nombres ni cantidad de columnas que los que se tienen registrados
-				print("---El dataframe ingresado no posee las características del contexto ingresado previamente, las columnas del dataset ingresado son: ")
-				print(df.columns,'\n')
-				print("---Las columnas del contexto con el que se está trabajando son las siguientes: ")
-				print(diccionario["COLUMNAS"])
-				print("---Verifique que las columnas del dataset ingresado correspondan con las del contexto actual e ingrese nuevamente el dataset.")
+				print("Ha ocurrido un error en detectar si el dataset se ingresa por primera vez o no.")
 		else:
-			print("Ha ocurrido un error en detectar si el dataset se ingresa por primera vez o no.")
+			print("La ruta {}, ingresada para el archivo de entrada no existe, ingresela nuevamente.".format(archivo))
 
 	elif(ans == "3"):
 		tabla = input("Ingrese el nombre de la tabla bdd postgresql de entrada: ")

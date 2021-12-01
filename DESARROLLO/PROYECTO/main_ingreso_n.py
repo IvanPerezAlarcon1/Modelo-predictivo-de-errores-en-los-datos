@@ -20,11 +20,15 @@ def ingreso_n_datos(df):
 	diccionario = bbf.columnas_df_bdd() #obtengo las columnas que tiene el diccionario de datos, las cuales deben coincidir con el archivo de entrada
 
 	#--------acciones sobre columnas strings----------
+	print("\n\n---------------------------Corrección de nulos en columnas categóricas--------------------------------\n\n")
 	imf.imput_df_string(df,df_col_string)
+	print("\n\n----------------------Corrección de duplicados en columnas categóricas--------------------------------\n\n")
 	ngf.revisar_string_cols_ing_n(df,df_col_string) #quita duplicados en las columnas string, agrega los que no se parecen a algun otor registro unico registado
 
 	#--------acciones sobre columnas numéricas--------
+	print("\n\n----------------------Corrección de nulos en columnas numéricas---------------------------------------\n\n")
 	imf.input_df_numerico(df,df_col_numericas)
+	print("\n\n----------------------Corrección de outliers en columnas numéricas------------------------------------\n\n")
 	of.sep_casos_ingreso_n(df,df_col_numericas)
 
 	#falta hacer ingreso de datos a la tabla histórica final en el ingreso n

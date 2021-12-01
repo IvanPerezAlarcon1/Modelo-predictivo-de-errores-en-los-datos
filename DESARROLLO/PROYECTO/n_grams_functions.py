@@ -84,7 +84,7 @@ def revisar_string_cols(df, df_string):
             print("unicos_col: ", l)
             for k in unicos_col_bdd:
                 print("unicos_col_bdd: ", k)
-                ind, com = diff_ngram(k,l, n_gram)
+                ind, com = diff_ngram(str(k),str(l), n_gram)
                 if(ind >= IND_MAX_SIM):
                 #if(ind >= 0.46):
                     #print("3-grams - REEMPLAZA: ", ind, k, l)
@@ -131,7 +131,7 @@ def revisar_string_cols_ing_n(df, df_string):
             if(j in unicos_col_bdd):
                 unicos_col.remove(j)
         print("VAL UNICOS ENTRADA no encontrados en BDD: ", unicos_col)
-        print("VALORES UNICOS BDD: ",unicos_col_bdd, '\n')
+        print("VALORES UNICOS BDD: ",unicos_col_bdd)
 
         if(len(unicos_col) > 0):
             similitud(unicos_col,unicos_col_bdd,n_gram,df,df_string,df_string.columns[i],ID)

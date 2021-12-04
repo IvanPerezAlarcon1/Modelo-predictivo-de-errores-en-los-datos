@@ -41,6 +41,7 @@ def tukeys_method(df, variable):
 	return outliers_prob, outliers_poss
 
 
+
 def sep_casos(df, df_num_col):
 	print("---------COLUMNAS CON CURTOSIS ENTRE [-3,3], DEL DF DE ENTRADA--------\n\n")
 	for i in range(len(df_num_col.columns)):
@@ -57,45 +58,40 @@ def sep_casos(df, df_num_col):
 			#print("PORCENTAJE DE NULOS EN LA COLUMNA: {}%".format(round((cont_null/cant_filas_df)*100,1)))
 			print("IRQ: ", IRQ)
 
-			if(cant_filas_df <=200):
-				#Calcular outliers con dixon, cambiando los valores outliers por la MEDIANA
-				print("Se debería usar Prueba de Dixon para buscar outliers en este conjunto, dado que su nro de registros es: {}".format(cant_filas_df))
-				#break
-			else:
-				#CALCULAR EL RANGO INTERCUARTIL Y EN BASE A ESO GENERAR LOS CASOS PARA GRUBBS Y TUKEY
-				if(IRQ != 0):
-					#IRQ != 0 SE USA GRUBBS
-					print("Esta col, se analizará por GRUBBS, si encuentra outliers los corregirá por la mediana de la columna [{}].".format(df_num_col[df_num_col.columns[i]].median()))
+			#CALCULAR EL RANGO INTERCUARTIL Y EN BASE A ESO GENERAR LOS CASOS PARA GRUBBS Y TUKEY
+			if(IRQ != 0):
+				#IRQ != 0 SE USA GRUBBS
+				print("Esta col, se analizará por GRUBBS, si encuentra outliers los corregirá por la mediana de la columna [{}].".format(df_num_col[df_num_col.columns[i]].median()))
+				max_grubbs_outliers = grubbs.max_test_outliers(df_num_col[df_num_col.columns[i]], alpha = 0.05)
+				min_grubbs_outliers = grubbs.min_test_outliers(df_num_col[df_num_col.columns[i]], alpha = 0.05)
+				#while que itera mediante grubbs hasta que deja de detectar outliers, los cuales son corregidos en el df
+				while(len(max_grubbs_outliers) > 0 or len(min_grubbs_outliers) > 0):
 					max_grubbs_outliers = grubbs.max_test_outliers(df_num_col[df_num_col.columns[i]], alpha = 0.05)
 					min_grubbs_outliers = grubbs.min_test_outliers(df_num_col[df_num_col.columns[i]], alpha = 0.05)
-					#while que itera mediante grubbs hasta que deja de detectar outliers, los cuales son corregidos en el df
-					while(len(max_grubbs_outliers) > 0 or len(min_grubbs_outliers) > 0):
-						max_grubbs_outliers = grubbs.max_test_outliers(df_num_col[df_num_col.columns[i]], alpha = 0.05)
-						min_grubbs_outliers = grubbs.min_test_outliers(df_num_col[df_num_col.columns[i]], alpha = 0.05)
-						print("OUTLIERS MAXIMOS GRUBBS: ", max_grubbs_outliers)
-						print("OUTLIERS MINIMOS GRUBBS: ", min_grubbs_outliers)
-						#en estos casos se debe imputar por la mediana, no por la media
-						if(len(max_grubbs_outliers) > 0):
-							for ma in max_grubbs_outliers:
-								#inp_f.imput_media(df,df_num_col,df_num_col.columns[i],ma)
-								inp_f.input_mediana_outliers(df,df_num_col,df_num_col.columns[i],ma)
+					print("OUTLIERS MAXIMOS GRUBBS: ", max_grubbs_outliers)
+					print("OUTLIERS MINIMOS GRUBBS: ", min_grubbs_outliers)
+					#en estos casos se debe imputar por la mediana, no por la media
+					if(len(max_grubbs_outliers) > 0):
+						for ma in max_grubbs_outliers:
+							#inp_f.imput_media(df,df_num_col,df_num_col.columns[i],ma)
+							inp_f.input_mediana_outliers(df,df_num_col,df_num_col.columns[i],ma)
 
-						if(len(min_grubbs_outliers) > 0):
-							for mi in min_grubbs_outliers:
-								#inp_f.imput_media(df,df_num_col,df_num_col.columns[i],mi)
-								inp_f.input_mediana_outliers(df,df_num_col,df_num_col.columns[i],mi)
-				else:
-					#--------------------------FALTA HACER IMPLEMENTACIÓN DE TUKEY-------01-11-2021-------------------------
-					#SI IRQ = 0, SE USA TUKEY para detectar outliers, cambiando valores de outliers por, la MEDIANA
-					print("Esta col, se debe analizar por método de Tukey")
-					probables_outliers, posibles_outliers = of.tukeys_method(df_num_col,df_num_col.columns[i])
-					print("PROBABLES OUTLIERS: ",probables_outliers)
-					print("POSIBLES_OUTLIERS",posibles_outliers)
-				print("FRECUENCIAS - POST Correccion:",df_num_col.groupby(df_num_col.columns[i]).size())
+					if(len(min_grubbs_outliers) > 0):
+						for mi in min_grubbs_outliers:
+							#inp_f.imput_media(df,df_num_col,df_num_col.columns[i],mi)
+							inp_f.input_mediana_outliers(df,df_num_col,df_num_col.columns[i],mi)
+			else:
+				#--------------------------FALTA HACER IMPLEMENTACIÓN DE TUKEY-------01-11-2021-------------------------
+				#SI IRQ = 0, SE USA TUKEY para detectar outliers, cambiando valores de outliers por, la MEDIANA
+				print("Esta col, se debe analizar por método de Tukey")
+				probables_outliers, posibles_outliers = of.tukeys_method(df_num_col,df_num_col.columns[i])
+				print("PROBABLES OUTLIERS: ",probables_outliers)
+				print("POSIBLES_OUTLIERS",posibles_outliers)
+
+			print("FRECUENCIAS - POST Correccion:",df_num_col.groupby(df_num_col.columns[i]).size())
 			print('\n')
 		else:
-				print("La columna [{}], posee una curtosis de {}, por lo cual no se tratará su corrección de outliers en esta versión del prototipo.".format(df_num_col.columns[i], cur_col))
-
+			print("La columna [{}], posee una curtosis de {}, por lo cual no se tratará su corrección de outliers en esta versión del prototipo.".format(df_num_col.columns[i], cur_col))
 
 
 #PRUEBA PARA TUKEY detección de outliers
@@ -191,8 +187,8 @@ def sep_casos_ingreso_n(df, df_num_col):
 			print("Se ha especificado en el diccionario de datos, que la columna [{}], no sea tratada para outliers, debido al contexto.\n".format(df_num_col.columns[i]))
 		else:
 			print("Ha ocurrido un error en la corrección de outliers para la columna [{}]\n".format(df_num_col.columns[i]))
-'''
 
+'''
 
 #----------ya funcional con correccion por grubbs - respaldo para hacer pruebas con tukey
 
@@ -222,42 +218,37 @@ def sep_casos_ingreso_n(df, df_num_col):
 				#print("PORCENTAJE DE NULOS EN LA COLUMNA: {}%".format(round((cont_null/cant_filas_df)*100,1)))
 				print("IRQ: ", IRQ)
 
-				if(cant_filas_df <=200):
-					#Calcular outliers con dixon, cambiando los valores outliers por la MEDIANA
-					print("Se debería usar Prueba de Dixon para buscar outliers en este conjunto, dado que su nro de registros es: {}".format(cant_filas_df))
-					#break
-				else:
-					#CALCULAR EL RANGO INTERCUARTIL Y EN BASE A ESO GENERAR LOS CASOS PARA GRUBBS Y TUKEY
-					if(IRQ != 0):
-						#IRQ != 0 SE USA GRUBBS
-						print("Esta col, se analizará por GRUBBS, si encuentra outliers los corregirá por la mediana de la columna [{}].".format(mediana))
+				#CALCULAR EL RANGO INTERCUARTIL Y EN BASE A ESO GENERAR LOS CASOS PARA GRUBBS Y TUKEY
+				if(IRQ != 0):
+					#IRQ != 0 SE USA GRUBBS
+					print("Esta col, se analizará por GRUBBS, si encuentra outliers los corregirá por la mediana de la columna [{}].".format(mediana))
+					max_grubbs_outliers = grubbs.max_test_outliers(df_num_col[df_num_col.columns[i]], alpha = 0.05)
+					min_grubbs_outliers = grubbs.min_test_outliers(df_num_col[df_num_col.columns[i]], alpha = 0.05)
+					#while que itera mediante grubbs hasta que deja de detectar outliers, los cuales son corregidos en el df
+					while(len(max_grubbs_outliers) > 0 or len(min_grubbs_outliers) > 0):
 						max_grubbs_outliers = grubbs.max_test_outliers(df_num_col[df_num_col.columns[i]], alpha = 0.05)
 						min_grubbs_outliers = grubbs.min_test_outliers(df_num_col[df_num_col.columns[i]], alpha = 0.05)
-						#while que itera mediante grubbs hasta que deja de detectar outliers, los cuales son corregidos en el df
-						while(len(max_grubbs_outliers) > 0 or len(min_grubbs_outliers) > 0):
-							max_grubbs_outliers = grubbs.max_test_outliers(df_num_col[df_num_col.columns[i]], alpha = 0.05)
-							min_grubbs_outliers = grubbs.min_test_outliers(df_num_col[df_num_col.columns[i]], alpha = 0.05)
-							print("OUTLIERS MAXIMOS GRUBBS: ", max_grubbs_outliers)
-							print("OUTLIERS MINIMOS GRUBBS: ", min_grubbs_outliers)
-							#en estos casos se debe imputar por la mediana, no por la media
-							if(len(max_grubbs_outliers) > 0):
-								for ma in max_grubbs_outliers:
-									inp_f.input_mediana_outliers(df,df_num_col,df_num_col.columns[i],ma)
-									#inp_f.input_mediana_outliers_ing_n(df,df_num_col,df_num_col.columns[i],ma,indicadores[7]) #no funciona
-							if(len(min_grubbs_outliers) > 0):
-								for mi in min_grubbs_outliers:
-									inp_f.input_mediana_outliers(df,df_num_col,df_num_col.columns[i],mi)
-									#inp_f.input_mediana_outliers_ing_n(df,df_num_col,df_num_col.columns[i],ma,indicadores[7]) #no funciona
-					else:
-						#--------------------------FALTA HACER IMPLEMENTACIÓN DE TUKEY-------01-11-2021-------------------------
-						#SI IRQ = 0, SE USA TUKEY para detectar outliers, cambiando valores de outliers por, la MEDIANA
-						print("Esta col, se debe analizar por método de Tukey")
-						probables_outliers, posibles_outliers = of.tukeys_method(df_num_col,df_num_col.columns[i])
-						print("PROBABLES OUTLIERS: ",probables_outliers)
-						print("POSIBLES_OUTLIERS",posibles_outliers)
+						print("OUTLIERS MAXIMOS GRUBBS: ", max_grubbs_outliers)
+						print("OUTLIERS MINIMOS GRUBBS: ", min_grubbs_outliers)
+						#en estos casos se debe imputar por la mediana, no por la media
+						if(len(max_grubbs_outliers) > 0):
+							for ma in max_grubbs_outliers:
+								inp_f.input_mediana_outliers(df,df_num_col,df_num_col.columns[i],ma)
+								#inp_f.input_mediana_outliers_ing_n(df,df_num_col,df_num_col.columns[i],ma,indicadores[7]) #no funciona
+						if(len(min_grubbs_outliers) > 0):
+							for mi in min_grubbs_outliers:
+								inp_f.input_mediana_outliers(df,df_num_col,df_num_col.columns[i],mi)
+								#inp_f.input_mediana_outliers_ing_n(df,df_num_col,df_num_col.columns[i],ma,indicadores[7]) #no funciona
+				else:
+					#--------------------------FALTA HACER IMPLEMENTACIÓN DE TUKEY-------01-11-2021-------------------------
+					#SI IRQ = 0, SE USA TUKEY para detectar outliers, cambiando valores de outliers por, la MEDIANA
+					print("Esta col, se debe analizar por método de Tukey")
+					probables_outliers, posibles_outliers = of.tukeys_method(df_num_col,df_num_col.columns[i])
+					print("PROBABLES OUTLIERS: ",probables_outliers)
+					print("POSIBLES_OUTLIERS",posibles_outliers)
+					
 				print("FRECUENCIAS - POST Correccion:",df_num_col.groupby(df_num_col.columns[i]).size())
 				print('\n')
-
 			else:
 				print("La columna [{}], posee una curtosis de {}, por lo cual no se tratará su corrección de outliers en esta versión del prototipo.".format(df_num_col.columns[i], cur_col))
 
@@ -267,7 +258,67 @@ def sep_casos_ingreso_n(df, df_num_col):
 		else:
 			print("HA OCURRIDO UN ERROR EN LA DETECCION DE OUTLIERS EN LA COLUMNA [{}].".format(df_num_col.columns[i]))
 			print(val_max,val_min,ind_col_num_bdd[3], ind_col_num_bdd[2])
-			break
+			#break
+
+
+'''
+#------ se validaba para implementar dixon pero al final no se agrega
+def sep_casos(df, df_num_col):
+	print("---------COLUMNAS CON CURTOSIS ENTRE [-3,3], DEL DF DE ENTRADA--------\n\n")
+	for i in range(len(df_num_col.columns)):
+		cur_col = round(df_num_col[df_num_col.columns[i]].kurt(),1) #curtosis
+		cont_null = df_num_col[df_num_col.columns[i]].isna().sum() #cant.nulos columna
+		cant_filas_df = df_num_col.shape[0] #CANT. DE FILAS DEL DATAFRAME
+		cant_col_df = df_num_col.shape[1] #CANT. DE COLUMNAS DEL DATAFRAME
+		IRQ = inter_cuar_rang(df_num_col[df_num_col.columns[i]]) #RANGO INTERCUARTIL DE LA COLUMNA
+		#PARA DETECTAR OUTLIERS, LA CONDICION ES QUE LA COL TENGA DISTRIB NORMAL, LUEGO PRIMERO SE TOMAN SOLO ESTAS FILAS
+		if(cur_col >= -3.0 and cur_col <=3.0):
+			print(df_num_col.columns[i], "- CURTOSIS: ", cur_col)
+			print("FRECUENCIAS:",df_num_col.groupby(df_num_col.columns[i]).size())
+			#print("NULOS: ",cont_null) # muestra los valores unicos de la columna y sus frecuencias
+			#print("PORCENTAJE DE NULOS EN LA COLUMNA: {}%".format(round((cont_null/cant_filas_df)*100,1)))
+			print("IRQ: ", IRQ)
+
+			if(cant_filas_df <=200):
+				#Calcular outliers con dixon, cambiando los valores outliers por la MEDIANA
+				print("Se debería usar Prueba de Dixon para buscar outliers en este conjunto, dado que su nro de registros es: {}".format(cant_filas_df))
+				#break
+			else:
+				#CALCULAR EL RANGO INTERCUARTIL Y EN BASE A ESO GENERAR LOS CASOS PARA GRUBBS Y TUKEY
+				if(IRQ != 0):
+					#IRQ != 0 SE USA GRUBBS
+					print("Esta col, se analizará por GRUBBS, si encuentra outliers los corregirá por la mediana de la columna [{}].".format(df_num_col[df_num_col.columns[i]].median()))
+					max_grubbs_outliers = grubbs.max_test_outliers(df_num_col[df_num_col.columns[i]], alpha = 0.05)
+					min_grubbs_outliers = grubbs.min_test_outliers(df_num_col[df_num_col.columns[i]], alpha = 0.05)
+					#while que itera mediante grubbs hasta que deja de detectar outliers, los cuales son corregidos en el df
+					while(len(max_grubbs_outliers) > 0 or len(min_grubbs_outliers) > 0):
+						max_grubbs_outliers = grubbs.max_test_outliers(df_num_col[df_num_col.columns[i]], alpha = 0.05)
+						min_grubbs_outliers = grubbs.min_test_outliers(df_num_col[df_num_col.columns[i]], alpha = 0.05)
+						print("OUTLIERS MAXIMOS GRUBBS: ", max_grubbs_outliers)
+						print("OUTLIERS MINIMOS GRUBBS: ", min_grubbs_outliers)
+						#en estos casos se debe imputar por la mediana, no por la media
+						if(len(max_grubbs_outliers) > 0):
+							for ma in max_grubbs_outliers:
+								#inp_f.imput_media(df,df_num_col,df_num_col.columns[i],ma)
+								inp_f.input_mediana_outliers(df,df_num_col,df_num_col.columns[i],ma)
+
+						if(len(min_grubbs_outliers) > 0):
+							for mi in min_grubbs_outliers:
+								#inp_f.imput_media(df,df_num_col,df_num_col.columns[i],mi)
+								inp_f.input_mediana_outliers(df,df_num_col,df_num_col.columns[i],mi)
+				else:
+					#--------------------------FALTA HACER IMPLEMENTACIÓN DE TUKEY-------01-11-2021-------------------------
+					#SI IRQ = 0, SE USA TUKEY para detectar outliers, cambiando valores de outliers por, la MEDIANA
+					print("Esta col, se debe analizar por método de Tukey")
+					probables_outliers, posibles_outliers = of.tukeys_method(df_num_col,df_num_col.columns[i])
+					print("PROBABLES OUTLIERS: ",probables_outliers)
+					print("POSIBLES_OUTLIERS",posibles_outliers)
+				print("FRECUENCIAS - POST Correccion:",df_num_col.groupby(df_num_col.columns[i]).size())
+			print('\n')
+		else:
+				print("La columna [{}], posee una curtosis de {}, por lo cual no se tratará su corrección de outliers en esta versión del prototipo.".format(df_num_col.columns[i], cur_col))
+
+'''
 
 
 

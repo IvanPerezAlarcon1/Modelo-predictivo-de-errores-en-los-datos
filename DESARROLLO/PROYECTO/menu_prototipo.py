@@ -46,8 +46,8 @@ while ans:
 	print("\n")
 	ans = input("Ingrese la opción requerida: ")
 	if(ans == "1"):
+		archivo = input("Ingrese el archivo .csv: ")
 		if os.path.exists(archivo):
-			archivo = input("Ingrese el archivo .csv: ")
 			separador = input("Ingrese el separador del archivo .csv: ")
 			df,name_file,df_col_numericas,df_col_string, diccionario = principales(archivo, separador)
 

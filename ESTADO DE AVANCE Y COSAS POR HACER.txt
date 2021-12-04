@@ -10,9 +10,7 @@
 que no la tome, en caso de no requerirla más. Eliminacion en cascada de la tabla UNIQUE_VALUES
 + Ver si agregar la expresión regular como validación a las columnas string
 + El analista podría ingresar valores únicos a la tabla en caso de requerirse, actualmente se haría mediante un insert
-+ Podría agregar la validacion en el menu de os.path.exist(), para cuando se ingrese el archivo
 
-+ AGREGAR VALIDACION DE RUTAS DE ARCHIVOS INGRESADAS
 + VERIFICAR CON ARCHIVOS CON SOLO COLUMNAS STRING, SOLO COLUMNAS NUMERICAS
 
 
@@ -29,6 +27,7 @@ ENTONCES AL INTENTAR CORREGIR LOS OUTLIERS SE DETECTABAN MUCHOS Y ARROJÓ ERROR.
 
 
 -----------------YA REALIZADOS--------------------------- (LAS COSAS TERMINADAS SE LISTAN EN ESTE APARTADO DE LO TERMINADO RECIENTEMENTE ARRIBA Y LO TERMINADO HACE MAS TIEMPO, ESTÁ MÁS ABAJO)
++ AGREGAR VALIDACION DE RUTAS DE ARCHIVOS INGRESADAS
 - Si existe alguna columna que tenga más de un 10% de valores nulos, el conjunto completo no debería ingresarse a la tabla final, ya que no sería representativo hacer algún tipo de acción con
 información tan vaga -> por esta versión se deja ingresar al conjunto final pero se da aviso de la existencia de más del 10% de valores nulos
 + Hacer las validaciones de indicadores de si la columna acepta outliers(col numericas) y/o nulos(string/numericas), si los acepta, deja pasar las columnas

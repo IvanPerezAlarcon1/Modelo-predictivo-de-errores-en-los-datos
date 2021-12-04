@@ -83,10 +83,20 @@ def sep_casos(df, df_num_col):
 			else:
 				#--------------------------FALTA HACER IMPLEMENTACIÓN DE TUKEY-------01-11-2021-------------------------
 				#SI IRQ = 0, SE USA TUKEY para detectar outliers, cambiando valores de outliers por, la MEDIANA
-				print("Esta col, se debe analizar por método de Tukey")
-				probables_outliers, posibles_outliers = of.tukeys_method(df_num_col,df_num_col.columns[i])
-				print("PROBABLES OUTLIERS: ",probables_outliers)
-				print("POSIBLES_OUTLIERS",posibles_outliers)
+				print("Esta col, se debe analizar por método de Tukey, si se encuentran outliers, se corregiran por la mediana de la columna, [{}].".format(mediana))
+				probables_outliers, posibles_outliers = tukeys_method(df_num_col,df_num_col.columns[i])
+				#while(len(probables_outliers) > 0 or len(posibles_outliers) > 0): #EN POSIBLES OUTLIERS APARECEN TANTO LOS PROBABLES COMO POSIBLES
+				while(len(posibles_outliers) > 0):
+					#probables_outliers, posibles_outliers = tukeys_method(df_num_col,df_num_col.columns[i])
+					#print("PROBABLES OUTLIERS: ",probables_outliers)
+					print("OUTLIERS DETECTADOS",posibles_outliers)
+					#if(len(probables_outliers) > 0):
+					#	for po in probables_outliers:
+					#		inp_f.input_mediana_outliers(df,df_num_col,df_num_col.columns[i],po)
+					if(len(posibles_outliers) > 0):
+						for pos_o in posibles_outliers:
+							inp_f.input_mediana_outliers(df,df_num_col,df_num_col.columns[i],pos_o)
+					probables_outliers, posibles_outliers = tukeys_method(df_num_col,df_num_col.columns[i])
 
 			print("FRECUENCIAS - POST Correccion:",df_num_col.groupby(df_num_col.columns[i]).size())
 			print('\n')
@@ -242,11 +252,21 @@ def sep_casos_ingreso_n(df, df_num_col):
 				else:
 					#--------------------------FALTA HACER IMPLEMENTACIÓN DE TUKEY-------01-11-2021-------------------------
 					#SI IRQ = 0, SE USA TUKEY para detectar outliers, cambiando valores de outliers por, la MEDIANA
-					print("Esta col, se debe analizar por método de Tukey")
-					probables_outliers, posibles_outliers = of.tukeys_method(df_num_col,df_num_col.columns[i])
-					print("PROBABLES OUTLIERS: ",probables_outliers)
-					print("POSIBLES_OUTLIERS",posibles_outliers)
-					
+					print("Esta col, se debe analizar por método de Tukey, si se encuentran outliers, se corregiran por la mediana de la columna, [{}].".format(mediana))
+					probables_outliers, posibles_outliers = tukeys_method(df_num_col,df_num_col.columns[i])
+					#while(len(probables_outliers) > 0 or len(posibles_outliers) > 0): #EN POSIBLES OUTLIERS APARECEN TANTO LOS PROBABLES COMO POSIBLES
+					while(len(posibles_outliers) > 0):
+						#probables_outliers, posibles_outliers = tukeys_method(df_num_col,df_num_col.columns[i])
+						#print("PROBABLES OUTLIERS: ",probables_outliers)
+						print("OUTLIERS DETECTADOS",posibles_outliers)
+						#if(len(probables_outliers) > 0):
+						#	for po in probables_outliers:
+						#		inp_f.input_mediana_outliers(df,df_num_col,df_num_col.columns[i],po)
+						if(len(posibles_outliers) > 0):
+							for pos_o in posibles_outliers:
+								inp_f.input_mediana_outliers(df,df_num_col,df_num_col.columns[i],pos_o)
+						probables_outliers, posibles_outliers = tukeys_method(df_num_col,df_num_col.columns[i])
+
 				print("FRECUENCIAS - POST Correccion:",df_num_col.groupby(df_num_col.columns[i]).size())
 				print('\n')
 			else:
@@ -262,7 +282,7 @@ def sep_casos_ingreso_n(df, df_num_col):
 
 
 '''
-#------ se validaba para implementar dixon pero al final no se agrega
+#------ se validaba para implementar dixon pero al final no se agrega asique se comenta
 def sep_casos(df, df_num_col):
 	print("---------COLUMNAS CON CURTOSIS ENTRE [-3,3], DEL DF DE ENTRADA--------\n\n")
 	for i in range(len(df_num_col.columns)):

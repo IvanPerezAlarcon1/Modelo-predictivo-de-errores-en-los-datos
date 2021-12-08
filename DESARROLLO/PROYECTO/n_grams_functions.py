@@ -115,10 +115,33 @@ def revisar_string_cols(df, df_string):
             break
 
 
-#---------------------EXPERIMENTACION PARA CORREGIR TECNICA N-GRAMS
-
-
 def revisar_string_cols_ing_n(df, df_string):
+    ret_col_dupli = []
+    for i in range(len(df_string.columns)):
+        #valores unicos para la columna string analizada
+        unicos_col = col_unique_values(df_string[df_string.columns[i]])
+        aux = col_unique_values(df_string[df_string.columns[i]])
+        #valores unicos registrados en la bdd, para la columna string ingresada
+        unicos_col_bdd,ID, n_gram = col_bdd_unique_values(df_string[df_string.columns[i]], df_string.columns[i])
+        #si un elemento del conjunto ingresado está en los unicos de la bdd, lo elimino ya que sería el escenario donde la similitud de los elementos seria igual y no requieren tratamiento
+        print("Columna analizada: {}".format(df_string.columns[i]))
+        for j in aux:
+            if(j in unicos_col_bdd):
+                unicos_col.remove(j)
+        print("VAL UNICOS ENTRADA no encontrados en BDD: ", unicos_col)
+        print("VALORES UNICOS BDD: ",unicos_col_bdd)
+
+        if(len(unicos_col) > 0):
+            similitud(unicos_col,unicos_col_bdd,n_gram,df,df_string,df_string.columns[i],ID)
+            ret_col_dupli.append(df_string.columns[i])
+        else:
+            print("Esta columna no tiene valores únicos diferentes de los registrados, no se le realizan acciones. \n")
+    return ret_col_dupli
+
+'''
+#CODIGO FUNCIONAL, PERO ESTA VERSION NO RETORNA NADA PARA EL RESUMEN
+def revisar_string_cols_ing_n(df, df_string):
+
     for i in range(len(df_string.columns)):
         #valores unicos para la columna string analizada
         unicos_col = col_unique_values(df_string[df_string.columns[i]])
@@ -137,10 +160,16 @@ def revisar_string_cols_ing_n(df, df_string):
             similitud(unicos_col,unicos_col_bdd,n_gram,df,df_string,df_string.columns[i],ID)
         else:
             print("Esta columna no tiene valores únicos diferentes de los registrados, no se le realizan acciones. \n")
+'''
 
 
-val1 = ['Resort Htel', 'rsort Hotel', 'Cty otel', 'city hotl', 'CITY HTEL', 'C hoTEL', 'Resort h', 'resort H', 'city H', 'City h.', 'city H.', 'Hotel Resort', 'Hotel city']
-val2 = ['Resort Hotel', 'City Hotel'] 
+
+
+
+#---------------------EXPERIMENTACION PARA CORREGIR TECNICA N-GRAMS
+
+#val1 = ['Resort Htel', 'rsort Hotel', 'Cty otel', 'city hotl', 'CITY HTEL', 'C hoTEL', 'Resort h', 'resort H', 'city H', 'City h.', 'city H.', 'Hotel Resort', 'Hotel city']
+#val2 = ['Resort Hotel', 'City Hotel'] 
 
 #podría, comparar el valor erroneo del conjunto de entrada, guardar en una lista el indice de similitud para cada registro único de la bdd para esa columna
 #luego comparar, si la mayor similitud es < 0.6 se agrega como registro único, si es >= a este indice, se reemplaza por ese valor.

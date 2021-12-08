@@ -4,8 +4,8 @@
 
 
 Columna analizada: hotel
-CANT. NULOS:  0
-La columna hotel, no requiere tratamiento de valores nulos, ya que tiene un 0.0% de valores nulos.
+CANT. NULOS:  8
+La columna [hotel], será tratada, su porcentaje de nulos no supera el 10%, ya que es de 0.032%, se imputará por el valor moda de [City Hotel]
 
 
 Columna analizada: arrival_date_month
@@ -14,18 +14,18 @@ La columna arrival_date_month, no requiere tratamiento de valores nulos, ya que 
 
 
 Columna analizada: meal
-CANT. NULOS:  0
-La columna meal, no requiere tratamiento de valores nulos, ya que tiene un 0.0% de valores nulos.
+CANT. NULOS:  822
+La columna [meal], será tratada, su porcentaje de nulos no supera el 10%, ya que es de 3.288%, se imputará por el valor moda de [BB]
 
 
 Columna analizada: country
-CANT. NULOS:  459
-La columna [country], será tratada, su porcentaje de nulos no supera el 10%, ya que es de 1.836%, se imputará por el valor moda de [PRT]
+CANT. NULOS:  467
+La columna [country], será tratada, su porcentaje de nulos no supera el 10%, ya que es de 1.8679999999999999%, se imputará por el valor moda de [PRT]
 
 
 Columna analizada: market_segment
-CANT. NULOS:  0
-La columna market_segment, no requiere tratamiento de valores nulos, ya que tiene un 0.0% de valores nulos.
+CANT. NULOS:  1
+La columna [market_segment], será tratada, su porcentaje de nulos no supera el 10%, ya que es de 0.004%, se imputará por el valor moda de [Online TA]
 
 
 Columna analizada: distribution_channel
@@ -223,8 +223,9 @@ La columna [arrival_date_year], no requiere tratamiento de nulos.
 
 
 Columna analizada:  arrival_date_week_number
-Cant. nulos:  0
-La columna [arrival_date_week_number], no requiere tratamiento de nulos.
+Cant. nulos:  22
+La columna [arrival_date_week_number], contiene un 0.08800000000000001% de nulos, por lo que es tratable.
+Esta columna posee una distribucion normal o cercana a normal, y CURTOSIS es -1.1 , por lo que, se imputará por la media de la columna [27.22].
 
 
 Columna analizada:  arrival_date_day_of_month
@@ -243,8 +244,9 @@ La columna [stays_in_week_nights], no requiere tratamiento de nulos.
 
 
 Columna analizada:  adults
-Cant. nulos:  0
-La columna [adults], no requiere tratamiento de nulos.
+Cant. nulos:  17
+La columna [adults], contiene un 0.068% de nulos, por lo que es tratable.
+Esta columna no posee una distrib normal o cercana a normal, y su curtosis es 1670.0 , por lo que, se imputará por la mediana de la columna [2.0].
 
 
 Columna analizada:  children
@@ -273,8 +275,9 @@ La columna [previous_bookings_not_canceled], no requiere tratamiento de nulos.
 
 
 Columna analizada:  booking_changes
-Cant. nulos:  0
-La columna [booking_changes], no requiere tratamiento de nulos.
+Cant. nulos:  1
+La columna [booking_changes], contiene un 0.004% de nulos, por lo que es tratable.
+Esta columna no posee una distrib normal o cercana a normal, y su curtosis es 59.8 , por lo que, se imputará por la mediana de la columna [0.0].
 
 
 Columna analizada:  agent
@@ -293,8 +296,9 @@ La columna [days_in_waiting_list], no requiere tratamiento de nulos.
 
 
 Columna analizada:  adr
-Cant. nulos:  0
-La columna [adr], no requiere tratamiento de nulos.
+Cant. nulos:  410
+La columna [adr], contiene un 1.6400000000000001% de nulos, por lo que es tratable.
+Esta columna posee una distribucion normal o cercana a normal, y CURTOSIS es 1.9 , por lo que, se imputará por la media de la columna [99.65].
 
 
 Columna analizada:  required_car_parking_spaces
@@ -318,17 +322,17 @@ La columna [total_of_special_requests], no requiere tratamiento de nulos.
 Los valores máximo y mínimo de la columna [is_canceled] del conjunto de entrada MAX: 1 y MIN: 0, están dentro de los rangos definidos en el primer ingreso MAX: 1.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.
 Los valores máximo y mínimo de la columna [lead_time] del conjunto de entrada MAX: 737 y MIN: 0, están dentro de los rangos definidos en el primer ingreso MAX: 737.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.
 Los valores máximo y mínimo de la columna [arrival_date_year] del conjunto de entrada MAX: 2017 y MIN: 2015, están dentro de los rangos definidos en el primer ingreso MAX: 2017.0 y MIN: 2015.0. Esta columna no requiere corrección de outliers.
-Los valores máximo y mínimo de la columna [arrival_date_week_number] del conjunto de entrada MAX: 53 y MIN: 1, están dentro de los rangos definidos en el primer ingreso MAX: 53.0 y MIN: 1.0. Esta columna no requiere corrección de outliers.
+Los valores máximo y mínimo de la columna [arrival_date_week_number] del conjunto de entrada MAX: 53.0 y MIN: 1.0, están dentro de los rangos definidos en el primer ingreso MAX: 53.0 y MIN: 1.0. Esta columna no requiere corrección de outliers.
 Los valores máximo y mínimo de la columna [arrival_date_day_of_month] del conjunto de entrada MAX: 31 y MIN: 1, están dentro de los rangos definidos en el primer ingreso MAX: 31.0 y MIN: 1.0. Esta columna no requiere corrección de outliers.
 Los valores máximo y mínimo de la columna [stays_in_weekend_nights] del conjunto de entrada MAX: 19 y MIN: 0, están dentro de los rangos definidos en el primer ingreso MAX: 19.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.
 Los valores máximo y mínimo de la columna [stays_in_week_nights] del conjunto de entrada MAX: 50 y MIN: 0, están dentro de los rangos definidos en el primer ingreso MAX: 50.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.
-Los valores máximo y mínimo de la columna [adults] del conjunto de entrada MAX: 55 y MIN: 0, están dentro de los rangos definidos en el primer ingreso MAX: 55.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.
+Los valores máximo y mínimo de la columna [adults] del conjunto de entrada MAX: 55.0 y MIN: 0.0, están dentro de los rangos definidos en el primer ingreso MAX: 55.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.
 Los valores máximo y mínimo de la columna [children] del conjunto de entrada MAX: 10 y MIN: 0, están dentro de los rangos definidos en el primer ingreso MAX: 10.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.
 Los valores máximo y mínimo de la columna [babies] del conjunto de entrada MAX: 2 y MIN: 0, están dentro de los rangos definidos en el primer ingreso MAX: 10.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.
 Los valores máximo y mínimo de la columna [is_repeated_guest] del conjunto de entrada MAX: 1 y MIN: 0, están dentro de los rangos definidos en el primer ingreso MAX: 1.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.
 Los valores máximo y mínimo de la columna [previous_cancellations] del conjunto de entrada MAX: 26 y MIN: 0, están dentro de los rangos definidos en el primer ingreso MAX: 26.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.
 Los valores máximo y mínimo de la columna [previous_bookings_not_canceled] del conjunto de entrada MAX: 30 y MIN: 0, están dentro de los rangos definidos en el primer ingreso MAX: 72.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.
-Los valores máximo y mínimo de la columna [booking_changes] del conjunto de entrada MAX: 17 y MIN: 0, están dentro de los rangos definidos en el primer ingreso MAX: 21.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.
+Los valores máximo y mínimo de la columna [booking_changes] del conjunto de entrada MAX: 17.0 y MIN: 0.0, están dentro de los rangos definidos en el primer ingreso MAX: 21.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.
 Los valores máximo y mínimo de la columna [agent] del conjunto de entrada MAX: 531.0 y MIN: 1.0, están dentro de los rangos definidos en el primer ingreso MAX: 535.0 y MIN: 1.0. Esta columna no requiere corrección de outliers.
 Los valores máximo y mínimo de la columna [company] del conjunto de entrada MAX: 543.0 y MIN: 6.0, están dentro de los rangos definidos en el primer ingreso MAX: 543.0 y MIN: 6.0. Esta columna no requiere corrección de outliers.
 Los valores máximo y mínimo de la columna [days_in_waiting_list] del conjunto de entrada MAX: 150 y MIN: 0, están dentro de los rangos definidos en el primer ingreso MAX: 391.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.

@@ -22,6 +22,31 @@ def ingreso_n_datos(df):
 
 	#--------acciones sobre columnas strings----------
 	print("\n\n---------------------------Corrección de nulos en columnas categóricas--------------------------------\n\n")
+	col_string_nulls = imf.imput_df_string(df,df_col_string)
+	print("\n\n----------------------Corrección de duplicados en columnas categóricas--------------------------------\n\n")
+	col_string_dupli = ngf.revisar_string_cols_ing_n(df,df_col_string) #quita duplicados en las columnas string, agrega los que no se parecen a algun otor registro unico registado
+
+	#--------acciones sobre columnas numéricas--------
+	print("\n\n----------------------Corrección de nulos en columnas numéricas---------------------------------------\n\n")
+	cols_num_nulls = imf.input_df_numerico(df,df_col_numericas)
+	print("\n\n----------------------Corrección de outliers en columnas numéricas------------------------------------\n\n")
+	cols_num_outl = of.sep_casos_ingreso_n(df,df_col_numericas)
+
+	#falta hacer ingreso de datos a la tabla histórica final en el ingreso n
+	bbf.insert_df_atabla(df)	
+	bbf.actualiza_dicc_datos()# actualiza los indicadores del diccionario de datos a partir de la tabla historica luego del nuevo ingreso de datos
+
+	return col_string_nulls,col_string_dupli,cols_num_nulls,cols_num_outl
+
+
+'''
+
+def ingreso_n_datos(df):
+	df_col_numericas,df_col_string = f.sep_col_string_and_num(df)
+	diccionario = bbf.columnas_df_bdd() #obtengo las columnas que tiene el diccionario de datos, las cuales deben coincidir con el archivo de entrada
+
+	#--------acciones sobre columnas strings----------
+	print("\n\n---------------------------Corrección de nulos en columnas categóricas--------------------------------\n\n")
 	imf.imput_df_string(df,df_col_string)
 	print("\n\n----------------------Corrección de duplicados en columnas categóricas--------------------------------\n\n")
 	ngf.revisar_string_cols_ing_n(df,df_col_string) #quita duplicados en las columnas string, agrega los que no se parecen a algun otor registro unico registado
@@ -36,6 +61,9 @@ def ingreso_n_datos(df):
 	bbf.insert_df_atabla(df)
 	
 	bbf.actualiza_dicc_datos()# actualiza los indicadores del diccionario de datos a partir de la tabla historica luego del nuevo ingreso de datos
+
+'''
+
 
 
 #ingreso_n_datos(df)

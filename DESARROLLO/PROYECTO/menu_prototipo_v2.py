@@ -19,6 +19,20 @@ import main_ingreso_n as minn
 col_fal = []
 col_sob = []
 
+def resumen(col_string_nulls,col_string_dupli,cols_num_nulls,cols_num_outl):
+	print("----Se encontraron y corrigieron valores nulos en las siguientes columnas tipo string: ")
+	print(col_string_nulls)
+	print("\n")
+	print("----Se encontraron y corrigieron duplicados en las siguientes columnas: ")
+	print(col_string_dupli)
+	print("\n")
+	print("----Se encontraron y corrigieron valores nulos en las siguientes columnas numéricas: ")
+	print(cols_num_nulls)
+	print("\n")
+	print("----Se encontraron y corrigieron valores outliers en las siguientes columnas numéricas: ")
+	print(cols_num_outl)
+	print("\n")
+
 def corrobora_columnas(diccionario,df_columns,columnas_faltantes,columnas_sobrantes):
 	for i in df_columns:
 		if(i not in diccionario):
@@ -91,15 +105,19 @@ while ans:
 					now = datetime.now()
 					date_time = now.strftime("%m-%d-%Y_%H_%M_%S")
 					name_logfile = "LOG_" + date_time
+					name_logfile2 = "LOGS/{}.txt".format(name_logfile)
 
 					orig_stdout = sys.stdout
 					f1le = open("LOGS/{}.txt".format(name_logfile),'w')
 					sys.stdout = f1le
 
-					minn.ingreso_n_datos(df)
+					csn,csd,cnn,cno = minn.ingreso_n_datos(df)
 
 					sys.stdout = orig_stdout
 					f1le.close()			
+
+					resumen(csn,csd,cnn,cno)
+					print("Para detalles de lo realizado revisar: {}".format(name_logfile2))
 
 			#-------------------------------------------------------------------------------------------------------------------------------------
 				else:
@@ -153,17 +171,21 @@ while ans:
 
 					now = datetime.now()
 					date_time = now.strftime("%m-%d-%Y_%H_%M_%S")
-					name_logfile = "LOG_" + date_time	
+					name_logfile = "LOG_" + date_time
+					name_logfile2 = "LOGS/{}.txt".format(name_logfile)
 
 					orig_stdout = sys.stdout
 					f1le = open("LOGS/{}.txt".format(name_logfile),'w')
 					sys.stdout = f1le
 
-					minn.ingreso_n_datos(df)
+					csn,csd,cnn,cno = minn.ingreso_n_datos(df)
 
 					sys.stdout = orig_stdout
-					f1le.close()	
+					f1le.close()			
 
+					resumen(csn,csd,cnn,cno)
+					print("Para detalles de lo realizado revisar: {}".format(name_logfile2))
+					
 			#-------------------------------------------------------------------------------------------------------------------------------------
 				else:
 					#Lo que debería aparecer si es dataset no tiene los mismos nombres ni cantidad de columnas que los que se tienen registrados
@@ -222,16 +244,20 @@ while ans:
 					now = datetime.now()
 					date_time = now.strftime("%m-%d-%Y_%H_%M_%S")
 					name_logfile = "LOG_" + date_time
+					name_logfile2 = "LOGS/{}.txt".format(name_logfile)
 
 					orig_stdout = sys.stdout
 					f1le = open("LOGS/{}.txt".format(name_logfile),'w')
 					sys.stdout = f1le
 
-					minn.ingreso_n_datos(df)
+					csn,csd,cnn,cno = minn.ingreso_n_datos(df)
 
 					sys.stdout = orig_stdout
-					f1le.close()	
+					f1le.close()			
 
+					resumen(csn,csd,cnn,cno)
+					print("Para detalles de lo realizado revisar: {}".format(name_logfile2))
+					
 			#-------------------------------------------------------------------------------------------------------------------------------------
 				else:
 					#Lo que debería aparecer si es dataset no tiene los mismos nombres ni cantidad de columnas que los que se tienen registrados

@@ -17,6 +17,9 @@ def dataframe_from_file_sep(archivo,separador):
         dataframe = pd.read_excel(archivo)
     return dataframe
 
+def dataframe_from_excel(archivo):
+	dataframe = pd.read_excel(archivo)
+
 def nombre_archivo(archivo): #retorna el nombre del archivo ingresado
 	aux1,aux2 = os.path.splitext(os.path.basename(archivo))
 	return aux1

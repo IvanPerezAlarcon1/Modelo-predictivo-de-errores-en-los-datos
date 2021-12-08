@@ -1,0 +1,387 @@
+
+
+---------------------------Corrección de nulos en columnas categóricas--------------------------------
+
+
+Columna analizada: hotel
+CANT. NULOS:  0
+La columna hotel, no requiere tratamiento de valores nulos, ya que tiene un 0.0% de valores nulos.
+
+
+Columna analizada: arrival_date_month
+CANT. NULOS:  0
+La columna arrival_date_month, no requiere tratamiento de valores nulos, ya que tiene un 0.0% de valores nulos.
+
+
+Columna analizada: meal
+CANT. NULOS:  0
+La columna meal, no requiere tratamiento de valores nulos, ya que tiene un 0.0% de valores nulos.
+
+
+Columna analizada: country
+CANT. NULOS:  459
+La columna [country], será tratada, su porcentaje de nulos no supera el 10%, ya que es de 1.836%, se imputará por el valor moda de [PRT]
+
+
+Columna analizada: market_segment
+CANT. NULOS:  0
+La columna market_segment, no requiere tratamiento de valores nulos, ya que tiene un 0.0% de valores nulos.
+
+
+Columna analizada: distribution_channel
+CANT. NULOS:  0
+La columna distribution_channel, no requiere tratamiento de valores nulos, ya que tiene un 0.0% de valores nulos.
+
+
+Columna analizada: reserved_room_type
+CANT. NULOS:  0
+La columna reserved_room_type, no requiere tratamiento de valores nulos, ya que tiene un 0.0% de valores nulos.
+
+
+Columna analizada: assigned_room_type
+CANT. NULOS:  0
+La columna assigned_room_type, no requiere tratamiento de valores nulos, ya que tiene un 0.0% de valores nulos.
+
+
+Columna analizada: deposit_type
+CANT. NULOS:  0
+La columna deposit_type, no requiere tratamiento de valores nulos, ya que tiene un 0.0% de valores nulos.
+
+
+Columna analizada: customer_type
+CANT. NULOS:  0
+La columna customer_type, no requiere tratamiento de valores nulos, ya que tiene un 0.0% de valores nulos.
+
+
+Columna analizada: reservation_status
+CANT. NULOS:  0
+La columna reservation_status, no requiere tratamiento de valores nulos, ya que tiene un 0.0% de valores nulos.
+
+
+
+
+----------------------Corrección de duplicados en columnas categóricas--------------------------------
+
+
+Columna analizada: hotel
+VAL UNICOS ENTRADA no encontrados en BDD:  ['Resort Htel', 'rsort Hotel', 'Cty otel', 'city hotl', 'CITY HTEL', 'C hoTEL', 'Resort h', 'resort H', 'city H', 'City h.', 'city H.', 'Hotel Resort', 'Hotel city']
+VALORES UNICOS BDD:  ['Resort Hotel', 'City Hotel']
+unicos_col:  Resort Htel
+unicos_col_bdd:  Resort Hotel
+3-grams - REEMPLAZA: 0.7 - Resort Hotel - Resort Htel 
+
+
+unicos_col:  rsort Hotel
+unicos_col_bdd:  Resort Hotel
+3-grams - REEMPLAZA: 0.8 - Resort Hotel - rsort Hotel 
+
+
+unicos_col:  Cty otel
+Valor único de mayor semejanza:  City Hotel
+El valor más aproximado es [City Hotel], con un indice de similitud de [0.375], pero no alcanza la similitud necesaria, luego este valor se agrega como único al sistema.
+
+
+unicos_col:  city hotl
+Valor único de mayor semejanza:  City Hotel
+El valor más aproximado es [City Hotel], con un indice de similitud de [0.25], pero no alcanza la similitud necesaria, luego este valor se agrega como único al sistema.
+
+
+unicos_col:  CITY HTEL
+Valor único de mayor semejanza:  Resort Hotel
+El valor más aproximado es [Resort Hotel], con un indice de similitud de [0.0], pero no alcanza la similitud necesaria, luego este valor se agrega como único al sistema.
+
+
+unicos_col:  C hoTEL
+Valor único de mayor semejanza:  Resort Hotel
+El valor más aproximado es [Resort Hotel], con un indice de similitud de [0.0], pero no alcanza la similitud necesaria, luego este valor se agrega como único al sistema.
+
+
+unicos_col:  Resort h
+unicos_col_bdd:  Resort Hotel
+3-grams - REEMPLAZA: 0.5 - Resort Hotel - Resort h 
+
+
+unicos_col:  resort H
+unicos_col_bdd:  Resort Hotel
+3-grams - REEMPLAZA: 0.5 - Resort Hotel - resort H 
+
+
+unicos_col:  city H
+Valor único de mayor semejanza:  City Hotel
+El valor más aproximado es [City Hotel], con un indice de similitud de [0.375], pero no alcanza la similitud necesaria, luego este valor se agrega como único al sistema.
+
+
+unicos_col:  City h.
+Valor único de mayor semejanza:  City Hotel
+El valor más aproximado es [City Hotel], con un indice de similitud de [0.375], pero no alcanza la similitud necesaria, luego este valor se agrega como único al sistema.
+
+
+unicos_col:  city H.
+Valor único de mayor semejanza:  City Hotel
+El valor más aproximado es [City Hotel], con un indice de similitud de [0.375], pero no alcanza la similitud necesaria, luego este valor se agrega como único al sistema.
+
+
+unicos_col:  Hotel Resort
+unicos_col_bdd:  Resort Hotel
+3-grams - REEMPLAZA: 0.7 - Resort Hotel - Hotel Resort 
+
+
+unicos_col:  Hotel city
+unicos_col_bdd:  City Hotel
+3-grams - REEMPLAZA: 0.5 - City Hotel - Hotel city 
+
+
+Columna analizada: arrival_date_month
+VAL UNICOS ENTRADA no encontrados en BDD:  ['Juli', 'Dicember', 'januari', 'Epril', 'mai', 'Junio', 'Ju ly', 'februa ry', 'June   ', 'Decembe  r', ' October']
+VALORES UNICOS BDD:  ['July', 'August', 'September', 'October', 'November', 'December', 'January', 'February', 'March', 'April', 'May', 'June']
+unicos_col:  Juli
+unicos_col_bdd:  July
+3-grams - REEMPLAZA: 0.5 - July - Juli 
+
+
+unicos_col:  Dicember
+unicos_col_bdd:  December
+3-grams - REEMPLAZA: 0.6666666666666666 - December - Dicember 
+
+
+unicos_col:  januari
+unicos_col_bdd:  January
+3-grams - REEMPLAZA: 0.6 - January - januari 
+
+
+unicos_col:  Epril
+unicos_col_bdd:  April
+3-grams - REEMPLAZA: 0.6666666666666666 - April - Epril 
+
+
+unicos_col:  mai
+Valor único de mayor semejanza:  July
+El valor más aproximado es [July], con un indice de similitud de [0.0], pero no alcanza la similitud necesaria, luego este valor se agrega como único al sistema.
+
+
+unicos_col:  Junio
+unicos_col_bdd:  June
+3-grams - REEMPLAZA: 0.5 - June - Junio 
+
+
+unicos_col:  Ju ly
+Valor único de mayor semejanza:  July
+El valor más aproximado es [July], con un indice de similitud de [0.0], pero no alcanza la similitud necesaria, luego este valor se agrega como único al sistema.
+
+
+unicos_col:  februa ry
+unicos_col_bdd:  February
+3-grams - REEMPLAZA: 0.5 - February - februa ry 
+
+
+unicos_col:  June   
+unicos_col_bdd:  June
+3-grams - REEMPLAZA: 1.0 - June - June    
+
+
+unicos_col:  Decembe  r
+unicos_col_bdd:  December
+3-grams - REEMPLAZA: 0.8333333333333334 - December - Decembe  r 
+
+
+unicos_col:   October
+unicos_col_bdd:  October
+3-grams - REEMPLAZA: 1.0 - October -  October 
+
+
+Columna analizada: meal
+VAL UNICOS ENTRADA no encontrados en BDD:  []
+VALORES UNICOS BDD:  ['BB', 'FB', 'HB', 'SC', 'Undefined']
+Esta columna no tiene valores únicos diferentes de los registrados, no se le realizan acciones. 
+
+Columna analizada: country
+VAL UNICOS ENTRADA no encontrados en BDD:  []
+VALORES UNICOS BDD:  ['PRT', 'GBR', 'USA', 'ESP', 'IRL', 'FRA', 'nan', 'ROU', 'NOR', 'OMN', 'ARG', 'POL', 'DEU', 'BEL', 'CHE', 'CN', 'GRC', 'ITA', 'NLD', 'DNK', 'RUS', 'SWE', 'AUS', 'EST', 'CZE', 'BRA', 'FIN', 'MOZ', 'BWA', 'LUX', 'SVN', 'ALB', 'IND', 'CHN', 'MEX', 'MAR', 'UKR', 'SMR', 'LVA', 'PRI', 'SRB', 'CHL', 'AUT', 'BLR', 'LTU', 'TUR', 'ZAF', 'AGO', 'ISR', 'CYM', 'ZMB', 'CPV', 'ZWE', 'DZA', 'KOR', 'CRI', 'HUN', 'ARE', 'TUN', 'JAM', 'HRV', 'HKG', 'IRN', 'GEO', 'AND', 'GIB', 'URY', 'JEY', 'CAF', 'CYP', 'COL', 'GGY', 'KWT', 'NGA', 'MDV', 'VEN', 'SVK', 'FJI', 'KAZ', 'PAK', 'IDN', 'LBN', 'PHL', 'SEN', 'SYC', 'AZE', 'BHR', 'NZL', 'THA', 'DOM', 'MKD', 'MYS', 'ARM', 'JPN', 'LKA', 'CUB', 'CMR', 'BIH', 'MUS', 'COM', 'SUR', 'UGA', 'BGR', 'CIV', 'JOR', 'SYR', 'SGP', 'BDI', 'SAU', 'VNM', 'PLW', 'QAT', 'EGY', 'PER', 'MLT', 'MWI', 'ECU', 'MDG', 'ISL', 'UZB', 'NPL', 'BHS', 'MAC', 'TGO', 'TWN', 'DJI', 'STP', 'KNA', 'ETH', 'IRQ', 'HND', 'RWA', 'KHM', 'MCO', 'BGD', 'IMN', 'TJK', 'NIC', 'BEN', 'VGB', 'TZA', 'GAB', 'GHA', 'TMP', 'GLP', 'KEN', 'LIE', 'GNB', 'MNE', 'UMI', 'MYT', 'FRO', 'MMR', 'PAN', 'BFA', 'LBY', 'MLI', 'NAM', 'BOL', 'PRY', 'BRB', 'ABW', 'AIA', 'SLV', 'DMA', 'PYF', 'GUY', 'LCA', 'ATA', 'GTM', 'ASM', 'MRT', 'NCL', 'KIR', 'SDN', 'ATF', 'SLE', 'LAO']
+Esta columna no tiene valores únicos diferentes de los registrados, no se le realizan acciones. 
+
+Columna analizada: market_segment
+VAL UNICOS ENTRADA no encontrados en BDD:  []
+VALORES UNICOS BDD:  ['Direct', 'Corporate', 'Online TA', 'Offline TA/TO', 'Complementary', 'Groups', 'Undefined', 'Aviation']
+Esta columna no tiene valores únicos diferentes de los registrados, no se le realizan acciones. 
+
+Columna analizada: distribution_channel
+VAL UNICOS ENTRADA no encontrados en BDD:  []
+VALORES UNICOS BDD:  ['Direct', 'Corporate', 'TA/TO', 'Undefined', 'GDS']
+Esta columna no tiene valores únicos diferentes de los registrados, no se le realizan acciones. 
+
+Columna analizada: reserved_room_type
+VAL UNICOS ENTRADA no encontrados en BDD:  []
+VALORES UNICOS BDD:  ['C', 'A', 'D', 'E', 'G', 'F', 'H', 'L', 'P', 'B']
+Esta columna no tiene valores únicos diferentes de los registrados, no se le realizan acciones. 
+
+Columna analizada: assigned_room_type
+VAL UNICOS ENTRADA no encontrados en BDD:  []
+VALORES UNICOS BDD:  ['C', 'A', 'D', 'E', 'G', 'F', 'I', 'B', 'H', 'P', 'L', 'K']
+Esta columna no tiene valores únicos diferentes de los registrados, no se le realizan acciones. 
+
+Columna analizada: deposit_type
+VAL UNICOS ENTRADA no encontrados en BDD:  ['Deposit No', 'Refund Non', 'NO DEPOSIT', 'Rfundable']
+VALORES UNICOS BDD:  ['No Deposit', 'Refundable', 'Non Refund']
+unicos_col:  Deposit No
+unicos_col_bdd:  No Deposit
+3-grams - REEMPLAZA: 0.625 - No Deposit - Deposit No 
+
+
+unicos_col:  Refund Non
+unicos_col_bdd:  Non Refund
+3-grams - REEMPLAZA: 0.625 - Non Refund - Refund Non 
+
+
+unicos_col:  NO DEPOSIT
+Valor único de mayor semejanza:  No Deposit
+El valor más aproximado es [No Deposit], con un indice de similitud de [0.0], pero no alcanza la similitud necesaria, luego este valor se agrega como único al sistema.
+
+
+unicos_col:  Rfundable
+unicos_col_bdd:  Refundable
+3-grams - REEMPLAZA: 0.75 - Refundable - Rfundable 
+
+
+Columna analizada: customer_type
+VAL UNICOS ENTRADA no encontrados en BDD:  []
+VALORES UNICOS BDD:  ['Transient', 'Contract', 'Transient-Party', 'Group']
+Esta columna no tiene valores únicos diferentes de los registrados, no se le realizan acciones. 
+
+Columna analizada: reservation_status
+VAL UNICOS ENTRADA no encontrados en BDD:  []
+VALORES UNICOS BDD:  ['Check-Out', 'Canceled', 'No-Show']
+Esta columna no tiene valores únicos diferentes de los registrados, no se le realizan acciones. 
+
+
+
+----------------------Corrección de nulos en columnas numéricas---------------------------------------
+
+
+Columna analizada:  is_canceled
+Cant. nulos:  0
+La columna [is_canceled], no requiere tratamiento de nulos.
+
+
+Columna analizada:  lead_time
+Cant. nulos:  0
+La columna [lead_time], no requiere tratamiento de nulos.
+
+
+Columna analizada:  arrival_date_year
+Cant. nulos:  0
+La columna [arrival_date_year], no requiere tratamiento de nulos.
+
+
+Columna analizada:  arrival_date_week_number
+Cant. nulos:  0
+La columna [arrival_date_week_number], no requiere tratamiento de nulos.
+
+
+Columna analizada:  arrival_date_day_of_month
+Cant. nulos:  0
+La columna [arrival_date_day_of_month], no requiere tratamiento de nulos.
+
+
+Columna analizada:  stays_in_weekend_nights
+Cant. nulos:  0
+La columna [stays_in_weekend_nights], no requiere tratamiento de nulos.
+
+
+Columna analizada:  stays_in_week_nights
+Cant. nulos:  0
+La columna [stays_in_week_nights], no requiere tratamiento de nulos.
+
+
+Columna analizada:  adults
+Cant. nulos:  0
+La columna [adults], no requiere tratamiento de nulos.
+
+
+Columna analizada:  children
+Cant. nulos:  0
+La columna [children], no requiere tratamiento de nulos.
+
+
+Columna analizada:  babies
+Cant. nulos:  0
+La columna [babies], no requiere tratamiento de nulos.
+
+
+Columna analizada:  is_repeated_guest
+Cant. nulos:  0
+La columna [is_repeated_guest], no requiere tratamiento de nulos.
+
+
+Columna analizada:  previous_cancellations
+Cant. nulos:  0
+La columna [previous_cancellations], no requiere tratamiento de nulos.
+
+
+Columna analizada:  previous_bookings_not_canceled
+Cant. nulos:  0
+La columna [previous_bookings_not_canceled], no requiere tratamiento de nulos.
+
+
+Columna analizada:  booking_changes
+Cant. nulos:  0
+La columna [booking_changes], no requiere tratamiento de nulos.
+
+
+Columna analizada:  agent
+Cant. nulos:  5250
+La columna [agent], posee un 21.0% de valores nulos, se recomienda imputar valores hasta obtener menos del 10% de valores nulos para que el conjunto tenga un grado de credibilidad aceptable.
+
+
+Columna analizada:  company
+Cant. nulos:  22893
+La columna [company], posee un 91.572% de valores nulos, se recomienda imputar valores hasta obtener menos del 10% de valores nulos para que el conjunto tenga un grado de credibilidad aceptable.
+
+
+Columna analizada:  days_in_waiting_list
+Cant. nulos:  0
+La columna [days_in_waiting_list], no requiere tratamiento de nulos.
+
+
+Columna analizada:  adr
+Cant. nulos:  0
+La columna [adr], no requiere tratamiento de nulos.
+
+
+Columna analizada:  required_car_parking_spaces
+Cant. nulos:  0
+La columna [required_car_parking_spaces], no requiere tratamiento de nulos.
+
+
+Columna analizada:  total_of_special_requests
+Cant. nulos:  0
+La columna [total_of_special_requests], no requiere tratamiento de nulos.
+
+
+
+
+----------------------Corrección de outliers en columnas numéricas------------------------------------
+
+
+---------COLUMNAS CON CURTOSIS ENTRE [-3,3], DEL DF DE ENTRADA--------
+
+
+Los valores máximo y mínimo de la columna [is_canceled] del conjunto de entrada MAX: 1 y MIN: 0, están dentro de los rangos definidos en el primer ingreso MAX: 1.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.
+Los valores máximo y mínimo de la columna [lead_time] del conjunto de entrada MAX: 737 y MIN: 0, están dentro de los rangos definidos en el primer ingreso MAX: 737.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.
+Los valores máximo y mínimo de la columna [arrival_date_year] del conjunto de entrada MAX: 2017 y MIN: 2015, están dentro de los rangos definidos en el primer ingreso MAX: 2017.0 y MIN: 2015.0. Esta columna no requiere corrección de outliers.
+Los valores máximo y mínimo de la columna [arrival_date_week_number] del conjunto de entrada MAX: 53 y MIN: 1, están dentro de los rangos definidos en el primer ingreso MAX: 53.0 y MIN: 1.0. Esta columna no requiere corrección de outliers.
+Los valores máximo y mínimo de la columna [arrival_date_day_of_month] del conjunto de entrada MAX: 31 y MIN: 1, están dentro de los rangos definidos en el primer ingreso MAX: 31.0 y MIN: 1.0. Esta columna no requiere corrección de outliers.
+Los valores máximo y mínimo de la columna [stays_in_weekend_nights] del conjunto de entrada MAX: 19 y MIN: 0, están dentro de los rangos definidos en el primer ingreso MAX: 19.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.
+Los valores máximo y mínimo de la columna [stays_in_week_nights] del conjunto de entrada MAX: 50 y MIN: 0, están dentro de los rangos definidos en el primer ingreso MAX: 50.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.
+Los valores máximo y mínimo de la columna [adults] del conjunto de entrada MAX: 55 y MIN: 0, están dentro de los rangos definidos en el primer ingreso MAX: 55.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.
+Los valores máximo y mínimo de la columna [children] del conjunto de entrada MAX: 10 y MIN: 0, están dentro de los rangos definidos en el primer ingreso MAX: 10.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.
+Los valores máximo y mínimo de la columna [babies] del conjunto de entrada MAX: 2 y MIN: 0, están dentro de los rangos definidos en el primer ingreso MAX: 10.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.
+Los valores máximo y mínimo de la columna [is_repeated_guest] del conjunto de entrada MAX: 1 y MIN: 0, están dentro de los rangos definidos en el primer ingreso MAX: 1.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.
+Los valores máximo y mínimo de la columna [previous_cancellations] del conjunto de entrada MAX: 26 y MIN: 0, están dentro de los rangos definidos en el primer ingreso MAX: 26.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.
+Los valores máximo y mínimo de la columna [previous_bookings_not_canceled] del conjunto de entrada MAX: 30 y MIN: 0, están dentro de los rangos definidos en el primer ingreso MAX: 72.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.
+Los valores máximo y mínimo de la columna [booking_changes] del conjunto de entrada MAX: 17 y MIN: 0, están dentro de los rangos definidos en el primer ingreso MAX: 21.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.
+Los valores máximo y mínimo de la columna [agent] del conjunto de entrada MAX: 531.0 y MIN: 1.0, están dentro de los rangos definidos en el primer ingreso MAX: 535.0 y MIN: 1.0. Esta columna no requiere corrección de outliers.
+Los valores máximo y mínimo de la columna [company] del conjunto de entrada MAX: 543.0 y MIN: 6.0, están dentro de los rangos definidos en el primer ingreso MAX: 543.0 y MIN: 6.0. Esta columna no requiere corrección de outliers.
+Los valores máximo y mínimo de la columna [days_in_waiting_list] del conjunto de entrada MAX: 150 y MIN: 0, están dentro de los rangos definidos en el primer ingreso MAX: 391.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.
+Los valores máximo y mínimo de la columna [adr] del conjunto de entrada MAX: 508.0 y MIN: -6.38, están dentro de los rangos definidos en el primer ingreso MAX: 5400.0 y MIN: -6.38. Esta columna no requiere corrección de outliers.
+Los valores máximo y mínimo de la columna [required_car_parking_spaces] del conjunto de entrada MAX: 2 y MIN: 0, están dentro de los rangos definidos en el primer ingreso MAX: 8.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.
+Los valores máximo y mínimo de la columna [total_of_special_requests] del conjunto de entrada MAX: 5 y MIN: 0, están dentro de los rangos definidos en el primer ingreso MAX: 5.0 y MIN: 0.0. Esta columna no requiere corrección de outliers.

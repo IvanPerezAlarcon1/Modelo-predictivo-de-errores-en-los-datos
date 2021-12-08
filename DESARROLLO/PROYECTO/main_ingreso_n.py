@@ -15,6 +15,7 @@ import outliers_functions as of
 #df = f.dataframe_from_file(archivo)
 #df_col_numericas,df_col_string = f.sep_col_string_and_num(df)
 
+
 def ingreso_n_datos(df):
 	df_col_numericas,df_col_string = f.sep_col_string_and_num(df)
 	diccionario = bbf.columnas_df_bdd() #obtengo las columnas que tiene el diccionario de datos, las cuales deben coincidir con el archivo de entrada

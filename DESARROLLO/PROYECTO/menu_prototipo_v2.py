@@ -41,12 +41,46 @@ def corrobora_columnas(diccionario,df_columns,columnas_faltantes,columnas_sobran
 		if (j not in df_columns):
 			columnas_faltantes.append(j)
 
+def corrobora_tipos(diccionario,df):
+	ind = 0
+	col_string_input = []
+	col_bdd = []
+	col_string_bdd = []
+	for i in range(len(df.columns)):
+		if(df[df.columns[i]].dtype == 'object'):
+			col_string_input.append(df.columns[i]) #columnas string de la entrada
+	#print("col_string conjunto de entrada: ", col_string_input)
+	for j in range(len(diccionario["COLUMNAS"])):
+		col_bdd.append(diccionario["COLUMNAS"][j]) #guardo todas las columnas del diccionario por orden
+		if(diccionario["TYPES"][j] == 'object'):
+			col_string_bdd.append(diccionario["COLUMNAS"][j]) #columnas string de la bdd
+	for k in range(len(col_string_bdd)):
+		if(col_string_bdd[k] in col_string_input):
+			col_string_input.remove(col_string_bdd[k]) #se quitan las col string que deben serlo segun bdd
+	#print("\n")
+	#print("Columnas string en la entrada que no lo son en el la bdd: ", col_string_input)
+	types_bdd = []
+	types_input = []
+	for l in range(len(col_string_input)):
+		var = df[col_string_input[l]].dtype
+		types_input.append(var)
+	for m in range(len(diccionario["COLUMNAS"])):
+		if(diccionario["COLUMNAS"][m] in col_string_input):
+			var1 = diccionario["TYPES"][m]
+			types_bdd.append(var1)
+	for n in range(len(col_string_input)):
+		print("La columna [{}], por contexto tiene el tipo de dato {}, pero en la entrada tiene el tipo {}, puede que existan datos de otro tipo en la columna, corregir el archivo y reprocesarlo.".format(col_string_input[n],types_bdd[n],types_input[n]))
+		print("\n")
+	if(len(col_string_input) > 0):
+		ind = 1
+	return ind
+
 
 def principales(archivo, separador):
 	df = f.dataframe_from_file_sep(archivo,separador)
 	name_file = f.nombre_archivo(archivo)
 	df_col_numericas,df_col_string = f.sep_col_string_and_num(df)
-	diccionario = bbf.columnas_df_bdd() #obtengo las columnas que tiene el diccionario de datos, las cuales deben coincidir con el archivo de entrada
+	diccionario = bbf.columnas_df_bdd() #obtengo las columnas que tiene el diccionario de datos, las cuales deben coincidir con las del archivo de entrada
 	return df,name_file,df_col_numericas,df_col_string, diccionario
 
 
@@ -97,32 +131,36 @@ while ans:
 				#corrobora_columnas(diccionario["COLUMNAS"], exaple_list,col_fal,col_sob)
 				print("COLUMNAS FALTANTES: ", col_fal)
 				print("COLUMNAS SOBRANTES: ", col_sob)
+				print("\n")
+
 				if(len(col_fal) == 0 and len(col_sob) == 0):
 					#SE AGREGA ENTRADA N DEL DATASET CORRESPONDIENTE AL CONTEXTO DEL PROTOTIPO
-					print("Se ha detectado correctamente la estructura del dataset, concuerda con el contexto del diccionario de datos. Se corregiran y cargaran los datos a la tabla histórica.\n\n")
-			#------------------------------------main_ingreso.py----------------------------------------------------------------------------------
+					print("Las columnas del dataset de entrada, concuerdan con el contexto del diccionario de datos. Se corregiran y cargaran los datos a la tabla histórica.\n\n")
 
-					now = datetime.now()
-					date_time = now.strftime("%m-%d-%Y_%H_%M_%S")
-					name_logfile = "LOG_" + date_time
-					name_logfile2 = "LOGS/{}.txt".format(name_logfile)
+					ind = corrobora_tipos(diccionario,df)
+					if(ind == 0): 
+				#------------------------------------main_ingreso.py----------------------------------------------------------------------------------
+						now = datetime.now()
+						date_time = now.strftime("%m-%d-%Y_%H_%M_%S")
+						name_logfile = "LOG_" + date_time
+						name_logfile2 = "LOGS/{}.txt".format(name_logfile)
 
-					orig_stdout = sys.stdout
-					f1le = open("LOGS/{}.txt".format(name_logfile),'w')
-					sys.stdout = f1le
+						orig_stdout = sys.stdout
+						f1le = open("LOGS/{}.txt".format(name_logfile),'w')
+						sys.stdout = f1le
 
-					csn,csd,cnn,cno = minn.ingreso_n_datos(df)
+						csn,csd,cnn,cno = minn.ingreso_n_datos(df)
 
-					sys.stdout = orig_stdout
-					f1le.close()			
+						sys.stdout = orig_stdout
+						f1le.close()			
 
-					resumen(csn,csd,cnn,cno)
-					print("Para detalles de lo realizado revisar: {}".format(name_logfile2))
+						resumen(csn,csd,cnn,cno)
+						print("Para detalles de lo realizado revisar: {}".format(name_logfile2))
 
-			#-------------------------------------------------------------------------------------------------------------------------------------
+				#-------------------------------------------------------------------------------------------------------------------------------------
 				else:
 					#Lo que debería aparecer si es dataset no tiene los mismos nombres ni cantidad de columnas que los que se tienen registrados
-					print("\n---El dataframe ingresado no posee las características del contexto ingresado previamente, las columnas del dataset ingresado son: ")
+					print("\n---El dataframe ingresado no posee las columnas del contexto ingresado previamente, las columnas del dataset ingresado son: ")
 					print(df.columns,'\n')
 					print("---Las columnas del contexto con el que se está trabajando son las siguientes: ")
 					print(diccionario["COLUMNAS"])
@@ -164,32 +202,36 @@ while ans:
 				#corrobora_columnas(diccionario["COLUMNAS"], exaple_list,col_fal,col_sob)
 				print("COLUMNAS FALTANTES: ", col_fal)
 				print("COLUMNAS SOBRANTES: ", col_sob)
+				print("\n")
 				if(len(col_fal) == 0 and len(col_sob) == 0):
-					#SE AGREGA ENTRADA N DEL DATASET CORRESPONDIENTE AL CONTEXTO DEL PROTOTIPO
-					print("Se ha detectado correctamente la estructura del dataset, concuerda con el contexto del diccionario de datos. Se corregiran y cargaran los datos a la tabla histórica.")
-			#------------------------------------main_ingreso.py---------------------------------------------------------------------------
 
-					now = datetime.now()
-					date_time = now.strftime("%m-%d-%Y_%H_%M_%S")
-					name_logfile = "LOG_" + date_time
-					name_logfile2 = "LOGS/{}.txt".format(name_logfile)
+					ind = corrobora_tipos(diccionario,df)
+					if(ind == 0): 
 
-					orig_stdout = sys.stdout
-					f1le = open("LOGS/{}.txt".format(name_logfile),'w')
-					sys.stdout = f1le
+						#SE AGREGA ENTRADA N DEL DATASET CORRESPONDIENTE AL CONTEXTO DEL PROTOTIPO
+						print("Las columnas del dataset de entrada, concuerdan con el contexto del diccionario de datos. Se corregiran y cargaran los datos a la tabla histórica.\n\n")			#------------------------------------main_ingreso.py---------------------------------------------------------------------------
 
-					csn,csd,cnn,cno = minn.ingreso_n_datos(df)
+						now = datetime.now()
+						date_time = now.strftime("%m-%d-%Y_%H_%M_%S")
+						name_logfile = "LOG_" + date_time
+						name_logfile2 = "LOGS/{}.txt".format(name_logfile)
 
-					sys.stdout = orig_stdout
-					f1le.close()			
+						orig_stdout = sys.stdout
+						f1le = open("LOGS/{}.txt".format(name_logfile),'w')
+						sys.stdout = f1le
 
-					resumen(csn,csd,cnn,cno)
-					print("Para detalles de lo realizado revisar: {}".format(name_logfile2))
+						csn,csd,cnn,cno = minn.ingreso_n_datos(df)
+
+						sys.stdout = orig_stdout
+						f1le.close()			
+
+						resumen(csn,csd,cnn,cno)
+						print("Para detalles de lo realizado revisar: {}".format(name_logfile2))
 					
 			#-------------------------------------------------------------------------------------------------------------------------------------
 				else:
 					#Lo que debería aparecer si es dataset no tiene los mismos nombres ni cantidad de columnas que los que se tienen registrados
-					print("\n---El dataframe ingresado no posee las características del contexto ingresado previamente, las columnas del dataset ingresado son: ")
+					print("\n---El dataframe ingresado no posee las columnas del contexto ingresado previamente, las columnas del dataset ingresado son: ")
 					print(df.columns,'\n')
 					print("---Las columnas del contexto con el que se está trabajando son las siguientes: ")
 					print(diccionario["COLUMNAS"])
@@ -236,32 +278,36 @@ while ans:
 				#corrobora_columnas(diccionario["COLUMNAS"], exaple_list,col_fal,col_sob)
 				print("COLUMNAS FALTANTES: ", col_fal)
 				print("COLUMNAS SOBRANTES: ", col_sob)
+				print("\n")
 				if(len(col_fal) == 0 and len(col_sob) == 0):
-					#SE AGREGA ENTRADA N DEL DATASET CORRESPONDIENTE AL CONTEXTO DEL PROTOTIPO
-					print("Se ha detectado correctamente la estructura del dataset, concuerda con el contexto del diccionario de datos. Se corregiran y cargaran los datos a la tabla histórica.")
-			#------------------------------------main_ingreso.py---------------------------------------------------------------------------
 
-					now = datetime.now()
-					date_time = now.strftime("%m-%d-%Y_%H_%M_%S")
-					name_logfile = "LOG_" + date_time
-					name_logfile2 = "LOGS/{}.txt".format(name_logfile)
+					ind = corrobora_tipos(diccionario,df)
+					if(ind == 0): 
 
-					orig_stdout = sys.stdout
-					f1le = open("LOGS/{}.txt".format(name_logfile),'w')
-					sys.stdout = f1le
+						#SE AGREGA ENTRADA N DEL DATASET CORRESPONDIENTE AL CONTEXTO DEL PROTOTIPO
+						print("Las columnas del dataset de entrada, concuerdan con el contexto del diccionario de datos. Se corregiran y cargaran los datos a la tabla histórica.\n\n")			#------------------------------------main_ingreso.py---------------------------------------------------------------------------
 
-					csn,csd,cnn,cno = minn.ingreso_n_datos(df)
+						now = datetime.now()
+						date_time = now.strftime("%m-%d-%Y_%H_%M_%S")
+						name_logfile = "LOG_" + date_time
+						name_logfile2 = "LOGS/{}.txt".format(name_logfile)
 
-					sys.stdout = orig_stdout
-					f1le.close()			
+						orig_stdout = sys.stdout
+						f1le = open("LOGS/{}.txt".format(name_logfile),'w')
+						sys.stdout = f1le
 
-					resumen(csn,csd,cnn,cno)
-					print("Para detalles de lo realizado revisar: {}".format(name_logfile2))
+						csn,csd,cnn,cno = minn.ingreso_n_datos(df)
+
+						sys.stdout = orig_stdout
+						f1le.close()			
+
+						resumen(csn,csd,cnn,cno)
+						print("Para detalles de lo realizado revisar: {}".format(name_logfile2))
 					
 			#-------------------------------------------------------------------------------------------------------------------------------------
 				else:
 					#Lo que debería aparecer si es dataset no tiene los mismos nombres ni cantidad de columnas que los que se tienen registrados
-					print("\n---El dataframe ingresado no posee las características del contexto ingresado previamente, las columnas del dataset ingresado son: ")
+					print("\n---El dataframe ingresado no posee las columnas del contexto ingresado previamente, las columnas del dataset ingresado son: ")
 					print(df.columns,'\n')
 					print("---Las columnas del contexto con el que se está trabajando son las siguientes: ")
 					print(diccionario["COLUMNAS"])

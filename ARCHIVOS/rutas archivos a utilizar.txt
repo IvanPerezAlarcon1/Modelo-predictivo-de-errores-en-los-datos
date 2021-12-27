@@ -5,6 +5,9 @@ C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\ARCHIVOS\hotel_
 PROBLEMAS DE DUPLICADOS - SEPARADOR - ,
 C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\ARCHIVOS\hotel_bookings_25000 - errores string.csv
 
+PROBLEMAS DE DUPLICADOS 2 - EXCEL
+C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\ARCHIVOS\hotel_bookings_25000 - errores string_V2.xlsx
+
 
 PROBLEMAS DE NULOS - SEPARADOR - ;
 C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\ARCHIVOS\hotel_bookings_25000 - NULLS CORRECCION.csv
@@ -13,10 +16,18 @@ C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\ARCHIVOS\hotel_
 PROBLEMAS OUTLIERS - SEPARADOR - ;
 C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\ARCHIVOS\hotel_bookings_25000 ERROR_OUTLIERS.csv
 
+PROBLEMAS OUTLIERS_2 - SEPARADOR - ;
+C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\ARCHIVOS\hotel_bookings_25000 ERROR_OUTLIERS_2.csv
+
 
 ARCHIVO EXCEL
 C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\ARCHIVOS\hotel_bookings_1.xlsx
 
+ARCHIVO EXCEL 26000 ULT REGISTROS - PROBAR TIPOS DE DATOS y errores en estos
+C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\ARCHIVOS\hotel_bookings_1_26000_tail.xlsx
+
+ARCHIVO EXCEL DE 26000 ULT REGISTROS - CON TIPOS DE DATOS CORREGIDOS
+C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\ARCHIVOS\hotel_bookings_1_26000_tail_corregido.xlsx
 
 
 ---------------------------------------------
@@ -26,10 +37,20 @@ C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\ARCHIVOS\hotel_
 + C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\salesworkload.xlsx
 + C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\salesworkload - correc_num_cols.xlsx
 + C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\salesworkload - correc_num_cols - outliers.xlsx
++ C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\DESARROLLO\salesworkload - correc_num_cols.csv
+
+--------------------------------------------------------------------------------------------------------
+ARCHIVO .CSV - SEPARADOR ;
+C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\ARCHIVOS\cereal_2.csv
+
+ARCHIVO .CSV - SEPARADOR ;
+C:\Users\ivan1\Desktop\Modelo-predictivo-de-errores-en-los-datos\ARCHIVOS\cereal_2 - duplicados.csv
+--------------------------------------------------------------------------------------------------------
 
 
 ERRORES OBSERVADOS:
-
+- !!!!!!!!!!!!!!SEGUIR VIENDO TEMA DE LOS OUTLIERS!!!!!!!!!!!!
 - por ejemplo si se ingresa una columna sin registros, el programa arroja error
 - Datos string con caracteres raros como O'hagan arroja error para ingresarlo a postgresql por un insert
 - Verificar que en columnas numericas no existan caracteres si no el programa reconoce la columna completa como string
+

@@ -15,7 +15,7 @@ def col_unique_values(col_string):
     unicos = col_string.dropna().unique() #elimina valor nan. que dio problemas en algun momento
     #unicos = col_string.unique() #elimina valor nan. que dio problemas en algun momento
     for i in unicos:
-        var.append(i)
+        var.append(str(i))
         #var.append(i.upper())
     #print(unicos)
     return var
@@ -31,7 +31,7 @@ def col_bdd_unique_values(col_string,nom_col):
         """.format(v1 = nom_col))
     for i in cz.fetchall():
         #print(i[0],i[1],i[2])
-        val_uni_col.append(i[2])
+        val_uni_col.append(str(i[2]))
         #val_uni_col.append(i[2].upper())
         ID = i[1]
         n_gram = i[3]

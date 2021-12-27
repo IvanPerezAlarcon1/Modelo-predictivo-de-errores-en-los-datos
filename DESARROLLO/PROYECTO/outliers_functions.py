@@ -172,6 +172,7 @@ def sep_casos(df, df_num_col):
 
 
 
+#--------CODIGO FUNCIONAL, ACTUAL DEJAR ACTIVO UNA VEZ  TERMINADAS LAS PRUEBAS-----------------
 def sep_casos_ingreso_n(df, df_num_col):
 	cols_num_outl = []
 	print("---------COLUMNAS CON CURTOSIS ENTRE [-3,3], DEL DF DE ENTRADA--------\n\n")
@@ -265,9 +266,10 @@ def sep_casos_ingreso_n(df, df_num_col):
 					print('\n')
 				else:
 					print("La columna [{}], posee una curtosis de {}, por lo cual no se tratará su corrección de outliers en esta versión del prototipo.".format(df_num_col.columns[i], cur_col))
-
+					print("\n")
 			elif(val_max <= ind_col_num_bdd[3] and val_min >= ind_col_num_bdd[2]):
 				print("Los valores máximo y mínimo de la columna [{}] del conjunto de entrada MAX: {} y MIN: {}, están dentro de los rangos definidos en el primer ingreso MAX: {} y MIN: {}. Esta columna no requiere corrección de outliers.".format(df_num_col.columns[i], val_max,val_min,ind_col_num_bdd[3], ind_col_num_bdd[2]))
+				print("\n")
 				#break
 			else:
 				print("HA OCURRIDO UN ERROR EN LA DETECCION DE OUTLIERS EN LA COLUMNA [{}].".format(df_num_col.columns[i]))
@@ -275,7 +277,9 @@ def sep_casos_ingreso_n(df, df_num_col):
 				#break
 		else:
 			print("Se ha especificado por diccionario, que la columna [{}], admita valores outliers, por lo que no serán corregidos".format(df_num_col.columns[i]))
+			print("\n")
 	return cols_num_outl
+
 
 
 
@@ -386,11 +390,9 @@ def sep_casos_ingreso_n(df, df_num_col):
 
 '''
 
+
 '''
-
 #----------ya funcional con correccion por grubbs - respaldo para hacer pruebas con tukey
-
-
 def sep_casos_ingreso_n(df, df_num_col):
 	print("---------COLUMNAS CON CURTOSIS ENTRE [-3,3], DEL DF DE ENTRADA--------\n\n")
 	for i in range(len(df_num_col.columns)):

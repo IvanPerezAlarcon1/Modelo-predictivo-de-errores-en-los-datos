@@ -321,12 +321,6 @@ while ans:
 		else:
 			print("La tabla ingresada de nombre [{}], no existe en la base de datos. Intente nuevamente.".format(tabla))
 
-
-
-
-
-
-
 	elif(ans == "4"):
 		diccionario = bbf.columnas_df_bdd()
 		if(len(diccionario["COLUMNAS"]) > 0):
@@ -339,9 +333,6 @@ while ans:
 		else:
 			print("Algo salió mal al obtener el contexto del prototipo.\n")
 		print("\n")
-
-
-
 
 	elif(ans == "5"):
 		ans2 = True

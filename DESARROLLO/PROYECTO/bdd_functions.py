@@ -205,7 +205,15 @@ def lista_tablas_bdd():
   #print(tablas)
   cz.close()
   return tablas
-
-
-
 #lista_tablas_bdd()
+
+
+def resetear():
+  c1, cx = conectarse()
+  cx.execute("""
+    TRUNCATE TABLE pruebas."DICCIONARIO_DE_DATOS" RESTART IDENTITY;
+    TRUNCATE TABLE pruebas."UNIQUE_VALUES_STRING_COLUMNS" RESTART IDENTITY;
+    DROP TABLE IF EXISTS public."TABLA_HISTORICA_DATOS";
+    COMMIT;
+  """)
+  cx.close()
